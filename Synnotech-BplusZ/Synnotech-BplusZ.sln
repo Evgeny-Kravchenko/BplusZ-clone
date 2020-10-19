@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synnotech-BplusZ.WebApp", "Synnotech-BplusZ.WebApi\Synnotech-BplusZ.WebApp.csproj", "{0030A3CC-7B96-4A36-B4C7-1EC5C8C9202D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synnotech-BplusZ.WebApp.Tests", "Synnotech-BplusZ.WebApp.Tests\Synnotech-BplusZ.WebApp.Tests.csproj", "{CEFD4776-8D3C-4262-8676-640659F2EF36}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0030A3CC-7B96-4A36-B4C7-1EC5C8C9202D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0030A3CC-7B96-4A36-B4C7-1EC5C8C9202D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0030A3CC-7B96-4A36-B4C7-1EC5C8C9202D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0030A3CC-7B96-4A36-B4C7-1EC5C8C9202D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEFD4776-8D3C-4262-8676-640659F2EF36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEFD4776-8D3C-4262-8676-640659F2EF36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEFD4776-8D3C-4262-8676-640659F2EF36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEFD4776-8D3C-4262-8676-640659F2EF36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F7EE9C0-B5FE-4517-800C-011C20E9D5E7}
+	EndGlobalSection
+EndGlobal
