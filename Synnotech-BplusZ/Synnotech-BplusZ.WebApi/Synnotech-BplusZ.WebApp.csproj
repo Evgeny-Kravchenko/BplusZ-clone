@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Synnotech_BplusZ.WebApi</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LightInject.Microsoft.DependencyInjection" Version="3.3.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.9" />
+    <PackageReference Include="RavenDB.Client" Version="5.0.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
+    <PackageReference Include="SynDatabaseMigration.Core" Version="0.4.0" />
+    <PackageReference Include="SynDatabaseMigration.RavenDb" Version="0.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DatabaseAccess\Migrations\" />
+  </ItemGroup>
+
+
+</Project>
