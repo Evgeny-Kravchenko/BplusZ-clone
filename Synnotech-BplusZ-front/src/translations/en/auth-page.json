@@ -1,0 +1,14 @@
+{
+  "title": "Welcome to the BplusZ portal",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien nibh volutpat sed nulla malesuada non viverra blandit nulla. Lectus nunc, tempor morbi dui et eget. Molestie feugiat sapien luctus sapien ullamcorper purus amet varius. Elementum ut etiam tempor, faucibus purus aliquam turpis orci urna.",
+  "emailFiledPlaceholder": "Email",
+  "passwordFieldPlaceholder": "Password",
+  "forgotPasswordLink": "Forgot password",
+  "signinButton": "Sign in",
+  "requiredField": "Required",
+  "invalidEmail": "Invalid email",
+  "notEnoughPasswordLength": "The number of characters must be at least 8",
+  "requiredAtLeastOneNumber": "The password must contain at least one number",
+  "requiredAtLeastOneLowercaseLetter": "Requires at least one lowercase letter",
+  "requiredAtLeastOneUppercaseLetter": "Requires at least one uppercase letter"
+}
