@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using Synnotech_BplusZ.WebApi.DatabaseAccess;
 using Synnotech_BplusZ.WebApi.Infrastucture;
@@ -43,6 +44,7 @@ namespace Synnotech_BplusZ.WebApi
             else
                 services.AddSpaStaticFiles(options => options.RootPath = _configuration["clientPath"]);
 
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,6 +65,7 @@ namespace Synnotech_BplusZ.WebApi
 
             services.AddAuthentication();
 
+            ConfigureSwagger(services);
             ConfigureDIContainer();
         }
 
@@ -82,6 +85,12 @@ namespace Synnotech_BplusZ.WebApi
             }
 
             app.UseDefaultFiles();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "BplusZ API V1");
+            });
 
             if (!_configuration.GetValue<bool>("allowHttpConnections"))
                 app.UseHttpsRedirection();
@@ -119,5 +128,36 @@ namespace Synnotech_BplusZ.WebApi
 
             _container.RegisterScoped<ICreateTokenService, CreateTokenService>();
         }
+
+        private void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AS API", Version = "v1" });
+
+                var securitySchema = new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "bearer",
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                };
+
+                c.AddSecurityDefinition("Bearer", securitySchema);
+
+                var securityRequirement = new OpenApiSecurityRequirement
+                {
+                    { securitySchema, new[] { "Bearer" } }
+                };
+                c.AddSecurityRequirement(securityRequirement);
+            });
+        }
+
     }
 }
