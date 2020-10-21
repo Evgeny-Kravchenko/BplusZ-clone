@@ -1,6 +1,7 @@
 using Light.GuardClauses;
 using Microsoft.AspNetCore.Mvc;
 using Synnotech_BplusZ.WebApi.Tokens.CreateToken;
+using Synnotech_BplusZ.WebApi.Users;
 using Synnotech_BplusZ.WebApi.Users.AuthorizeUser;
 using System;
 using System.Threading.Tasks;
@@ -24,7 +25,9 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.AuthorizeUser
         [HttpPost]
         public async Task<ActionResult<TokenDto>> AuthorizeUser([FromBody] AuthorizeUserDto dto)
         {
-            if (dto == null)
+            if (dto == null 
+                || dto.Email.IsNullOrWhiteSpace()
+                || dto.Password.IsNullOrWhiteSpace())
             {
                 return BadRequest();
             }
@@ -37,9 +40,15 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.AuthorizeUser
                 return NotFound();
             }
 
+            var isVerified = PasswordHashHelper.VerifyHash(user, user.PasswordHash!, dto.Password);
+            if(!isVerified)
+            {
+                return BadRequest();
+            }
+
             var token = new TokenDto
             {
-                Token = _createTokenService.CreateJWTToken(user.Id, user.Role),
+                Token = _createTokenService.CreateJWTToken(user.Id!, user.Role!),
             };
 
             return Ok(token);

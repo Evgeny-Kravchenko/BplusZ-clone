@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Vehicles\GetVehicle\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Synnotech-BplusZ.WebApi\Synnotech-BplusZ.WebApp.csproj" />
   </ItemGroup>
 
