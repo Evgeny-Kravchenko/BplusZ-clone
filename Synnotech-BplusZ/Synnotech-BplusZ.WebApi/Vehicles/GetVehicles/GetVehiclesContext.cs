@@ -23,20 +23,29 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
 
             if (!dto.SearchTerm.IsNullOrEmpty())
             {
-                sessionQuery = Session.Query<VehicleSearchIndexResult, Vehicles_Query>()
-                                      .Search(v => v.Query, $"*{dto.SearchTerm}*")
-                                      .OfType<Vehicle>();
+                var indexQuery = Session.Query<VehicleSearchIndexResult, Vehicles_Query>();
+
+                indexQuery = dto.IsLicenceNumberOnly
+                    ? indexQuery.Search(v => v.LicenceNumber, $"*{dto.SearchTerm}*")
+                    : indexQuery = indexQuery.Search(v => v.Query, $"*{dto.SearchTerm}*");
+
+                sessionQuery = indexQuery.OfType<Vehicle>();
             }
             else
             {
                 sessionQuery = Session.Query<Vehicle>();
             }
 
+            if (!dto.AllowedStatuses.IsNullOrEmpty())
+            {
+                sessionQuery = sessionQuery.Where(v => dto.AllowedStatuses.Contains(v.StatusData!.Status ?? string.Empty));
+            }
+
             var sortField = dto.SortField ?? nameof(Vehicle.LicenceNumber);
             var vehicles = await sessionQuery.Where(v => v.DeleteDate == null)
-                                          .OrderBy(sortField, dto.IsAscendingSortOrder)
-                                          .GetPage(dto.Skip, dto.Take)
-                                          .ToListAsync();
+                                             .OrderBy(sortField, dto.IsAscendingSortOrder)
+                                             .GetPage(dto.Skip, dto.Take)
+                                             .ToListAsync();
 
             return vehicles;
         }

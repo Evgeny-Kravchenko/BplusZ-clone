@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="LightInject.Microsoft.DependencyInjection" Version="3.3.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.9" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.9" />
     <PackageReference Include="RavenDB.Client" Version="5.0.3" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
@@ -17,10 +18,10 @@
     <PackageReference Include="SynDatabaseMigration.RavenDb" Version="0.4.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DatabaseAccess\Migrations\" />
-  </ItemGroup>
+    
+    <ItemGroup>
+        <Folder Include="DatabaseAccess\Migrations\" />
+    </ItemGroup>
 
 
 </Project>
