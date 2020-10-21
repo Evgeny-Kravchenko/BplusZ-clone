@@ -21,20 +21,27 @@ namespace Synnotech_BplusZ.WebApi
     {
         private readonly ServiceContainer _container;
         private readonly ILogger _logger;
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,
+            IWebHostEnvironment environment)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+            _environment = environment;
             _container = DependencyInjectionContainer.Instance;
             _logger = Logger.BaseLogger;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddMvc().AddControllersAsServices();
+
+            if (_environment.IsDevelopment())
+                services.AddCors();
+            else
+                services.AddSpaStaticFiles(options => options.RootPath = _configuration["clientPath"]);
 
             services.AddAuthentication(options =>
             {
@@ -48,7 +55,7 @@ namespace Synnotech_BplusZ.WebApi
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWTConfig:Secret"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWTConfig:Secret"])),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
@@ -65,7 +72,7 @@ namespace Synnotech_BplusZ.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                var allowedCorsOrigins = Configuration.GetSection("allowedCorsOrigins").Get<string[]>();
+                var allowedCorsOrigins = _configuration.GetSection("allowedCorsOrigins").Get<string[]>();
                 if (!allowedCorsOrigins.IsNullOrEmpty())
                 {
                     app.UseCors(builder => builder.WithOrigins(allowedCorsOrigins)
@@ -74,8 +81,13 @@ namespace Synnotech_BplusZ.WebApi
                 }
             }
 
-            if (!Configuration.GetValue<bool>("allowHttpConnections"))
+            app.UseDefaultFiles();
+
+            if (!_configuration.GetValue<bool>("allowHttpConnections"))
                 app.UseHttpsRedirection();
+
+            if (!_environment.IsDevelopment())
+                app.UseSpaStaticFiles();
 
             app.UseRouting();
 
@@ -86,11 +98,14 @@ namespace Synnotech_BplusZ.WebApi
             {
                 endpoints.MapControllers();
             });
+
+            if (!_environment.IsDevelopment())
+                app.UseSpa(spaBuilder => spaBuilder.Options.SourcePath = _configuration["clientPath"]);
         }
 
         private void ConfigureDIContainer()
         {
-            var store = RavenDbSettings.FromConfiguration(Configuration)
+            var store = RavenDbSettings.FromConfiguration(_configuration)
                .InitializeConnection(_logger);
 
             _container.RegisterStoreAndSessionWithContainer(store)
