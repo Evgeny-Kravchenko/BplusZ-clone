@@ -15,6 +15,7 @@ const Password = (props) => {
   return (
     <MuiTextField
       {...fieldToTextField(props)}
+      color="secondary"
       type={showPassword ? 'text' : 'password'}
       InputProps={{
         endAdornment: (
