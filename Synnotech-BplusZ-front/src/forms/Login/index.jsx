@@ -65,10 +65,10 @@ const LoginForm = () => {
                   className={submitButtonClasses.root}
                   type="submit"
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? <CircularProgress size='2rem'/> : t('authPage.signinButton')}
+                  {isSubmitting ? <CircularProgress size="2rem" /> : t('authPage.signinButton')}
                 </Button>
               </Box>
             </Form>

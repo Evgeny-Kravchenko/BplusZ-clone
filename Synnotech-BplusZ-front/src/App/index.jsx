@@ -13,7 +13,7 @@ function App() {
         {routes.map((route) => {
           const routeType = route.private ? 'Private' : 'Public';
           const Route = Routes[routeType];
-          return <Route key={route.path} {...route} />;
+          return <Route key={route.path} authorized {...route} />;
         })}
       </Switch>
     </Suspense>

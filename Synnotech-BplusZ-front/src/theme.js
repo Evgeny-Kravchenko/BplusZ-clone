@@ -4,7 +4,14 @@ import 'fontsource-roboto/latin-400-normal.css';
 import 'fontsource-roboto/latin-500-normal.css';
 import 'fontsource-roboto/latin-700-normal.css';
 
-import { PRIMARY_MAIN_COLOR, HTML_FONT_SIZE, FONT_WEIGHT_MEDIUM } from '@/constants';
+import {
+  PRIMARY_MAIN_COLOR,
+  SECONDARY_MAIN_COLOR,
+  HTML_FONT_SIZE,
+  FONT_WEIGHT_MEDIUM,
+  FONT_WEIGHT_REGULAR,
+  FONT_WEIGHT_BOLD,
+} from '@/constants';
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -20,9 +27,15 @@ const theme = createMuiTheme({
     primary: {
       main: PRIMARY_MAIN_COLOR,
     },
+    secondary: {
+      main: SECONDARY_MAIN_COLOR,
+    },
   },
   typography: {
     htmlFontSize: HTML_FONT_SIZE,
+    h1: {
+      fontWeight: FONT_WEIGHT_BOLD,
+    },
     body1: {
       fontSize: '1.4rem',
       lineHeight: '2.4',
@@ -48,6 +61,8 @@ const theme = createMuiTheme({
     MuiButton: {
       root: {
         textTransform: 'none',
+
+        fontWeight: FONT_WEIGHT_REGULAR,
       },
     },
     MuiLink: {
