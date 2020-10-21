@@ -10,7 +10,8 @@ import {
   HTML_FONT_SIZE,
   FONT_WEIGHT_MEDIUM,
   FONT_WEIGHT_REGULAR,
-  FONT_WEIGHT_BOLD } from '@/constants';
+  FONT_WEIGHT_BOLD,
+} from '@/constants';
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -60,6 +61,7 @@ const theme = createMuiTheme({
     MuiButton: {
       root: {
         textTransform: 'none',
+
         fontWeight: FONT_WEIGHT_REGULAR,
       },
     },

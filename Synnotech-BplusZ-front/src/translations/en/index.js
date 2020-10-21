@@ -3,5 +3,5 @@ import mainPage from './main-page.json';
 
 export default {
   authPage,
-  mainPage
+  mainPage,
 };
