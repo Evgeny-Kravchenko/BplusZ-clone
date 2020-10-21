@@ -19,6 +19,7 @@ const Email = (props) => {
   return (
     <MuiTextField
       {...fieldToTextField(props)}
+      color="secondary"
       onChange={onChange}
     />
   );
