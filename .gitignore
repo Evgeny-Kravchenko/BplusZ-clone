@@ -7,3 +7,6 @@ testsettings.json
 .vscode/
 Deployment/
 *csproj.user
+*.pubxml
+*.pubxml.user
+.config/
