@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synnotech-BplusZ.WebApp", "Synnotech-BplusZ.WebApi\Synnotech-BplusZ.WebApp.csproj", "{0030A3CC-7B96-4A36-B4C7-1EC5C8C9202D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Synnotech-BplusZ.WebApp", "Synnotech-BplusZ.WebApi\Synnotech-BplusZ.WebApp.csproj", "{0030A3CC-7B96-4A36-B4C7-1EC5C8C9202D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synnotech-BplusZ.WebApp.Tests", "Synnotech-BplusZ.WebApp.Tests\Synnotech-BplusZ.WebApp.Tests.csproj", "{CEFD4776-8D3C-4262-8676-640659F2EF36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Synnotech-BplusZ.WebApp.Tests", "Synnotech-BplusZ.WebApp.Tests\Synnotech-BplusZ.WebApp.Tests.csproj", "{CEFD4776-8D3C-4262-8676-640659F2EF36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
