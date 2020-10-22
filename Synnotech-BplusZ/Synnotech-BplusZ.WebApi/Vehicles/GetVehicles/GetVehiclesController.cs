@@ -1,5 +1,6 @@
 using Light.GuardClauses;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Synnotech_BplusZ.WebApi.Users;
 using System;
@@ -10,7 +11,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
 {
     [Route("api/vehicles/get-vehicles")]
     [ApiController]
-    [Authorize(Roles = UserRoles.NNL)]
+    [Authorize(Roles = UserRoles.NLL)]
     public class GetVehiclesController : ControllerBase
     {
         private readonly Func<IGetVehiclesContext> _createContext;
@@ -21,6 +22,8 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<VehicleResultDto>>> GetVehicles([FromQuery] GetVehiclesDto dto)
         {
             if (dto == null)
