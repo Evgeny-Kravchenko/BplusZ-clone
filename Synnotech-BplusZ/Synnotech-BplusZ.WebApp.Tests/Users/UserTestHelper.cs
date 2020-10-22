@@ -10,7 +10,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Users
         public static User GetTestUser(string id = null,
             string email = "testtest@mail.com",
             string password = null,
-            string role = UserRoles.NNL,
+            string role = UserRoles.NLL,
             bool deleted = false)
         {
             var user = new User {
