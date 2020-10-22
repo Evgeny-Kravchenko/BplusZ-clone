@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Grid, Typography, Button, Box } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -10,6 +11,7 @@ import useStyle from './styles';
 const ErrorPage404 = ({ authorized }) => {
   const history = useHistory();
   const classes = useStyle();
+  const { t } = useTranslation();
 
   const handleClickOnClick = () => {
     if (authorized) {
@@ -27,9 +29,9 @@ const ErrorPage404 = ({ authorized }) => {
       <Grid item container className={classes.messageErrorContainer}>
         <Box className={classes.messagePaper}>
           <Typography variant="h1">404</Typography>
-          <Typography variant="h3">Something missing</Typography>
+          <Typography variant="h3">{t('notFoundErrorPage.title')}</Typography>
           <Typography variant="body1">
-            The page is missing or you assembled the link incorrectly.
+            {t('notFoundErrorPage.description')}
           </Typography>
           <Button
             disableRipple
@@ -42,7 +44,7 @@ const ErrorPage404 = ({ authorized }) => {
             onClick={handleClickOnClick}
             endIcon={<ArrowForwardIosIcon />}
           >
-            Go to main page
+            {t('notFoundErrorPage.link')}
           </Button>
         </Box>
       </Grid>
