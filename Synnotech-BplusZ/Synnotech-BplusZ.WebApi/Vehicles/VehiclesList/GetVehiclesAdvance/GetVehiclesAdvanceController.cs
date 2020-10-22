@@ -24,7 +24,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<VehicleAdvanceResultDto>>> GetVehiclesAdvance([FromQuery] GetVehiclesDto dto)
+        public async Task<ActionResult<IEnumerable<VehicleAdvanceResultDto>>> GetVehiclesAdvance([FromQuery] GetVehiclesAdvancedDto dto)
         {
             if (dto == null)
             {

@@ -7,6 +7,6 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
 {
     public interface IGetVehiclesAdvanceContext : IDisposable
     {
-        public Task<IEnumerable<Vehicle>> GetVehiclesAdvance(GetVehiclesDto getVehiclesDto);
+        public Task<IEnumerable<Vehicle>> GetVehiclesAdvance(GetVehiclesAdvancedDto getVehiclesDto);
     }
 }

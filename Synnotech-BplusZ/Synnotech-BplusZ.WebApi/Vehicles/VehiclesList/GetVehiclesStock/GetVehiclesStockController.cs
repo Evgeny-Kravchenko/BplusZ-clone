@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Synnotech_BplusZ.WebApi.Users;
+using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<VehicleStockResultDto>>> GetVehiclesStock([FromQuery] GetVehiclesDto dto)
+        public async Task<ActionResult<IEnumerable<VehicleStockResultDto>>> GetVehiclesStock([FromQuery] GetVehiclesStockDto dto)
         {
             if (dto == null)
             {

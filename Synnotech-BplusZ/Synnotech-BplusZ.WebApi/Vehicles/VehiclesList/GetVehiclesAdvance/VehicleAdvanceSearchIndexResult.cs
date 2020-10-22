@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
 {
-    public class VehicleAdvanceSearchIndexResult : IVehicleSearchIndexResult
+    public class VehicleAdvanceSearchIndexResult
     {
         public string? LicenceNumber { get; set; }
         public string? Manufacturer { get; set; }

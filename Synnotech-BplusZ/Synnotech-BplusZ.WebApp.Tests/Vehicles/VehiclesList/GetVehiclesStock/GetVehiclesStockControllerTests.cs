@@ -2,7 +2,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
-using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList;
+using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +32,10 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehiclesList.GetVehiclesStock
         public async Task GetVehicles_WithDto_ReturnsOkResult()
         {
             var vehicles = new List<Vehicle>().AsEnumerable();
-            _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesDto>()))
+            _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesStockDto>()))
                                .ReturnsAsync(vehicles);
 
-            var response = await _controller.GetVehiclesStock(new GetVehiclesDto());
+            var response = await _controller.GetVehiclesStock(new GetVehiclesStockDto());
             Assert.IsType<OkObjectResult>(response.Result);
         }
 
@@ -43,10 +43,10 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehiclesList.GetVehiclesStock
         public async Task GetVehicles_WithDto_ReturnsRightItem()
         {
             var vehicles = new List<Vehicle>().AsEnumerable();
-            _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesDto>()))
+            _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesStockDto>()))
                                .ReturnsAsync(vehicles);
 
-            var response = (await _controller.GetVehiclesStock(new GetVehiclesDto())).Result as OkObjectResult;
+            var response = (await _controller.GetVehiclesStock(new GetVehiclesStockDto())).Result as OkObjectResult;
             Assert.IsAssignableFrom<IEnumerable<VehicleStockResultDto>>(response.Value);
         }
 
@@ -54,7 +54,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehiclesList.GetVehiclesStock
         public async Task GetVehicles_WithoutDto_ReturnsBadRequestResult()
         {
             var vehicles = new List<Vehicle>().AsEnumerable();
-            _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesDto>()))
+            _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesStockDto>()))
                                .ReturnsAsync(vehicles);
 
             var response = await _controller.GetVehiclesStock(null);
