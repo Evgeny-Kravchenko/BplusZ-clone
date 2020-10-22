@@ -1,29 +1,31 @@
-using Light.GuardClauses;
+﻿using Light.GuardClauses;
 using Raven.Client.Documents;
+using Raven.Client.Documents.Indexes;
 using Raven.Client.Documents.Session;
 using SynDatabaseMigration.RavenDb;
 using Synnotech_BplusZ.WebApi.Extensions;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleIndex;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList
 {
-    public class GetVehiclesContext : AsyncRavenSession, IGetVehiclesContext
+    public class BaseGetVehicleContext : AsyncRavenSession
     {
-        public GetVehiclesContext(IAsyncDocumentSession session) : base(session)
+        public BaseGetVehicleContext(IAsyncDocumentSession session) : base(session)
         {
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehicles(GetVehiclesDto dto)
+        public async Task<IEnumerable<Vehicle>> GetVehicles<TSearchIndexResult, TQuery>(GetVehiclesDto dto)
+            where TSearchIndexResult : IVehicleSearchIndexResult
+            where TQuery : AbstractIndexCreationTask<Vehicle>, new() 
         {
             IQueryable<Vehicle> sessionQuery;
 
             if (!dto.SearchTerm.IsNullOrEmpty())
             {
-                var indexQuery = Session.Query<VehicleSearchIndexResult, Vehicles_Query>();
+                var indexQuery = Session.Query<TSearchIndexResult, TQuery>();
 
                 indexQuery = dto.IsLicenceNumberOnly
                     ? indexQuery.Search(v => v.LicenceNumber, $"*{dto.SearchTerm}*")

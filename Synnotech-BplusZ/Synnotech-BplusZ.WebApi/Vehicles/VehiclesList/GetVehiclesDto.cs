@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList
 {
     public class GetVehiclesDto
     {

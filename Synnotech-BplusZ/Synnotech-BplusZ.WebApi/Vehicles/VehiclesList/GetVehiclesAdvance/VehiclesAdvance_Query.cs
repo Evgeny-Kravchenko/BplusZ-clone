@@ -1,32 +1,34 @@
 using Raven.Client.Documents.Indexes;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleIndex;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
 {
-    public class Vehicles_Query : AbstractIndexCreationTask<Vehicle>
+    public class VehiclesAdvance_Query : AbstractIndexCreationTask<Vehicle>
     {
-        public Vehicles_Query()
+        public VehiclesAdvance_Query()
         {
-            Map = vehicles => vehicles.Select(vehicle => new VehicleSearchIndexResult
+            Map = vehicles => vehicles.Select(vehicle => new VehicleAdvanceSearchIndexResult
             {
                 LicenceNumber = vehicle.LicenceNumber,
                 BranchOffice = vehicle.TransferData!.BranchOffice,
                 Manufacturer = vehicle.Manufacturer,
                 Model = vehicle.Model,
-                Status = vehicle.Status,
                 ConstructionType = vehicle.TechnicalComponents!.ConstructionType,
-                Type = vehicle.Type,
                 DeleteDate = vehicle.DeleteDate,
                 State = vehicle.State,
+                VehicleClass = vehicle.VehicleClass,
+                NumberOfInvestment = vehicle.NumberOfInvestment,
                 Query = new List<string>
                 {
                     vehicle.Manufacturer ?? string.Empty,
                     vehicle.TechnicalComponents!.ConstructionType ?? string.Empty,
                     vehicle.Model ?? string.Empty,
                     vehicle.TransferData!.BranchOffice ?? string.Empty,
+                    vehicle.TechnicalComponents!.ConstructionType ?? string.Empty,
+                    vehicle.VehicleClass ?? string.Empty,
+                    vehicle.NumberOfInvestment ?? string.Empty,
                 }
             });
 

@@ -14,7 +14,8 @@ using Synnotech_BplusZ.WebApi.Infrastucture;
 using Synnotech_BplusZ.WebApi.Tokens.CreateToken;
 using Synnotech_BplusZ.WebApi.Vehicles.AuthorizeUser;
 using Synnotech_BplusZ.WebApi.Vehicles.GetVehicle;
-using Synnotech_BplusZ.WebApi.Vehicles.GetVehicles;
+using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
+using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock;
 using System.Text;
 
 namespace Synnotech_BplusZ.WebApi
@@ -124,7 +125,8 @@ namespace Synnotech_BplusZ.WebApi
 
             _container.RegisterLogging();
 
-            _container.RegisterScoped<IGetVehiclesContext, GetVehiclesContext>();
+            _container.RegisterScoped<IGetVehiclesStockContext, GetVehiclesStockContext>();
+            _container.RegisterScoped<IGetVehiclesAdvanceContext, GetVehiclesAdvanceContext>();
             _container.RegisterScoped<IAuthorizeUserContext, AuthorizeUserContext>();
             _container.RegisterScoped<IGetVehicleDetailsContext, GetVehicleDetailsContext>();
 
