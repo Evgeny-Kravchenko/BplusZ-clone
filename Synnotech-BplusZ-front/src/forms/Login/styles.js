@@ -6,14 +6,13 @@ export const useStyleFormGrid = makeStyles((theme) => ({
   root: {
     zIndex: '5',
     backgroundColor: '#ffffff',
-    borderRadius: '1.5rem',
+    borderRadius: '1rem',
     padding: `${theme.spacing(4.5)} ${theme.spacing(3.3)} ${theme.spacing(3)} ${theme.spacing(
       3.3
     )}`,
 
     [theme.breakpoints.up('xl')]: {
       width: '523px',
-      borderRadius: '3rem',
       padding: `${theme.spacing(6.5)} ${theme.spacing(5.3)} ${theme.spacing(5)} ${theme.spacing(
         5.3
       )}`,
@@ -31,6 +30,15 @@ export const useStyleFormGrid = makeStyles((theme) => ({
           fontSize: '2rem',
         },
       },
+    },
+  },
+  errorMessage: {
+    height: '20px',
+    marginBottom: theme.spacing(1),
+    fontSize: '1rem',
+
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '1.4rem',
     },
   },
 }));
@@ -58,7 +66,7 @@ export const useStyleForBoxOfLink = makeStyles((theme) => ({
     marginBottom: theme.spacing(5),
     fontSize: '1.2rem',
     [theme.breakpoints.up('xl')]: {
-      marginBottom: theme.spacing(9.5),
+      marginBottom: theme.spacing(6.5),
       fontSize: '1.4rem',
     },
   },
