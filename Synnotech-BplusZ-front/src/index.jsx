@@ -1,19 +1,27 @@
-import React from 'react';
+import React  from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+
+import { AuthProvider } from '@/contexts/auth';
+
 import App from '@/App';
 import '@/translations';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
+
 import theme from '@/theme';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const Root = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </Router>
+    </ThemeProvider>
+  );
+};
+
+ReactDOM.render(<Root />, document.getElementById('root'));

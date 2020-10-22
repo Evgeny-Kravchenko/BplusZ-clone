@@ -7,8 +7,9 @@
   "signinButton": "Sign in",
   "requiredField": "Required",
   "invalidEmail": "Invalid email",
-  "notEnoughPasswordLength": "The number of characters must be at least 8",
+  "notEnoughPasswordLength": "The number of characters must be at least 5",
   "requiredAtLeastOneNumber": "The password must contain at least one number",
   "requiredAtLeastOneLowercaseLetter": "Requires at least one lowercase letter",
-  "requiredAtLeastOneUppercaseLetter": "Requires at least one uppercase letter"
+  "requiredAtLeastOneUppercaseLetter": "Requires at least one uppercase letter",
+  "errorMessage": "You entered an invalid e-mail or password."
 }
