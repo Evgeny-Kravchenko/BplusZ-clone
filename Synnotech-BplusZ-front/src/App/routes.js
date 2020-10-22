@@ -3,6 +3,7 @@ import { AUTH_PAGE_ROUTE, HOME_PAGE_ROUTE } from '@/constants';
 
 const Login = lazy(() => import('@/pages/Login'));
 const Home = lazy(() => import('@/pages/Home'));
+const ErrorPage404 = lazy(() => import('@/pages/Error-page-404'));
 
 export default [
   {
@@ -15,5 +16,9 @@ export default [
     component: Home,
     exact: true,
     path: HOME_PAGE_ROUTE,
+  },
+  {
+    component: ErrorPage404,
+    path: '*',
   },
 ];
