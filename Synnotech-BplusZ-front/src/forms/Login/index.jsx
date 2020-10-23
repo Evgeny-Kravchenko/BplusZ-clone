@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +15,7 @@ import {
 } from './styles';
 import generateValidationSchema from './validation-schema';
 
-const LoginForm = () => {
+const LoginForm = ({ onSubmit, isLoading, error }) => {
   const formGridClasses = useStyleFormGrid();
   const titleClasses = useStyleForTitle();
   const boxOfLinkClasses = useStyleForBoxOfLink();
@@ -30,53 +31,65 @@ const LoginForm = () => {
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
-          }, 2000);
-        }}
+        onSubmit={onSubmit}
       >
-        {({ isSubmitting }) => {
-          return (
-            <Form>
-              <Box className={formFieldClasses.root} marginBottom={4}>
-                <Field
-                  fullWidth
-                  component={Email}
-                  name="email"
-                  type="email"
-                  label={t('authPage.emailFiledPlaceholder')}
-                />
-              </Box>
-              <Box className={formFieldClasses.root} marginBottom={1.5}>
-                <Field
-                  fullWidth
-                  component={Password}
-                  type="password"
-                  label={t('authPage.passwordFieldPlaceholder')}
-                  name="password"
-                />
-              </Box>
-              <Box className={boxOfLinkClasses.root}>
-                <Link href="#forgot-password">{t('authPage.forgotPasswordLink')}</Link>
-              </Box>
-              <Box>
-                <Button
-                  className={submitButtonClasses.root}
-                  type="submit"
-                  variant="contained"
-                  color="secondary"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? <CircularProgress size="2rem" /> : t('authPage.signinButton')}
-                </Button>
-              </Box>
-            </Form>
-          );
-        }}
+        {() => (
+          <Form>
+            <Box className={formFieldClasses.root} marginBottom={4}>
+              <Field
+                fullWidth
+                component={Email}
+                name="email"
+                type="email"
+                label={t('authPage.emailFiledPlaceholder')}
+                disabled={false}
+              />
+            </Box>
+            <Box className={formFieldClasses.root} marginBottom={1.5}>
+              <Field
+                fullWidth
+                component={Password}
+                type="password"
+                label={t('authPage.passwordFieldPlaceholder')}
+                name="password"
+                disabled={false}
+              />
+            </Box>
+            <Box className={boxOfLinkClasses.root}>
+              <Link href="#forgot-password" color="secondary">
+                {t('authPage.forgotPasswordLink')}
+              </Link>
+            </Box>
+
+            <Typography className={formGridClasses.errorMessage} variant="body1" color="error">
+              {error && t('authPage.errorMessage')}
+            </Typography>
+
+            <Box>
+              <Button
+                className={submitButtonClasses.root}
+                type="submit"
+                variant="contained"
+                color="secondary"
+                disabled={isLoading}
+              >
+                {isLoading ? <CircularProgress size="2rem" /> : t('authPage.signinButton')}
+              </Button>
+            </Box>
+          </Form>
+        )}
       </Formik>
     </Grid>
   );
+};
+
+LoginForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.instanceOf(Error),
+};
+LoginForm.defaultProps = {
+  error: null,
 };
 
 export default LoginForm;

@@ -51,6 +51,8 @@ const useStyle = makeStyles((theme) => ({
   },
   messagePaper: {
     width: '300px',
+    height: '300px',
+    boxSizing: 'border-box',
   },
   buttonToMainPage: {
     marginTop: theme.spacing(3),

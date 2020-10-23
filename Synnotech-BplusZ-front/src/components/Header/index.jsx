@@ -3,6 +3,8 @@ import { AppBar, Toolbar, Button, Popover, Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
+import { useAuth } from '@/contexts/auth';
+
 import LogOutIcon from '@/components/LogOutIcon';
 
 import useStyles from './styles';
@@ -13,6 +15,8 @@ const Header = () => {
   const [anchorProfileEl, setAnchorProfileEl] = useState(null);
   const [anchorLanguageMenuEl, setAnchorLanguageMenuEl] = useState(null);
   const [currentLang, setCurrentLang] = useState('ENG');
+
+  const { handleRemoveToken } = useAuth();
 
   const isProfileMenuOpen = Boolean(anchorProfileEl);
   const isLanguageMenuOpen = Boolean(anchorLanguageMenuEl);
@@ -31,8 +35,11 @@ const Header = () => {
     setAnchorProfileEl(event.currentTarget);
   };
 
-  const handleProfileMenuClose = () => {
+  const handleProfileMenuClose = (event) => {
     setAnchorProfileEl(null);
+    if (event.nativeEvent.target.textContent === 'Log Out') {
+      handleRemoveToken();
+    }
   };
 
   const renderProfileMenu = (
@@ -49,6 +56,7 @@ const Header = () => {
         className={classes.logout}
         startIcon={<LogOutIcon />}
         onClick={handleProfileMenuClose}
+        id="btn-logout"
       >
         Log Out
       </Button>
