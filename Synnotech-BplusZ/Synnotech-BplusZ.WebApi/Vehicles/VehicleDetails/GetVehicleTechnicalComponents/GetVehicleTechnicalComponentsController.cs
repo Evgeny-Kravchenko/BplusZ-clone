@@ -7,16 +7,16 @@ using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using System;
 using System.Threading.Tasks;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsFinance
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponentsDetails
 {
-    [Route("api/vehicles/get-vehicle-details-finance/{id}")]
+    [Route("api/vehicles/get-vehicle-details-technical-components/{id}")]
     [ApiController]
     [Authorize(Roles = UserRoles.NLL)]
-    public class GetVehicleDetailsFinanceController : ControllerBase
+    public class GetVehicleTechnicalComponentsController : ControllerBase
     {
         private readonly Func<IGetVehicleDetailsContext> _createContext;
 
-        public GetVehicleDetailsFinanceController(Func<IGetVehicleDetailsContext> createContext)
+        public GetVehicleTechnicalComponentsController(Func<IGetVehicleDetailsContext> createContext)
         {
             _createContext = createContext.MustNotBeNull(nameof(createContext));
         }
@@ -25,7 +25,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsFinan
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<VehicleDetailsFinanceResultDto>> GetVehicleDetailsFinance(string id)
+        public async Task<ActionResult<VehicleTechnicalComponentsResultDto>> GetVehicleTechnicalComonents(string id)
         {
             if (id.IsNullOrWhiteSpace())
             {
@@ -39,7 +39,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsFinan
                 return NotFound();
             }
 
-            var vehicleDto = VehicleDetailsFinanceMapper.MapVehicleDetails(vehicle);
+            var vehicleDto = VehicleTechnicalComponentsMapper.MapVehicleDetails(vehicle);
 
             return Ok(vehicleDto);
         }

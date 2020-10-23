@@ -2,7 +2,7 @@ using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 
 namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsGeneral
 {
-    public static class VehicleDetailsGeneralMapper
+    public static class VehicleGeneralDetailsMapper
     {
         public static VehicleDetailsGeneralResultDto MapVehicleDetails(Vehicle vehicle)
         {
