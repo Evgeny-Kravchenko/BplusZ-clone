@@ -3,49 +3,50 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsFinance;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponentsDetails;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetailsFinance
+namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechnicalComponents
 {
-    public class GetVehicleDetailsFinanceControllerTests
+    public class GetVehicleFinanceDetailsControllerTests
     {
-        private readonly GetVehicleDetailsFinanceController _controller;
+        private readonly GetVehicleTechnicalComponentsController _controller;
         private readonly Mock<IGetVehicleDetailsContext> _getVehiclesContext;
         private readonly string id = "existingId";
-        public GetVehicleDetailsFinanceControllerTests()
+        public GetVehicleFinanceDetailsControllerTests()
         {
             _getVehiclesContext = new Mock<IGetVehicleDetailsContext>();
-            _controller = new GetVehicleDetailsFinanceController(() => _getVehiclesContext.Object);
+            _controller = new GetVehicleTechnicalComponentsController(() => _getVehiclesContext.Object);
         }
 
         [Fact]
         public static void GetVehicleMustBeDecoratedWithHttpGetAttribute() =>
-           typeof(GetVehicleDetailsFinanceController).GetMethod(nameof(GetVehicleDetailsFinanceController.GetVehicleDetailsFinance))
+           typeof(GetVehicleTechnicalComponentsController)
+            .GetMethod(nameof(GetVehicleTechnicalComponentsController.GetVehicleTechnicalComonents))
                                         .Should()
                                         .BeDecoratedWith<HttpGetAttribute>();
 
         [Fact]
         public async Task GetVehicleDetails_WithExistingId_ReturnsOkResult()
         {
-            var vehicle = VehicleFinanceTestHelper.GetTestVehicleFinanceDetails();
+            var vehicle = VehicleTechnicalComponentsTestHelper.GetTestVehicle();
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync(vehicle);
 
-            var response = await _controller.GetVehicleDetailsFinance(id);
+            var response = await _controller.GetVehicleTechnicalComonents(id);
             Assert.IsType<OkObjectResult>(response.Result);
         }
 
         [Fact]
         public async Task GetVehicleDetails_WithExistingId_ReturnsRightItem()
         {
-            var vehicle = VehicleFinanceTestHelper.GetTestVehicleFinanceDetails();
+            var vehicle = VehicleTechnicalComponentsTestHelper.GetTestVehicle();
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync(vehicle);
 
-            var result = (await _controller.GetVehicleDetailsFinance(id)).Result as OkObjectResult;
-            Assert.IsType<VehicleDetailsFinanceResultDto>(result.Value);
+            var result = (await _controller.GetVehicleTechnicalComonents(id)).Result as OkObjectResult;
+            Assert.IsType<VehicleTechnicalComponentsResultDto>(result.Value);
         }
 
         [Fact]
@@ -55,7 +56,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync((Vehicle)null);
 
-            var response = await _controller.GetVehicleDetailsFinance("notexistingId");
+            var response = await _controller.GetVehicleTechnicalComonents("notexistingId");
             Assert.IsType<NotFoundResult>(response.Result);
         }
 
@@ -65,7 +66,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync((Vehicle)null);
 
-            var response = await _controller.GetVehicleDetailsFinance(null);
+            var response = await _controller.GetVehicleTechnicalComonents(null);
             Assert.IsType<BadRequestResult>(response.Result);
         }
     }

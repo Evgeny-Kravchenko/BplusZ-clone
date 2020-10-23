@@ -12,11 +12,11 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsGener
     [Route("api/vehicles/get-vehicle-details-general/{id}")]
     [ApiController]
     [Authorize(Roles = UserRoles.NLL)]
-    public class GetVehicleDetailsGeneralController : ControllerBase
+    public class GetVehicleGeneralDetailsController : ControllerBase
     {
         private readonly Func<IGetVehicleDetailsContext> _createContext;
 
-        public GetVehicleDetailsGeneralController(Func<IGetVehicleDetailsContext> createContext)
+        public GetVehicleGeneralDetailsController(Func<IGetVehicleDetailsContext> createContext)
         {
             _createContext = createContext.MustNotBeNull(nameof(createContext));
         }
@@ -39,7 +39,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsGener
                 return NotFound();
             }
 
-            var vehicleDto = VehicleDetailsGeneralMapper.MapVehicleDetails(vehicle);
+            var vehicleDto = VehicleGeneralDetailsMapper.MapVehicleDetails(vehicle);
 
             return Ok(vehicleDto);
         }

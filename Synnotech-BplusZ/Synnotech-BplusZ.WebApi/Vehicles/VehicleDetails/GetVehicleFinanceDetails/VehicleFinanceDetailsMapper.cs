@@ -2,11 +2,11 @@ using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 
 namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsFinance
 {
-    public static class VehicleDetailsFinanceMapper
+    public static class VehicleFinanceDetailsMapper
     {
-        public static VehicleDetailsFinanceResultDto MapVehicleDetails(Vehicle vehicle)
+        public static VehicleFinanceDetailsResultDto MapVehicleDetails(Vehicle vehicle)
         {
-            return new VehicleDetailsFinanceResultDto
+            return new VehicleFinanceDetailsResultDto
             {
                 VehicleId = vehicle.Id,
                 ClosingRateDate = vehicle.Finance!.ClosingRateDate,

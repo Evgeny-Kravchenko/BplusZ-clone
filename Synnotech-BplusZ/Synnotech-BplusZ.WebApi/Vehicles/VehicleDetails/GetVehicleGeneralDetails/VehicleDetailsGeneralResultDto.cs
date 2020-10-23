@@ -12,7 +12,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsGener
         public string? VehicleClass { get; set; }
         public DateTime? InitialRegistration { get; set; }
         public DateTime? Deregistration { get; set; }
-        public decimal? MileageDate { get; set; }
+        public int? MileageDate { get; set; }
         public DateTime? TotalDeliveryDate { get; set; }
         public string? Holder { get; set; }
         public bool? DoubleTaxed { get; set; }
