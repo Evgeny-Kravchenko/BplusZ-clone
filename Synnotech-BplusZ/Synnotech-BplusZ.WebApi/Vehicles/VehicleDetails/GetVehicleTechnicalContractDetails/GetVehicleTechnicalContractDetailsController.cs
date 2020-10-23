@@ -12,11 +12,11 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalCon
     [Route("api/vehicles/get-vehicle-details-technical-contract/{id}")]
     [ApiController]
     [Authorize(Roles = UserRoles.NLL)]
-    public class GetVehicleTechnicalComponentsController : ControllerBase
+    public class GetVehicleTechnicalContractDetailsController : ControllerBase
     {
         private readonly Func<IGetVehicleDetailsContext> _createContext;
 
-        public GetVehicleTechnicalComponentsController(Func<IGetVehicleDetailsContext> createContext)
+        public GetVehicleTechnicalContractDetailsController(Func<IGetVehicleDetailsContext> createContext)
         {
             _createContext = createContext.MustNotBeNull(nameof(createContext));
         }
@@ -25,7 +25,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalCon
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<VehicleTechnicalComponentsResultDto>> GetVehicleTechnicalContractDetails(string id)
+        public async Task<ActionResult<VehicleTechnicalContractDetailsResultDto>> GetVehicleTechnicalContractDetails(string id)
         {
             if (id.IsNullOrWhiteSpace())
             {
@@ -39,7 +39,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalCon
                 return NotFound();
             }
 
-            var vehicleDto = VehicleTechnicalComponentsMapper.MapVehicleDetails(vehicle);
+            var vehicleDto = VehicleTechnicalContractsMapper.MapVehicleDetails(vehicle);
 
             return Ok(vehicleDto);
         }

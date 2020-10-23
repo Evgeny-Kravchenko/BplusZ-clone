@@ -2,11 +2,11 @@ using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 
 namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalContractDetails
 {
-    public static class VehicleTechnicalComponentsMapper
+    public static class VehicleTechnicalContractsMapper
     {
-        public static VehicleTechnicalComponentsResultDto MapVehicleDetails(Vehicle vehicle)
+        public static VehicleTechnicalContractDetailsResultDto MapVehicleDetails(Vehicle vehicle)
         {
-            return new VehicleTechnicalComponentsResultDto
+            return new VehicleTechnicalContractDetailsResultDto
             {
                 VehicleId = vehicle.Id,
                 EndOfMaintainanceAndRepair = vehicle.TechnicalContractData!.EndOfMaintainanceAndRepair,

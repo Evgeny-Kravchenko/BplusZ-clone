@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponents;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalContractDetails;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,19 +11,19 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
 {
     public class GetVehicleFinanceDetailsControllerTests
     {
-        private readonly GetVehicleTechnicalComponentsController _controller;
+        private readonly GetVehicleTechnicalContractDetailsController _controller;
         private readonly Mock<IGetVehicleDetailsContext> _getVehiclesContext;
         private readonly string id = "existingId";
         public GetVehicleFinanceDetailsControllerTests()
         {
             _getVehiclesContext = new Mock<IGetVehicleDetailsContext>();
-            _controller = new GetVehicleTechnicalComponentsController(() => _getVehiclesContext.Object);
+            _controller = new GetVehicleTechnicalContractDetailsController(() => _getVehiclesContext.Object);
         }
 
         [Fact]
         public static void GetVehicleMustBeDecoratedWithHttpGetAttribute() =>
-           typeof(GetVehicleTechnicalComponentsController)
-            .GetMethod(nameof(GetVehicleTechnicalComponentsController.GetVehicleTechnicalComonents))
+           typeof(GetVehicleTechnicalContractDetailsController)
+            .GetMethod(nameof(GetVehicleTechnicalContractDetailsController.GetVehicleTechnicalContractDetails))
                                         .Should()
                                         .BeDecoratedWith<HttpGetAttribute>();
 
@@ -34,7 +34,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync(vehicle);
 
-            var response = await _controller.GetVehicleTechnicalComonents(id);
+            var response = await _controller.GetVehicleTechnicalContractDetails(id);
             Assert.IsType<OkObjectResult>(response.Result);
         }
 
@@ -45,8 +45,8 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync(vehicle);
 
-            var result = (await _controller.GetVehicleTechnicalComonents(id)).Result as OkObjectResult;
-            Assert.IsType<VehicleTechnicalComponentsResultDto>(result.Value);
+            var result = (await _controller.GetVehicleTechnicalContractDetails(id)).Result as OkObjectResult;
+            Assert.IsType<VehicleTechnicalContractDetailsResultDto>(result.Value);
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync((Vehicle)null);
 
-            var response = await _controller.GetVehicleTechnicalComonents("notexistingId");
+            var response = await _controller.GetVehicleTechnicalContractDetails("notexistingId");
             Assert.IsType<NotFoundResult>(response.Result);
         }
 
@@ -66,7 +66,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync((Vehicle)null);
 
-            var response = await _controller.GetVehicleTechnicalComonents(null);
+            var response = await _controller.GetVehicleTechnicalContractDetails(null);
             Assert.IsType<BadRequestResult>(response.Result);
         }
     }
