@@ -1,4 +1,5 @@
 using Light.GuardClauses;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Synnotech_BplusZ.WebApi.Tokens.CreateToken;
 using Synnotech_BplusZ.WebApi.Users;
@@ -23,6 +24,9 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.AuthorizeUser
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TokenDto>> AuthorizeUser([FromBody] AuthorizeUserDto dto)
         {
             if (dto == null 

@@ -16,11 +16,11 @@ namespace Synnotech_BplusZ.WebApi.Vehicles
                 BranchOffice = vehicle.TransferData!.BranchOffice,
                 Manufacturer = vehicle.Manufacturer,
                 Model = vehicle.Model,
-                Status = vehicle.StatusData!.Status,
+                Status = vehicle.Status,
                 ConstructionType = vehicle.TechnicalComponents!.ConstructionType,
-                Type = vehicle.StatusData.Type,
+                Type = vehicle.Type,
                 DeleteDate = vehicle.DeleteDate,
-                State = vehicle.StatusData.State,
+                State = vehicle.State,
                 Query = new List<string>
                 {
                     vehicle.Manufacturer ?? string.Empty,

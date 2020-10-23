@@ -38,7 +38,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
 
             if (!dto.AllowedStatuses.IsNullOrEmpty())
             {
-                sessionQuery = sessionQuery.Where(v => dto.AllowedStatuses.Contains(v.StatusData!.Status ?? string.Empty));
+                sessionQuery = sessionQuery.Where(v => dto.AllowedStatuses.Contains(v.Status ?? string.Empty));
             }
 
             var sortField = dto.SortField ?? nameof(Vehicle.LicenceNumber);

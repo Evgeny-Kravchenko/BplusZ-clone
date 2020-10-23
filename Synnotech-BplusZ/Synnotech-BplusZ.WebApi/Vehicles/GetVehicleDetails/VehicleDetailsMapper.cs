@@ -1,14 +1,12 @@
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
+namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicle
 {
-    public static class VehicleMapper
+    public static class VehicleDetailsMapper
     {
-        public static VehicleResultDto MapVehicle(Vehicle vehicle)
+        public static VehicleDetailsResultDto MapVehicleDetails(Vehicle vehicle)
         {
-            return new VehicleResultDto
+            return new VehicleDetailsResultDto
             { 
                 Id = vehicle.Id,
                 BranchOffice = vehicle.TransferData?.BranchOffice,
@@ -19,12 +17,11 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
                 Type = vehicle.Type,
                 ConstructionType = vehicle.TechnicalComponents?.ConstructionType,
                 State = vehicle.State,
+                Finance = vehicle.Finance,
+                TechnicalComponents = vehicle.TechnicalComponents,
+                TechnicalContractData = vehicle.TechnicalContractData,
+                TransferData = vehicle.TransferData
             };
-        }
-
-        public static IEnumerable<VehicleResultDto> MapVehicles(IEnumerable<Vehicle> vehicles)
-        {
-            return vehicles.Select(v => MapVehicle(v));
         }
     }
 }
