@@ -5,11 +5,7 @@ using Synnotech_BplusZ.WebApi.Tokens.CreateToken;
 using Synnotech_BplusZ.WebApi.Users.AuthorizeUser;
 using Synnotech_BplusZ.WebApi.Users.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.AuthorizeUser;
-using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
-using Synnotech_BplusZ.WebApi.Vehicles.GetVehicles;
 using Synnotech_BplusZ.WebApp.Tests.Users;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 

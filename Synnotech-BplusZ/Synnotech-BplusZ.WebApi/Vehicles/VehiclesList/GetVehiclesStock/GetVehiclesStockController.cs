@@ -3,20 +3,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Synnotech_BplusZ.WebApi.Users;
+using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
 {
-    [Route("api/vehicles/get-vehicles")]
+    [Route("api/vehicles/get-vehicles-stock")]
     [ApiController]
     [Authorize(Roles = UserRoles.NLL)]
-    public class GetVehiclesController : ControllerBase
+    public class GetVehiclesStockController : ControllerBase
     {
-        private readonly Func<IGetVehiclesContext> _createContext;
+        private readonly Func<IGetVehiclesStockContext> _createContext;
 
-        public GetVehiclesController(Func<IGetVehiclesContext> createContext)
+        public GetVehiclesStockController(Func<IGetVehiclesStockContext> createContext)
         {
             _createContext = createContext.MustNotBeNull(nameof(createContext));
         }
@@ -24,7 +25,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<VehicleResultDto>>> GetVehicles([FromQuery] GetVehiclesDto dto)
+        public async Task<ActionResult<IEnumerable<VehicleStockResultDto>>> GetVehiclesStock([FromQuery] GetVehiclesStockDto dto)
         {
             if (dto == null)
             {
@@ -32,8 +33,8 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
             }
 
             using var context = _createContext();
-            var vehicles = await context.GetVehicles(dto);
-            var vehiclesDto = VehicleMapper.MapVehicles(vehicles);
+            var vehicles = await context.GetStockVehicles(dto);
+            var vehiclesDto = VehiclesStockMapper.MapVehicles(vehicles);
 
             return Ok(vehiclesDto);
         }

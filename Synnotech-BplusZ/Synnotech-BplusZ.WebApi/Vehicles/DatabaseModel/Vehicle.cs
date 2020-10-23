@@ -19,6 +19,9 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel
         public string? Holder { get; set; }
         public bool? DoubleTaxed { get; set; }
         public DateTime? DeleteDate { get; set; }
+        public string? Info { get; set; }
+        public string? Appointment { get; set; }
+        public string? NumberOfInvestment { get; set; }
         public TechnicalComponents? TechnicalComponents { get; set; }
         public TechnicalContractData? TechnicalContractData { get; set; }
         public Finance? Finance { get; set; }

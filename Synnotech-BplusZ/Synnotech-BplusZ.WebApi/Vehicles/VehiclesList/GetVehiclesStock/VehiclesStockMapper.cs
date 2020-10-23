@@ -2,13 +2,13 @@ using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
 {
-    public static class VehicleMapper
+    public static class VehiclesStockMapper
     {
-        public static VehicleResultDto MapVehicle(Vehicle vehicle)
+        public static VehicleStockResultDto MapVehicle(Vehicle vehicle)
         {
-            return new VehicleResultDto
+            return new VehicleStockResultDto
             { 
                 Id = vehicle.Id,
                 BranchOffice = vehicle.TransferData?.BranchOffice,
@@ -18,11 +18,13 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicles
                 Status = vehicle.Status,
                 Type = vehicle.Type,
                 ConstructionType = vehicle.TechnicalComponents?.ConstructionType,
-                State = vehicle.State,
+                Appointment = vehicle.Appointment,
+                Info = vehicle.Info,
+                VehicleClass = vehicle.VehicleClass,
             };
         }
 
-        public static IEnumerable<VehicleResultDto> MapVehicles(IEnumerable<Vehicle> vehicles)
+        public static IEnumerable<VehicleStockResultDto> MapVehicles(IEnumerable<Vehicle> vehicles)
         {
             return vehicles.Select(v => MapVehicle(v));
         }
