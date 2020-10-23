@@ -11,5 +11,9 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel
         public bool? PoolingMaintainanceAndRepair { get; set; }
         public bool? MichelinContract { get; set; }
         public bool? TyreStorageForCompanyCars { get; set; }
+        public string? MultiKMAccountingWPlusR { get; set; }
+        public string? MultiKMAccountingFreeKMWPlusR { get; set; }
+        public string? TelematicsProvider { get; set; }
+        public decimal? TelematicsAmount { get; set; }
     }
 }

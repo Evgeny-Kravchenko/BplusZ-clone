@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponentsDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponents;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechnicalComponents
+namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechnicalContactDetails
 {
     public class GetVehicleFinanceDetailsControllerTests
     {
@@ -30,7 +30,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
         [Fact]
         public async Task GetVehicleDetails_WithExistingId_ReturnsOkResult()
         {
-            var vehicle = VehicleTechnicalComponentsTestHelper.GetTestVehicle();
+            var vehicle = VehicleTechnicalContractDetailsTestHelper.GetTestVehicle();
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync(vehicle);
 
@@ -41,7 +41,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
         [Fact]
         public async Task GetVehicleDetails_WithExistingId_ReturnsRightItem()
         {
-            var vehicle = VehicleTechnicalComponentsTestHelper.GetTestVehicle();
+            var vehicle = VehicleTechnicalContractDetailsTestHelper.GetTestVehicle();
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync(vehicle);
 

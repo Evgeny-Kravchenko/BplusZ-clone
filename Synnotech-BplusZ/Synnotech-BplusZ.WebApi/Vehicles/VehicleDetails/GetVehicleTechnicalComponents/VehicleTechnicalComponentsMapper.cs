@@ -1,6 +1,6 @@
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponentsDetails
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponents
 {
     public static class VehicleTechnicalComponentsMapper
     {

@@ -7,9 +7,9 @@ using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using System;
 using System.Threading.Tasks;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponents
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalContractDetails
 {
-    [Route("api/vehicles/get-vehicle-details-technical-components/{id}")]
+    [Route("api/vehicles/get-vehicle-details-technical-contract/{id}")]
     [ApiController]
     [Authorize(Roles = UserRoles.NLL)]
     public class GetVehicleTechnicalComponentsController : ControllerBase
@@ -25,7 +25,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalCom
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<VehicleTechnicalComponentsResultDto>> GetVehicleTechnicalComonents(string id)
+        public async Task<ActionResult<VehicleTechnicalComponentsResultDto>> GetVehicleTechnicalContractDetails(string id)
         {
             if (id.IsNullOrWhiteSpace())
             {
