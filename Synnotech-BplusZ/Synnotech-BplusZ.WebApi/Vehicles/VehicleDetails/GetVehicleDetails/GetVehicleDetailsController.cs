@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Synnotech_BplusZ.WebApi.Users;
-using Synnotech_BplusZ.WebApi.Vehicles.GetVehicle;
 using System;
 using System.Threading.Tasks;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicleDetails
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails
 {
     [Route("api/vehicles/get-vehicle-details/{id}")]
     [ApiController]

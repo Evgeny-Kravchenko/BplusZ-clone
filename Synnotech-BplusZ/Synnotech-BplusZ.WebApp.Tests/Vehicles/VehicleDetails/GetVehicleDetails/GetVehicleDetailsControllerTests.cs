@@ -2,12 +2,11 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
-using Synnotech_BplusZ.WebApi.Vehicles.GetVehicle;
-using Synnotech_BplusZ.WebApi.Vehicles.GetVehicleDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.GetVehicleDetails
+namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetails
 {
     public class GetVehicleDetailsControllerTests
     {
