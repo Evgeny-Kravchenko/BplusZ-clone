@@ -1,6 +1,6 @@
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicle
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails
 {
     public class VehicleDetailsResultDto
     {

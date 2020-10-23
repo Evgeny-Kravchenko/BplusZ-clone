@@ -1,9 +1,11 @@
+using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
 using SynDatabaseMigration.RavenDb;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.GetVehicle
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails
 {
     public class GetVehicleDetailsContext : AsyncRavenSession, IGetVehicleDetailsContext
     {
