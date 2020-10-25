@@ -45,7 +45,7 @@ const useStyle = makeStyles((theme) => ({
     width: '20px',
   },
   investNumberHeader: {
-    width: '13%',
+    width: '15%',
     textAlign: 'left',
 
     '& .MuiButtonBase-root': {
@@ -53,7 +53,7 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   licenseNumberHeader: {
-    width: '13%',
+    maxWidth: '14%',
     textAlign: 'left',
 
     '& .MuiButtonBase-root': {
@@ -61,11 +61,11 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   vehicleClassHeader: {
-    width: '13%',
+    width: '12%',
     textAlign: 'left',
   },
   brandAndModelHeader: {
-    width: '13%',
+    width: '14%',
     textAlign: 'left',
   },
   constructionTypeHeader: {
@@ -81,7 +81,7 @@ const useStyle = makeStyles((theme) => ({
     textAlign: 'left',
   },
   actionsHeader: {
-    width: '9%',
+    width: '6%',
     paddingRight: `${theme.spacing(3.2)}!important`,
   },
   tableEvenRow: {

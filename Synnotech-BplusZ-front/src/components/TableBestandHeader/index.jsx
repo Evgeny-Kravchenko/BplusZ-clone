@@ -79,11 +79,11 @@ const TableBestandHeader = (props) => {
             </IconButton>
           )}
         </TableCell>
-        <TableCell className={classes.brandAndModelHeader}>
+        <TableCell className={classes.constructorTypeHeader}>
           <FilterBadge />
           {t('mainPage.vehicleClass')}
         </TableCell>
-        <TableCell className={classes.constructorTypeHeader} align="right">
+        <TableCell className={classes.brandAndModelHeader} align="right">
           <TableSortLabel
             active={orderBy === 'brandAndModel'}
             direction={orderBy === 'brandAndModel' ? order : 'asc'}
