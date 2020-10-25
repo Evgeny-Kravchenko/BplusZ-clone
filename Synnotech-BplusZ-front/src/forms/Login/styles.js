@@ -4,6 +4,8 @@ import { FONT_WEIGHT_MEDIUM } from '@/constants';
 
 export const useStyleFormGrid = makeStyles((theme) => ({
   root: {
+    width: '325px',
+    boxSizing: 'border-box',
     zIndex: '5',
     backgroundColor: '#ffffff',
     borderRadius: '1rem',
@@ -23,7 +25,6 @@ export const useStyleFormGrid = makeStyles((theme) => ({
         paddingLeft: theme.spacing(2),
       },
       '& .MuiInputBase-input': {
-        fontSize: '1.6rem',
         paddingBottom: theme.spacing(2),
         paddingLeft: theme.spacing(2),
         '&::placeholder': {
@@ -34,6 +35,7 @@ export const useStyleFormGrid = makeStyles((theme) => ({
   },
   errorMessage: {
     height: '20px',
+    width: '80%',
     marginBottom: theme.spacing(1),
     fontSize: '1rem',
 
@@ -78,6 +80,7 @@ export const useStyleForSubmitButton = makeStyles((theme) => ({
     height: '4rem',
     borderRadius: '0.5rem',
     fontSize: '1.4rem',
+    boxShadow: 'none',
 
     [theme.breakpoints.up('lg')]: {
       height: '60px',
@@ -95,7 +98,7 @@ export const useStyleForFormField = makeStyles((theme) => ({
       left: '0',
       top: '4.5rem',
       fontSize: '1rem',
-      [theme.breakpoints.up('xl')]: {
+      [theme.breakpoints.up('lg')]: {
         fontSize: '1.2rem',
       },
     },

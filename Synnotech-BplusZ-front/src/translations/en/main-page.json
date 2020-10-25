@@ -1,3 +1,22 @@
 {
-  "title": "Fleet management"
+  "title": "Fleet management",
+  "newInvestmentBtn": "New investment",
+  "reportingBtn": "Reporting",
+  "KMInventoryBtn": "KM-inventory",
+  "licenseNumber": "License number",
+  "vehicleClass": "Vehicle class",
+  "brandAndModel": "Brand and model",
+  "vehicleStatus": "Vehicle status",
+  "branchOffice": "Branch office",
+  "art": "Art",
+  "info": "Info",
+  "events": "Events",
+  "actions": "Actions",
+  "investNumber": "Invest number",
+  "constructionType": "Construction type",
+  "vorlaufStatus": "Vorlauf status",
+  "switcherVorlauf": "Vorlauf",
+  "switcherBestand": "Bestand",
+  "search": "Search",
+  "pagination": "Rows per page"
 }

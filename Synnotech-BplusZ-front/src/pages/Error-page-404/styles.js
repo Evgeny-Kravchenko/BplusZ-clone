@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import backgroundImageSrc from '@/assets/images/error-page-404-bg.jpg';
 
-import { DISGUISE_BG, FONT_WEIGHT_MEDIUM, FONT_WEIGHT_REGULAR } from '@/constants';
+import { FONT_WEIGHT_MEDIUM, FONT_WEIGHT_REGULAR } from '@/constants';
 
 const useStyle = makeStyles((theme) => ({
   errorPageContainer: {
@@ -20,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
       position: 'absolute',
       width: '100%',
       height: '100%',
-      backgroundColor: DISGUISE_BG,
+      backgroundColor: theme.palette.info.dark,
       opacity: '0.85',
       zIndex: 1,
     },
