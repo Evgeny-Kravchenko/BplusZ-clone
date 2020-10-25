@@ -81,7 +81,7 @@ const useStyle = makeStyles((theme) => ({
   eventsHeader: {
     width: '8%',
     textAlign: 'left',
-    paddingLeft: `${theme.spacing(2)}!important`,
+    paddingLeft: `${theme.spacing(0)}!important`,
   },
   actionsHeader: {
     width: '6%',
