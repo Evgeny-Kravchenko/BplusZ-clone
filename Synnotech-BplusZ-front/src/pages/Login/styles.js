@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
 import backgroundImageSrc from '@/assets/images/login-background.jpg';
-import { PREVIEW_GRID_BG, DISGUISE_BG } from '@/constants';
+import { PREVIEW_GRID_BG } from '@/constants';
 
 export const useContainerStyles = makeStyles({
   root: {
@@ -10,7 +10,7 @@ export const useContainerStyles = makeStyles({
   },
 });
 
-export const useAuthFormGridStyles = makeStyles({
+export const useAuthFormGridStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     backgroundImage: `url(${backgroundImageSrc})`,
@@ -21,12 +21,12 @@ export const useAuthFormGridStyles = makeStyles({
       position: 'absolute',
       width: '100%',
       height: '100%',
-      backgroundColor: DISGUISE_BG,
+      backgroundColor: theme.palette.info.dark,
       opacity: '0.85',
       zIndex: 1,
     },
   },
-});
+}));
 
 export const usePreviewGridStyles = makeStyles((theme) => ({
   root: {

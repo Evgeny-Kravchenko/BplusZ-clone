@@ -1,12 +1,8 @@
 import * as Yup from 'yup';
+import { INVALID_EMAIL, REQUIRED } from '@/constants';
 
-export default (t) =>
+export default () =>
   Yup.object().shape({
-    email: Yup.string().required(t('authPage.requiredField')).email(t('authPage.invalidEmail')).nullable(),
-    password: Yup.string()
-      .required(t('authPage.requiredField'))
-      .min(4, t('authPage.notEnoughPasswordLength'))
-      // .matches(/(?=.*[0-9])/, t('authPage.requiredAtLeastOneNumber'))
-      // .matches(/(?=.*[a-z])/, t('authPage.requiredAtLeastOneLowercaseLetter'))
-      // .matches(/(?=.*[A-Z])/, t('authPage.requiredAtLeastOneUppercaseLetter')),
+    email: Yup.string().required(REQUIRED).email(INVALID_EMAIL).nullable(),
+    password: Yup.string().required(REQUIRED),
   });

@@ -3,22 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
-
-    '& .MuiPaper-elevation4': {
-      padding: '0',
-      boxShadow: 'none',
-      borderBottom: '1px solid #BBBBBB',
-      [theme.breakpoints.up('lg')]: {
-        padding: `0 ${theme.spacing(3)} 0 ${theme.spacing(5)}`,
-      },
-    },
-    '& .MuiAvatar-root': {
-      width: theme.spacing(2),
-      height: theme.spacing(2),
-    },
-    '& .MuiButtonBase-root': {
-      fontSize: theme.spacing(1.4),
-      letterSpacing: 0,
+  },
+  headerContainer: {
+    padding: '0',
+    boxShadow: 'none',
+    borderBottom: '1px solid #BBBBBB',
+    [theme.breakpoints.up('lg')]: {
+      padding: `0 ${theme.spacing(3)} 0 ${theme.spacing(5)}`,
     },
   },
   partnersContainer: {
@@ -54,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     width: '89px',
     height: '30px',
     justifyContent: 'flex-start',
+  },
+  iconBg: {
+    fill: theme.palette.primary.light,
   },
 }));
 

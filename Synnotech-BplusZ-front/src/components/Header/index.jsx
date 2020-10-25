@@ -85,41 +85,52 @@ const Header = () => {
 
   return (
     <>
-      <div className={classes.grow}>
-        <AppBar position="static">
-          <Toolbar>
-            <Grid container className={classes.partnersContainer}>
-              {partners.map((partner) => (
-                <Grid item key={partner.src}>
-                  <img src={partner.src} alt={partner.alt} />
-                </Grid>
-              ))}
-            </Grid>
-            <div className={classes.grow} />
-            <Grid container className={classes.menu}>
-              <Grid item>
-                <Button
-                  onClick={handleLanguageMenuOpen}
-                  endIcon={isLanguageMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                >
-                  {currentLang}
-                </Button>
+      <AppBar className={classes.headerContainer} position="static">
+        <Toolbar>
+          <Grid container className={classes.partnersContainer}>
+            {partners.map((partner) => (
+              <Grid item key={partner.src}>
+                <img src={partner.src} alt={partner.alt} />
               </Grid>
-              <Grid item>
-                <Button
-                  onClick={handleProfileMenuOpen}
-                  endIcon={isProfileMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                >
-                  Matthias Bauch
-                </Button>
-              </Grid>
+            ))}
+          </Grid>
+          <div className={classes.grow} />
+          <Grid container className={classes.menu}>
+            <Grid item>
+              <Button
+                onClick={handleLanguageMenuOpen}
+                endIcon={
+                  isLanguageMenuOpen ? (
+                    <ExpandLessIcon className={classes.iconBg} />
+                  ) : (
+                    <ExpandMoreIcon className={classes.iconBg} />
+                  )
+                }
+              >
+                {currentLang}
+              </Button>
             </Grid>
-          </Toolbar>
-        </AppBar>
-        {renderLanguageMenu}
-        {renderProfileMenu}
-      </div>
+            <Grid item>
+              <Button
+                onClick={handleProfileMenuOpen}
+                endIcon={
+                  isProfileMenuOpen ? (
+                    <ExpandLessIcon className={classes.iconBg} />
+                  ) : (
+                    <ExpandMoreIcon className={classes.iconBg} />
+                  )
+                }
+              >
+                Matthias Bauch
+              </Button>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+      {renderLanguageMenu}
+      {renderProfileMenu}
     </>
   );
 };
+
 export default Header;

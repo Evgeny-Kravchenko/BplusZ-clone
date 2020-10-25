@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 export const usePreviewGridStyle = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1),
-    [theme.breakpoints.up('xl')]: {
+    [theme.breakpoints.up('lg')]: {
       padding: theme.spacing(2.5),
     },
   },

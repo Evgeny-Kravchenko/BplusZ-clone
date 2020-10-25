@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
-import { useTranslation } from 'react-i18next';
 
 import { Box, Link, Button, Grid, Typography, CircularProgress } from '@material-ui/core';
 
 import { Email, Password } from '@/fields';
+
+import { INVALID_EMAIL_OR_PASSOWRD } from '@/constants';
+
 import {
   useStyleForSubmitButton,
   useStyleForBoxOfLink,
@@ -13,6 +15,7 @@ import {
   useStyleFormGrid,
   useStyleForFormField,
 } from './styles';
+
 import generateValidationSchema from './validation-schema';
 
 const LoginForm = ({ onSubmit, isLoading, error }) => {
@@ -21,12 +24,11 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
   const boxOfLinkClasses = useStyleForBoxOfLink();
   const submitButtonClasses = useStyleForSubmitButton();
   const formFieldClasses = useStyleForFormField();
-  const { t } = useTranslation();
-  const validationSchema = generateValidationSchema(t);
+  const validationSchema = generateValidationSchema();
   return (
     <Grid item className={formGridClasses.root}>
       <Typography className={titleClasses.root} variant="h1">
-        {t('authPage.title')}
+        Willkommen im BplusZ Portal
       </Typography>
       <Formik
         initialValues={{ email: '', password: '' }}
@@ -41,7 +43,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
                 component={Email}
                 name="email"
                 type="email"
-                label={t('authPage.emailFiledPlaceholder')}
+                label="Email"
                 disabled={false}
               />
             </Box>
@@ -50,19 +52,19 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
                 fullWidth
                 component={Password}
                 type="password"
-                label={t('authPage.passwordFieldPlaceholder')}
+                label="Kennwort"
                 name="password"
                 disabled={false}
               />
             </Box>
             <Box className={boxOfLinkClasses.root}>
               <Link href="#forgot-password" color="secondary">
-                {t('authPage.forgotPasswordLink')}
+                Kennwort vergessen
               </Link>
             </Box>
 
             <Typography className={formGridClasses.errorMessage} variant="body1" color="error">
-              {error && t('authPage.errorMessage')}
+              {error && INVALID_EMAIL_OR_PASSOWRD}
             </Typography>
 
             <Box>
@@ -73,7 +75,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
                 color="secondary"
                 disabled={isLoading}
               >
-                {isLoading ? <CircularProgress size="2rem" /> : t('authPage.signinButton')}
+                {isLoading ? <CircularProgress size="2rem" /> : 'Anmelden'}
               </Button>
             </Box>
           </Form>
