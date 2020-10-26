@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsFinance;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleFinanceDetails;
 using System.Threading.Tasks;
 using Xunit;
 

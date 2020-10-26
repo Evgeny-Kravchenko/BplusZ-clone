@@ -7,9 +7,9 @@ using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using System;
 using System.Threading.Tasks;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsGeneral
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleGeneralDetails
 {
-    [Route("api/vehicles/get-vehicle-details-general/{id}")]
+    [Route("api/vehicles/get-vehicle-general-details/{id}")]
     [ApiController]
     [Authorize(Roles = UserRoles.FpOrGfOrNll)]
     public class GetVehicleGeneralDetailsController : ControllerBase

@@ -36,14 +36,14 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
 
             if (!dto.AllowedStatuses.IsNullOrEmpty())
             {
-                sessionQuery = sessionQuery.Where(v => dto.AllowedStatuses.Contains(v.Status ?? string.Empty));
+                sessionQuery = sessionQuery.Where(v => dto.AllowedStatuses.Contains(v.GeneralData!.Status ?? string.Empty));
             }
             if (!dto.AllowedVehicleClasses.IsNullOrEmpty())
             {
-                sessionQuery = sessionQuery.Where(v => dto.AllowedVehicleClasses.Contains(v.VehicleClass ?? string.Empty));
+                sessionQuery = sessionQuery.Where(v => dto.AllowedVehicleClasses.Contains(v.GeneralData!.VehicleClass ?? string.Empty));
             }
 
-            var sortField = dto.SortField ?? nameof(Vehicle.LicenceNumber);
+            var sortField = dto.SortField ?? nameof(Vehicle.GeneralData.LicenceNumber);
             var vehicles = await sessionQuery.Where(v => v.DeleteDate == null)
                                              .OrderBy(sortField, dto.IsAscendingSortOrder)
                                              .GetPage(dto.Skip, dto.Take)

@@ -12,15 +12,15 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
             { 
                 Id = vehicle.Id,
                 BranchOffice = vehicle.TransferData?.BranchOffice,
-                LicenceNumber = vehicle.LicenceNumber,
-                Manufacturer = vehicle.Manufacturer,
-                Model = vehicle.Model,
-                Status = vehicle.Status,
-                Type = vehicle.Type,
+                LicenceNumber = vehicle.GeneralData?.LicenceNumber,
+                Manufacturer = vehicle.GeneralData?.Manufacturer,
+                Model = vehicle.GeneralData?.Model,
+                Status = vehicle.GeneralData?.Status,
+                Type = vehicle.GeneralData?.Type,
                 ConstructionType = vehicle.TechnicalComponents?.ConstructionType,
-                Appointment = vehicle.Appointment,
-                Info = vehicle.Info,
-                VehicleClass = vehicle.VehicleClass,
+                Appointment = vehicle.GeneralData?.Appointment,
+                Info = vehicle.GeneralData?.Info,
+                VehicleClass = vehicle.GeneralData?.VehicleClass,
             };
         }
 

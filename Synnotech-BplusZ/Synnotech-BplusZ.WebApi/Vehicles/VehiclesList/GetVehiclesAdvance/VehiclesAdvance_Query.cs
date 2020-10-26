@@ -11,24 +11,21 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
         {
             Map = vehicles => vehicles.Select(vehicle => new VehicleAdvanceSearchIndexResult
             {
-                LicenceNumber = vehicle.LicenceNumber,
+                LicenceNumber = vehicle.GeneralData!.LicenceNumber,
                 BranchOffice = vehicle.TransferData!.BranchOffice,
-                Manufacturer = vehicle.Manufacturer,
-                Model = vehicle.Model,
+                Manufacturer = vehicle.GeneralData!.Manufacturer,
+                Model = vehicle.GeneralData!.Model,
                 ConstructionType = vehicle.TechnicalComponents!.ConstructionType,
                 DeleteDate = vehicle.DeleteDate,
-                State = vehicle.State,
-                VehicleClass = vehicle.VehicleClass,
-                NumberOfInvestment = vehicle.NumberOfInvestment,
+                State = vehicle.GeneralData!.State,
+                VehicleClass = vehicle.GeneralData!.VehicleClass,
+                NumberOfInvestment = vehicle.GeneralData!.NumberOfInvestment,
                 Query = new List<string>
                 {
-                    vehicle.Manufacturer ?? string.Empty,
+                    vehicle.GeneralData!.Manufacturer ?? string.Empty,
                     vehicle.TechnicalComponents!.ConstructionType ?? string.Empty,
-                    vehicle.Model ?? string.Empty,
+                    vehicle.GeneralData!.Model ?? string.Empty,
                     vehicle.TransferData!.BranchOffice ?? string.Empty,
-                    vehicle.TechnicalComponents!.ConstructionType ?? string.Empty,
-                    vehicle.VehicleClass ?? string.Empty,
-                    vehicle.NumberOfInvestment ?? string.Empty,
                 }
             });
 
