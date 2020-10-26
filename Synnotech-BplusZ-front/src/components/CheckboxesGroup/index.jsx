@@ -2,34 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyle = makeStyles((theme) => ({
-  checkboxesContainer: {
-    width: '205px',
-    padding: theme.spacing(1.5),
+import useStyle from './styles';
 
-    '& .MuiFormControlLabel-root': {
-      fontSize: '1.2rem',
-    },
-  },
-}));
-
-const CheckboxesGroup = ({ checkBoxes }) => {
+const CheckboxesGroup = ({ checkBoxesConfig, checkBoxesDefault, handleOnChange }) => {
   const classes = useStyle();
-  const [state, setState] = React.useState({
-    ...checkBoxes,
-  });
-  const checkBoxesLabels = Object.keys(checkBoxes);
+
+  const checkBoxesLabels = Object.keys(checkBoxesConfig);
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    if (event.target.name === 'all' && event.target.checked) {
+      handleOnChange(checkBoxesDefault);
+    } else {
+      handleOnChange({
+        ...checkBoxesConfig,
+        [event.target.name]: event.target.checked,
+        all: false,
+      });
+    }
   };
   return (
-    <FormGroup className={classes.checkboxesContainer} column>
+    <FormGroup className={classes.checkboxesContainer}>
       {checkBoxesLabels.map((label) => (
         <FormControlLabel
-          control={<Checkbox checked={state[label]} onChange={handleChange} name={label} />}
+          key={label}
+          control={
+            <Checkbox checked={checkBoxesConfig[label]} onChange={handleChange} name={label} />
+          }
           label={label}
         />
       ))}
@@ -38,7 +37,14 @@ const CheckboxesGroup = ({ checkBoxes }) => {
 };
 
 CheckboxesGroup.propTypes = {
-  checkBoxes: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
+  checkBoxesConfig: PropTypes.instanceOf(Object),
+  checkBoxesDefault: PropTypes.instanceOf(Object),
+  handleOnChange: PropTypes.func.isRequired,
+};
+
+CheckboxesGroup.defaultProps = {
+  checkBoxesConfig: {},
+  checkBoxesDefault: {},
 };
 
 export default CheckboxesGroup;

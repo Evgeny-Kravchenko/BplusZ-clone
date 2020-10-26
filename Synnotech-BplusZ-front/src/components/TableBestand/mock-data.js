@@ -36,7 +36,7 @@ export default [
     'AZ-LL 903',
     'Wechselkoffer',
     'Mercedes-Benz Atego',
-    'Werkstatt',
+    'Aerkstatt',
     'Local Logistik GmbH',
     IN_WORK_STRING,
     'E',

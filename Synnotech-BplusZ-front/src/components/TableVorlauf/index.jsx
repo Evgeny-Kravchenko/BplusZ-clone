@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+
 import {
   Paper,
   Table,
@@ -9,13 +12,11 @@ import {
   TableRow,
   TableCell,
   Link,
-  IconButton,
 } from '@material-ui/core';
-
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import TablePaginationActions from '@/components/TablePaginationActions';
 import TableVorlaufHeader from '@/components/TableVorlaufHeader';
+import AdditionalMenuGroup from '@/components/AdditionalMenuGroup';
 
 import { getComparator, stableSort, searchByField } from '@/helpers';
 
@@ -23,8 +24,18 @@ import useStyle from './styles';
 
 import rows from './mock-data';
 
-const TableVorlauf = () => {
+import generateAdditionalMenuListConfig from './additionalMenuListConfig';
+
+const TableVorlauf = ({
+  vorlaufVehicleClass,
+  vorlaufVehicleClassDefault,
+  handleVorlaufVehicleClass,
+  vorlaufStatus,
+  vorlaufDefaultStatus,
+  handleVorlaufStatus,
+}) => {
   const classes = useStyle();
+  const { t } = useTranslation();
 
   const [page, setPage] = useState(0);
   const [isSearchByLicenseNumber, setSearchByLicenseNumber] = useState(false);
@@ -61,10 +72,16 @@ const TableVorlauf = () => {
     setSearchByInvestNumber(false);
   };
 
+  window.addEventListener('click', handleCloseSearchInput);
+
+  useEffect(() => {
+    return window.removeEventListener('click', handleCloseSearchInput);
+  }, []);
+
   return (
     <Box>
       <TableContainer component={Paper} className={classes.dataGridRoot}>
-        <Table aria-label="simple table" onClick={handleCloseSearchInput}>
+        <Table aria-label="simple table">
           <TableVorlaufHeader
             isSearchByLicenseNumber={isSearchByLicenseNumber}
             setSearchByLicenseNumber={setSearchByLicenseNumber}
@@ -75,6 +92,12 @@ const TableVorlauf = () => {
             orderBy={orderBy}
             onSearchByLicenseNumber={handleSearchByLicenseNumber}
             onSearchByInvestNumber={handleSearchByInvestNumber}
+            vorlaufVehicleClass={vorlaufVehicleClass}
+            vorlaufVehicleClassDefault={vorlaufVehicleClassDefault}
+            handleVorlaufVehicleClass={handleVorlaufVehicleClass}
+            vorlaufStatus={vorlaufStatus}
+            vorlaufDefaultStatus={vorlaufDefaultStatus}
+            handleVorlaufStatus={handleVorlaufStatus}
           />
           <TableBody className={classes.tableBody}>
             {stableSort(
@@ -98,9 +121,7 @@ const TableVorlauf = () => {
                     </Link>
                   </TableCell>
                   <TableCell className={classes.actionsCell} align="right">
-                    <IconButton size="small">
-                      <MoreVertIcon />
-                    </IconButton>
+                    <AdditionalMenuGroup menuListConfig={generateAdditionalMenuListConfig(t)} />
                   </TableCell>
                 </TableRow>
               ))}
@@ -120,6 +141,15 @@ const TableVorlauf = () => {
       />
     </Box>
   );
+};
+
+TableVorlauf.propTypes = {
+  vorlaufVehicleClass: PropTypes.instanceOf(Object).isRequired,
+  vorlaufVehicleClassDefault: PropTypes.instanceOf(Object).isRequired,
+  handleVorlaufVehicleClass: PropTypes.func.isRequired,
+  vorlaufStatus: PropTypes.instanceOf(Object).isRequired,
+  vorlaufDefaultStatus: PropTypes.instanceOf(Object).isRequired,
+  handleVorlaufStatus: PropTypes.func.isRequired,
 };
 
 export default TableVorlauf;

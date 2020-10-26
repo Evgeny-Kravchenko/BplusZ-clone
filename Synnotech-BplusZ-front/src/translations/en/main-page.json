@@ -18,5 +18,34 @@
   "switcherVorlauf": "Vorlauf",
   "switcherBestand": "Bestand",
   "search": "Search",
-  "pagination": "Rows per page"
+  "pagination": "Rows per page: {{page}}",
+  "checkboxes": {
+    "truck": "truck",
+    "car": "car",
+    "semitrailer": "semitrailer",
+    "van": "van",
+    "changeVanBody": "change van body",
+    "truckTrailer": "truck trailer",
+    "all": "all",
+    "onTheRoad": "on the road",
+    "exploitation": "exploitation",
+    "noUse": "no use",
+    "garage": "garage",
+    "needsReview": "needs review",
+    "inVerificationByGF": "in verification by GF",
+    "inProposalStage": "in propasal stage",
+    "ordered": "ordered",
+    "activating": "activating",
+    "processCanceled": "process canceled",
+    "toBeReplaced": "to be replaced"
+  },
+  "additionalMenu": {
+    "showDetails": "Show details",
+    "createReplacementOrder": "Create replacement order",
+    "reportDamage": "Report damage",
+    "showDamage": "Show damage",
+    "explotation": "Explotation",
+    "book": "Book",
+    "acts": "Acts"
+  }
 }

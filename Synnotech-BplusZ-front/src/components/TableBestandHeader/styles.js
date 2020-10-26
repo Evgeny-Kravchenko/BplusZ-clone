@@ -46,7 +46,7 @@ const useStyle = makeStyles((theme) => ({
   },
   licenseNumberHeader: {
     maxWidth: '14%',
-    textAlign: 'left',
+    paddingLeft: `${theme.spacing(4)}!important`,
 
     '& .MuiButtonBase-root': {
       color: theme.palette.info.dark,
@@ -54,39 +54,29 @@ const useStyle = makeStyles((theme) => ({
   },
   constructorTypeHeader: {
     width: '13%',
-    textAlign: 'left',
   },
   brandAndModelHeader: {
     width: '14%',
-    textAlign: 'left',
   },
   vehicleStatusHeader: {
     width: '13%',
-    textAlign: 'left',
   },
   branchOfficeHeader: {
     width: '17%',
-    textAlign: 'left',
   },
   artHeader: {
     width: '9%',
-    textAlign: 'left',
-    paddingLeft: `${theme.spacing(2.5)}!important`,
   },
   infoHeader: {
     width: '6%',
-    textAlign: 'left',
-    paddingLeft: `${theme.spacing(2)}!important`,
   },
   eventsHeader: {
     width: '8%',
-    textAlign: 'left',
-    paddingLeft: `${theme.spacing(0)}!important`,
+    paddingLeft: `${theme.spacing(2.5)}!important`,
   },
   actionsHeader: {
     width: '6%',
     paddingRight: `${theme.spacing(3.2)}!important`,
-    textAlign: 'left',
   },
   tableEvenRow: {
     backgroundColor: theme.palette.info.main,

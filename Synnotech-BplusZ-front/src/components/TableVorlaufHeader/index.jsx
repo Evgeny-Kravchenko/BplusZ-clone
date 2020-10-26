@@ -28,6 +28,12 @@ const TableVorlaufHeader = (props) => {
     orderBy,
     onSearchByLicenseNumber,
     onSearchByInvestNumber,
+    vorlaufVehicleClass,
+    vorlaufVehicleClassDefault,
+    handleVorlaufVehicleClass,
+    vorlaufStatus,
+    vorlaufDefaultStatus,
+    handleVorlaufStatus,
   } = props;
 
   const classes = useStyle();
@@ -66,7 +72,16 @@ const TableVorlaufHeader = (props) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell className={classes.investNumberHeader} align="right">
+        <TableCell className={classes.investNumberHeader}>
+          {!isSearchByInvestNumber && (
+            <IconButton
+              size="small"
+              onClick={handleOpenSearchByInvestNumber}
+              style={{ marginRight: '5px' }}
+            >
+              <SearchIcon className={classes.searchIcon} />
+            </IconButton>
+          )}
           {!isSearchByInvestNumber && (
             <TableSortLabel
               active={orderBy === 'investNumber'}
@@ -85,21 +100,20 @@ const TableVorlaufHeader = (props) => {
               onChange={handleOnChangeSearchByInvestNumber}
             />
           )}
-          {!isSearchByInvestNumber && (
-            <IconButton
-              size="small"
-              onClick={handleOpenSearchByInvestNumber}
-              style={{ marginLeft: '5px' }}
-            >
-              <SearchIcon className={classes.searchIcon} />
-            </IconButton>
-          )}
         </TableCell>
         <TableCell
           className={classes.licenseNumberHeader}
           sortDirection={orderBy === 'licenseNumber' ? order : false}
-          align="right"
         >
+          {!isSearchByLicenseNumber && (
+            <IconButton
+              size="small"
+              onClick={handleOpenSearchByLicenseInput}
+              style={{ marginRight: '5px' }}
+            >
+              <SearchIcon className={classes.searchIcon} />
+            </IconButton>
+          )}
           {!isSearchByLicenseNumber && (
             <TableSortLabel
               active={orderBy === 'licenseNumber'}
@@ -118,21 +132,22 @@ const TableVorlaufHeader = (props) => {
               onChange={handleOnChangeSearchByLicenseNumber}
             />
           )}
-          {!isSearchByLicenseNumber && (
-            <IconButton
-              size="small"
-              onClick={handleOpenSearchByLicenseInput}
-              style={{ marginLeft: '5px' }}
-            >
-              <SearchIcon className={classes.searchIcon} />
-            </IconButton>
-          )}
         </TableCell>
         <TableCell className={classes.vehicleClassHeader}>
-          <FilterBadge />
-          {t('mainPage.vehicleClass')}
+          <FilterBadge
+            checkBoxesConfig={vorlaufVehicleClass}
+            checkBoxesDefault={vorlaufVehicleClassDefault}
+            handleOnChangeCheckboxes={handleVorlaufVehicleClass}
+          />
+          <TableSortLabel
+            active={orderBy === 'vehicleClass'}
+            direction={orderBy === 'vehicleClass' ? order : 'asc'}
+            onClick={createSortHandler('vehicleClass')}
+          >
+            {t('mainPage.vehicleClass')}
+          </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.brandAndModelHeader} align="right">
+        <TableCell className={classes.brandAndModelHeader}>
           <TableSortLabel
             active={orderBy === 'brandAndModel'}
             direction={orderBy === 'brandAndModel' ? order : 'asc'}
@@ -141,7 +156,7 @@ const TableVorlaufHeader = (props) => {
             {t('mainPage.brandAndModel')}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.constructionTypeHeader} align="right">
+        <TableCell className={classes.constructionTypeHeader}>
           <TableSortLabel
             active={orderBy === 'constructionType'}
             direction={orderBy === 'constructionType' ? order : 'asc'}
@@ -150,11 +165,21 @@ const TableVorlaufHeader = (props) => {
             {t('mainPage.constructionType')}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.vorlaufStatusHeader} align="right">
-          <FilterBadge />
-          {t('mainPage.vorlaufStatus')}
+        <TableCell className={classes.vorlaufStatusHeader}>
+          <FilterBadge
+            checkBoxesConfig={vorlaufStatus}
+            checkBoxesDefault={vorlaufDefaultStatus}
+            handleOnChangeCheckboxes={handleVorlaufStatus}
+          />
+          <TableSortLabel
+            active={orderBy === 'vorlaufStatus'}
+            direction={orderBy === 'vorlaufStatus' ? order : 'asc'}
+            onClick={createSortHandler('vorlaufStatus')}
+          >
+            {t('mainPage.vorlaufStatus')}
+          </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.branchOfficeHeader} align="right">
+        <TableCell className={classes.branchOfficeHeader}>
           <TableSortLabel
             active={orderBy === 'branchOffice'}
             direction={orderBy === 'branchOffice' ? order : 'asc'}
@@ -181,6 +206,12 @@ TableVorlaufHeader.propTypes = {
   setSearchByInvestNumber: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
+  vorlaufVehicleClass: PropTypes.instanceOf(Object).isRequired,
+  vorlaufVehicleClassDefault: PropTypes.instanceOf(Object).isRequired,
+  handleVorlaufVehicleClass: PropTypes.func.isRequired,
+  vorlaufStatus: PropTypes.instanceOf(Object).isRequired,
+  vorlaufDefaultStatus: PropTypes.instanceOf(Object).isRequired,
+  handleVorlaufStatus: PropTypes.func.isRequired,
 };
 
 export default TableVorlaufHeader;

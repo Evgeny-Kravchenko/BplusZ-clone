@@ -58,6 +58,12 @@ const searchByField = (value, arr, field) => {
   return [...arr];
 };
 
+const getFilterFields = (arr) => {
+  return Object.entries(arr)
+    .filter((item) => item[1])
+    .map((item) => item[0]);
+};
+
 const generatorId = () => {
   let id = 0;
   return () => {
@@ -68,4 +74,11 @@ const generatorId = () => {
 
 const generatorIdInstance = generatorId();
 
-export { defineColor, getComparator, stableSort, searchByField, generatorIdInstance };
+export {
+  defineColor,
+  getComparator,
+  stableSort,
+  searchByField,
+  generatorIdInstance,
+  getFilterFields,
+};
