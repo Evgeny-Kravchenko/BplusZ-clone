@@ -25,6 +25,12 @@ const TableBestandHeader = (props) => {
     order,
     orderBy,
     onSearchByLicenseNumber,
+    bestandVehicleClass,
+    handleBestandVehicleClass,
+    bestandVehicleStatus,
+    bestandVehicleStatusDefault,
+    bestandVehicleClassDefault,
+    handleBestandVehicleStatus,
   } = props;
 
   const classes = useStyle();
@@ -53,8 +59,12 @@ const TableBestandHeader = (props) => {
         <TableCell
           className={classes.licenseNumberHeader}
           sortDirection={orderBy === 'License number' ? order : false}
-          align="right"
         >
+          {!isSearchByLicenseNumber && (
+            <IconButton size="small" onClick={handleOpenSearchInput} style={{ marginRight: '5px' }}>
+              <SearchIcon className={classes.searchIcon} />
+            </IconButton>
+          )}
           {!isSearchByLicenseNumber && (
             <TableSortLabel
               active={orderBy === 'licenseNumber'}
@@ -73,17 +83,22 @@ const TableBestandHeader = (props) => {
               onChange={handleOnChangeSearchByLicenseNumber}
             />
           )}
-          {!isSearchByLicenseNumber && (
-            <IconButton size="small" onClick={handleOpenSearchInput} style={{ marginLeft: '5px' }}>
-              <SearchIcon className={classes.searchIcon} />
-            </IconButton>
-          )}
         </TableCell>
         <TableCell className={classes.constructorTypeHeader}>
-          <FilterBadge />
-          {t('mainPage.vehicleClass')}
+          <FilterBadge
+            checkBoxesConfig={bestandVehicleClass}
+            checkBoxesDefault={bestandVehicleClassDefault}
+            handleOnChangeCheckboxes={handleBestandVehicleClass}
+          />
+          <TableSortLabel
+            active={orderBy === 'constrType'}
+            direction={orderBy === 'constrType' ? order : 'asc'}
+            onClick={createSortHandler('constrType')}
+          >
+            {t('mainPage.vehicleClass')}
+          </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.brandAndModelHeader} align="right">
+        <TableCell className={classes.brandAndModelHeader}>
           <TableSortLabel
             active={orderBy === 'brandAndModel'}
             direction={orderBy === 'brandAndModel' ? order : 'asc'}
@@ -93,10 +108,20 @@ const TableBestandHeader = (props) => {
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.vehicleStatusHeader}>
-          <FilterBadge />
-          {t('mainPage.vehicleStatus')}
+          <FilterBadge
+            checkBoxesConfig={bestandVehicleStatus}
+            checkBoxesDefault={bestandVehicleStatusDefault}
+            handleOnChangeCheckboxes={handleBestandVehicleStatus}
+          />
+          <TableSortLabel
+            active={orderBy === 'vehicleStatus'}
+            direction={orderBy === 'vehicleStatus' ? order : 'asc'}
+            onClick={createSortHandler('vehicleStatus')}
+          >
+            {t('mainPage.vehicleStatus')}
+          </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.branchOfficeHeader} align="right">
+        <TableCell className={classes.branchOfficeHeader}>
           <TableSortLabel
             active={orderBy === 'branchOffice'}
             direction={orderBy === 'branchOffice' ? order : 'asc'}
@@ -105,7 +130,7 @@ const TableBestandHeader = (props) => {
             {t('mainPage.branchOffice')}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.artHeader} align="right">
+        <TableCell className={classes.artHeader}>
           <TableSortLabel
             active={orderBy === 'vehicleBelonging'}
             direction={orderBy === 'vehicleBelonging' ? order : 'asc'}
@@ -114,7 +139,7 @@ const TableBestandHeader = (props) => {
             {t('mainPage.art')}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.infoHeader} align="right">
+        <TableCell className={classes.infoHeader}>
           <TableSortLabel
             active={orderBy === 'infoLink'}
             direction={orderBy === 'infoLink' ? order : 'asc'}
@@ -123,7 +148,7 @@ const TableBestandHeader = (props) => {
             {t('mainPage.info')}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.eventsHeader} align="right">
+        <TableCell className={classes.eventsHeader}>
           <TableSortLabel
             active={orderBy === 'eventsStatus'}
             direction={orderBy === 'eventsStatus' ? order : 'asc'}
@@ -147,6 +172,12 @@ TableBestandHeader.propTypes = {
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
   onSearchByLicenseNumber: PropTypes.func.isRequired,
+  bestandVehicleClass: PropTypes.instanceOf(Object).isRequired,
+  bestandVehicleClassDefault: PropTypes.instanceOf(Object).isRequired,
+  handleBestandVehicleClass: PropTypes.func.isRequired,
+  bestandVehicleStatus: PropTypes.instanceOf(Object).isRequired,
+  bestandVehicleStatusDefault: PropTypes.instanceOf(Object).isRequired,
+  handleBestandVehicleStatus: PropTypes.func.isRequired,
 };
 
 export default TableBestandHeader;

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 
 import {
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -15,11 +15,11 @@ import {
   Box,
 } from '@material-ui/core';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 import TablePaginationActions from '@/components/TablePaginationActions';
 import TableBestandHeader from '@/components/TableBestandHeader';
+import AdditionalMenuGroup from '@/components/AdditionalMenuGroup';
 
 import { defineColor, getComparator, stableSort, searchByField } from '@/helpers';
 
@@ -29,7 +29,16 @@ import useStyle from './styles';
 
 import rows from './mock-data';
 
-const TableBestand = () => {
+import generateAdditionalMenuListConfig from './additionalMenuListConfig';
+
+const TableBestand = ({
+  bestandVehicleClass,
+  bestandVehicleClassDefault,
+  handleBestandVehicleClass,
+  bestandVehicleStatus,
+  bestandVehicleStatusDefault,
+  handleBestandVehicleStatus,
+}) => {
   const classes = useStyle();
   const { t } = useTranslation();
 
@@ -61,10 +70,16 @@ const TableBestand = () => {
     setSearchByLicenseNumber(false);
   };
 
+  window.addEventListener('click', handleCloseSearchInput);
+
+  useEffect(() => {
+    return window.removeEventListener('click', handleCloseSearchInput);
+  }, []);
+
   return (
     <Box>
       <TableContainer component={Paper} className={classes.dataGridRoot}>
-        <Table aria-label="simple table" onClick={handleCloseSearchInput}>
+        <Table aria-label="simple table">
           <TableBestandHeader
             isSearchByLicenseNumber={isSearchByLicenseNumber}
             setSearchByLicenseNumber={setSearchByLicenseNumber}
@@ -72,6 +87,12 @@ const TableBestand = () => {
             order={order}
             orderBy={orderBy}
             onSearchByLicenseNumber={handleSearchByLicenseNumber}
+            bestandVehicleClass={bestandVehicleClass}
+            bestandVehicleClassDefault={bestandVehicleClassDefault}
+            handleBestandVehicleClass={handleBestandVehicleClass}
+            bestandVehicleStatus={bestandVehicleStatus}
+            bestandVehicleStatusDefault={bestandVehicleStatusDefault}
+            handleBestandVehicleStatus={handleBestandVehicleStatus}
           />
           <TableBody>
             {stableSort(
@@ -117,9 +138,7 @@ const TableBestand = () => {
                     />
                   </TableCell>
                   <TableCell className={classes.actionsCell} align="right">
-                    <IconButton size="small">
-                      <MoreVertIcon />
-                    </IconButton>
+                    <AdditionalMenuGroup menuListConfig={generateAdditionalMenuListConfig(t)} />
                   </TableCell>
                 </TableRow>
               ))}
@@ -133,12 +152,21 @@ const TableBestand = () => {
         count={rows.length}
         page={page}
         onChangePage={handleChangePage}
-        labelRowsPerPage={`${t('mainPage.pagination')}: 10`}
+        labelRowsPerPage={`${t('mainPage.pagination', { page: 10 })}`}
         ActionsComponent={TablePaginationActions}
-        component='div'
+        component="div"
       />
     </Box>
   );
+};
+
+TableBestand.propTypes = {
+  bestandVehicleClass: PropTypes.instanceOf(Object).isRequired,
+  bestandVehicleClassDefault: PropTypes.instanceOf(Object).isRequired,
+  handleBestandVehicleClass: PropTypes.func.isRequired,
+  bestandVehicleStatus: PropTypes.instanceOf(Object).isRequired,
+  bestandVehicleStatusDefault: PropTypes.instanceOf(Object).isRequired,
+  handleBestandVehicleStatus: PropTypes.func.isRequired,
 };
 
 export default TableBestand;
