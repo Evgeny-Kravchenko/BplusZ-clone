@@ -7,6 +7,8 @@ namespace Synnotech_BplusZ.WebApi.Users
         public const string Teamleiter = "Teamleiter";
         public const string Mitarbeiter = "Mitarbeiter";
         public const string Administrator = "Administrator";
-        public const string Fuhrpark = "Fuhrpark";
+        public const string FP = "FP";
+
+        public const string FpOrGfOrNll = FP + "," + GF + "," + NLL;
     }
 }

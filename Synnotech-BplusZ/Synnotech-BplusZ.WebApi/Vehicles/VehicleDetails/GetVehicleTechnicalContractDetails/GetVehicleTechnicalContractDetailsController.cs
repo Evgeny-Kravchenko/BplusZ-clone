@@ -11,7 +11,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalCon
 {
     [Route("api/vehicles/get-vehicle-details-technical-contract/{id}")]
     [ApiController]
-    [Authorize(Roles = UserRoles.NLL)]
+    [Authorize(Roles = UserRoles.FpOrGfOrNll)]
     public class GetVehicleTechnicalContractDetailsController : ControllerBase
     {
         private readonly Func<IGetVehicleDetailsContext> _createContext;
