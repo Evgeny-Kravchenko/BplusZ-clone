@@ -1,6 +1,6 @@
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 
-namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsGeneral
+namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleGeneralDetails
 {
     public static class VehicleGeneralDetailsMapper
     {
@@ -8,24 +8,24 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsGener
         {
             return new VehicleDetailsGeneralResultDto
             {
-                Id = vehicle.Id,
-                LicenceNumber = vehicle.LicenceNumber,
-                Manufacturer = vehicle.Manufacturer,
-                Model = vehicle.Model,
-                Status = vehicle.Status,
-                ChangeOfLicencePlate = vehicle.ChangeOfLicencePlate,
-                ChassisNumber = vehicle.ChassisNumber,
-                Deregistration = vehicle.Deregistration,
-                DoubleTaxed = vehicle.DoubleTaxed,
-                Holder = vehicle.Holder,
-                InitialRegistration = vehicle.InitialRegistration,
-                MileageDate = vehicle.MileageDate,
-                NumberOfInvestment = vehicle.NumberOfInvestment,
-                Picture = vehicle.Picture,
-                SupplierContactDetails = vehicle.SupplierContactDetails,
-                TotalDeliveryDate = vehicle.TotalDeliveryDate,
-                VehicleCategory = vehicle.VehicleCategory,
-                VehicleClass = vehicle.VehicleClass
+                VehicleId = vehicle.Id,
+                LicenceNumber = vehicle.GeneralData?.LicenceNumber,
+                Manufacturer = vehicle.GeneralData?.Manufacturer,
+                Model = vehicle.GeneralData?.Model,
+                Status = vehicle.GeneralData?.Status,
+                ChangeOfLicencePlate = vehicle.GeneralData?.ChangeOfLicencePlate,
+                ChassisNumber = vehicle.GeneralData?.ChassisNumber,
+                Deregistration = vehicle.GeneralData?.Deregistration,
+                DoubleTaxed = vehicle.GeneralData?.DoubleTaxed,
+                Holder = vehicle.GeneralData?.Holder,
+                InitialRegistration = vehicle.GeneralData?.InitialRegistration,
+                MileageDate = vehicle.GeneralData?.MileageDate,
+                NumberOfInvestment = vehicle.GeneralData?.NumberOfInvestment,
+                Picture = vehicle.GeneralData?.Picture,
+                SupplierContactDetails = vehicle.GeneralData?.SupplierContactDetails,
+                TotalDeliveryDate = vehicle.GeneralData?.TotalDeliveryDate,
+                VehicleCategory = vehicle.GeneralData?.VehicleCategory,
+                VehicleClass = vehicle.GeneralData?.VehicleClass,
             };
         }
     }

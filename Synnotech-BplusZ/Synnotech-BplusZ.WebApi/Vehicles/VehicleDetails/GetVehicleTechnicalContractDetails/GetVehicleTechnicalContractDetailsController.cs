@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalContractDetails
 {
-    [Route("api/vehicles/get-vehicle-details-technical-contract/{id}")]
+    [Route("api/vehicles/get-vehicle-technical-contract-details/{id}")]
     [ApiController]
     [Authorize(Roles = UserRoles.FpOrGfOrNll)]
     public class GetVehicleTechnicalContractDetailsController : ControllerBase

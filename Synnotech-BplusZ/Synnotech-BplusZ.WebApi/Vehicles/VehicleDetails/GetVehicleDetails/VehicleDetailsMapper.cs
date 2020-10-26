@@ -9,14 +9,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails
             return new VehicleDetailsResultDto
             {
                 Id = vehicle.Id,
-                BranchOffice = vehicle.TransferData?.BranchOffice,
-                LicenceNumber = vehicle.LicenceNumber,
-                Manufacturer = vehicle.Manufacturer,
-                Model = vehicle.Model,
-                Status = vehicle.Status,
-                Type = vehicle.Type,
-                ConstructionType = vehicle.TechnicalComponents?.ConstructionType,
-                State = vehicle.State,
+                GeneralData = vehicle.GeneralData,
                 Finance = vehicle.Finance,
                 TechnicalComponents = vehicle.TechnicalComponents,
                 TechnicalContractData = vehicle.TechnicalContractData,

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsGeneral;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleGeneralDetails;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -49,7 +49,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
 
             var result = (await _controller.GetVehicleDetailsGeneral(id)).Result as OkObjectResult;
             Assert.IsType<VehicleDetailsGeneralResultDto>(result.Value);
-            Assert.Equal(id, (result.Value as VehicleDetailsGeneralResultDto).Id);
+            Assert.Equal(id, (result.Value as VehicleDetailsGeneralResultDto).VehicleId);
         }
 
         [Fact]
