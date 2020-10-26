@@ -11,7 +11,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetailsFinan
 {
     [Route("api/vehicles/get-vehicle-details-finance/{id}")]
     [ApiController]
-    [Authorize(Roles = UserRoles.NLL)]
+    [Authorize(Roles = UserRoles.FpOrGfOrNll)]
     public class GetVehicleFinanceDetailsController : ControllerBase
     {
         private readonly Func<IGetVehicleDetailsContext> _createContext;

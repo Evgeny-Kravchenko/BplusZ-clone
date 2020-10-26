@@ -3,51 +3,50 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalComponents;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTransferData;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechnicalComponents
+namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTransferData
 {
-    public class GetVehicleTechnicalComponentsControllerTests
+    public class GetVehicleTransferDataControllerTests
     {
-        private readonly GetVehicleTechnicalComponentsController _controller;
+        private readonly GetVehicleTransferDataController _controller;
         private readonly Mock<IGetVehicleDetailsContext> _getVehiclesContext;
         private readonly string id = "existingId";
-
-        public GetVehicleTechnicalComponentsControllerTests()
+        public GetVehicleTransferDataControllerTests()
         {
             _getVehiclesContext = new Mock<IGetVehicleDetailsContext>();
-            _controller = new GetVehicleTechnicalComponentsController(() => _getVehiclesContext.Object);
+            _controller = new GetVehicleTransferDataController(() => _getVehiclesContext.Object);
         }
 
         [Fact]
         public static void GetVehicleMustBeDecoratedWithHttpGetAttribute() =>
-           typeof(GetVehicleTechnicalComponentsController)
-            .GetMethod(nameof(GetVehicleTechnicalComponentsController.GetVehicleTechnicalComonents))
+           typeof(GetVehicleTransferDataController)
+            .GetMethod(nameof(GetVehicleTransferDataController.GetVehicleTechnicalComonents))
                                         .Should()
                                         .BeDecoratedWith<HttpGetAttribute>();
 
         [Fact]
         public async Task GetVehicleDetails_WithExistingId_ReturnsOkResult()
         {
-            var vehicle = VehicleTechnicalComponentsTestHelper.GetTestVehicle();
+            var vehicle = VehicleTransferDataTestHelper.GetTestVehicle();
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync(vehicle);
 
             var response = await _controller.GetVehicleTechnicalComonents(id);
             Assert.IsType<OkObjectResult>(response.Result);
-        }
+        }  
 
         [Fact]
         public async Task GetVehicleDetails_WithExistingId_ReturnsRightItem()
         {
-            var vehicle = VehicleTechnicalComponentsTestHelper.GetTestVehicle();
+            var vehicle = VehicleTransferDataTestHelper.GetTestVehicle();
             _getVehiclesContext.Setup(context => context.GetVehicleDetails(It.IsAny<string>()))
                                .ReturnsAsync(vehicle);
 
             var result = (await _controller.GetVehicleTechnicalComonents(id)).Result as OkObjectResult;
-            Assert.IsType<VehicleTechnicalComponentsResultDto>(result.Value);
+            Assert.IsType<VehicleTransferDataResultDto>(result.Value);
         }
 
         [Fact]

@@ -9,12 +9,13 @@ using Xunit;
 
 namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechnicalContactDetails
 {
-    public class GetVehicleFinanceDetailsControllerTests
+    public class GetVehicleTechnicalContractDetailsControllerTests
     {
         private readonly GetVehicleTechnicalContractDetailsController _controller;
         private readonly Mock<IGetVehicleDetailsContext> _getVehiclesContext;
         private readonly string id = "existingId";
-        public GetVehicleFinanceDetailsControllerTests()
+
+        public GetVehicleTechnicalContractDetailsControllerTests()
         {
             _getVehiclesContext = new Mock<IGetVehicleDetailsContext>();
             _controller = new GetVehicleTechnicalContractDetailsController(() => _getVehiclesContext.Object);
