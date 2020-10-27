@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Badge, IconButton, Popover } from '@material-ui/core';
@@ -26,11 +25,13 @@ const useButtonIconStyle = makeStyles((theme) => ({
   },
 }));
 
-const FilterBadge = ({ checkBoxesConfig, checkBoxesDefault, handleOnChangeCheckboxes }) => {
+const FilterBadge = (props) => {
   const classes = useButtonIconStyle();
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const isInvisible = !Object.values(checkBoxesConfig).some((checkbox) => checkbox);
+  const { tableBestandState, checkboxesListName } = props;
+  const isInvisible = !Object.values(tableBestandState[checkboxesListName]).some(
+    (checkbox) => checkbox
+  );
 
   const handleOnClickOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,20 +70,12 @@ const FilterBadge = ({ checkBoxesConfig, checkBoxesDefault, handleOnChangeCheckb
         onClose={handleOnClickClose}
         elevation={2}
       >
-        <CheckboxesGroup
-          checkBoxesConfig={checkBoxesConfig}
-          checkBoxesDefault={checkBoxesDefault}
-          handleOnChange={handleOnChangeCheckboxes}
-        />
+        <CheckboxesGroup {...props} />
       </Popover>
     </>
   );
 };
 
-FilterBadge.propTypes = {
-  checkBoxesConfig: PropTypes.instanceOf(Object).isRequired,
-  checkBoxesDefault: PropTypes.instanceOf(Object).isRequired,
-  handleOnChangeCheckboxes: PropTypes.func.isRequired,
-};
+FilterBadge.propTypes = {};
 
 export default FilterBadge;

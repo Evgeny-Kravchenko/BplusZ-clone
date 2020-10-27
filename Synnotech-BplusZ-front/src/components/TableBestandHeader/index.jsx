@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
 
 import {
   IconButton,
@@ -18,39 +17,48 @@ import FilterBadge from '@/components/FilterBadge';
 import useStyle from './styles';
 
 const TableBestandHeader = (props) => {
-  const {
-    isSearchByLicenseNumber,
-    setSearchByLicenseNumber,
-    onRequestSort,
-    order,
-    orderBy,
-    onSearchByLicenseNumber,
-    bestandVehicleClass,
-    handleBestandVehicleClass,
-    bestandVehicleStatus,
-    bestandVehicleStatusDefault,
-    bestandVehicleClassDefault,
-    handleBestandVehicleStatus,
-  } = props;
+  const { tableBestandState, handleTableBestandState } = props;
+  const { sortField, order, searchValue } = tableBestandState;
 
   const classes = useStyle();
   const { t } = useTranslation();
+
+  const [isSearchByLicenseNumber, setSearchByLicenseNumber] = useState(false);
 
   const handleOpenSearchInput = (event) => {
     event.stopPropagation();
     setSearchByLicenseNumber(true);
   };
 
+  const handleCloseSearchInput = () => {
+    setSearchByLicenseNumber(false);
+  };
+
+  window.addEventListener('click', handleCloseSearchInput);
+
+  useEffect(() => {
+    return window.removeEventListener('click', handleCloseSearchInput);
+  }, []);
+
   const handleOnClickSearchInput = (event) => {
     event.stopPropagation();
   };
 
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
+  const createSortHandler = (property) => () => {
+    const isAsc = sortField === property && order === 'asc';
+    handleTableBestandState({
+      ...tableBestandState,
+      sortField: property,
+      order: isAsc ? 'desc' : 'asc',
+    });
   };
 
   const handleOnChangeSearchByLicenseNumber = (event) => {
-    onSearchByLicenseNumber(event.target.value);
+    handleTableBestandState({
+      ...tableBestandState,
+      searchField: 'licenceNumber',
+      searchValue: event.target.value,
+    });
   };
 
   return (
@@ -58,7 +66,7 @@ const TableBestandHeader = (props) => {
       <TableRow>
         <TableCell
           className={classes.licenseNumberHeader}
-          sortDirection={orderBy === 'License number' ? order : false}
+          sortDirection={sortField === 'License number' ? order : false}
         >
           {!isSearchByLicenseNumber && (
             <IconButton size="small" onClick={handleOpenSearchInput} style={{ marginRight: '5px' }}>
@@ -67,8 +75,8 @@ const TableBestandHeader = (props) => {
           )}
           {!isSearchByLicenseNumber && (
             <TableSortLabel
-              active={orderBy === 'licenseNumber'}
-              direction={orderBy === 'licenseNumber' ? order : 'asc'}
+              active={sortField === 'licenseNumber'}
+              direction={sortField === 'licenseNumber' ? order : 'asc'}
               onClick={createSortHandler('licenseNumber')}
             >
               {t('mainPage.licenseNumber')}
@@ -81,50 +89,51 @@ const TableBestandHeader = (props) => {
               variant="outlined"
               onClick={handleOnClickSearchInput}
               onChange={handleOnChangeSearchByLicenseNumber}
+              defaultValue={searchValue}
             />
           )}
         </TableCell>
         <TableCell className={classes.constructorTypeHeader}>
           <FilterBadge
-            checkBoxesConfig={bestandVehicleClass}
-            checkBoxesDefault={bestandVehicleClassDefault}
-            handleOnChangeCheckboxes={handleBestandVehicleClass}
+            handleTableBestandState={handleTableBestandState}
+            checkboxesListName="bestandVehicleClass"
+            tableBestandState={tableBestandState}
           />
           <TableSortLabel
-            active={orderBy === 'constrType'}
-            direction={orderBy === 'constrType' ? order : 'asc'}
-            onClick={createSortHandler('constrType')}
+            active={sortField === 'vehicleClass'}
+            direction={sortField === 'vehicleClass' ? order : 'asc'}
+            onClick={createSortHandler('vehicleClass')}
           >
             {t('mainPage.vehicleClass')}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.brandAndModelHeader}>
           <TableSortLabel
-            active={orderBy === 'brandAndModel'}
-            direction={orderBy === 'brandAndModel' ? order : 'asc'}
-            onClick={createSortHandler('brandAndModel')}
+            active={sortField === 'manufacturer'}
+            direction={sortField === 'manufacturer' ? order : 'asc'}
+            onClick={createSortHandler('manufacturer')}
           >
             {t('mainPage.brandAndModel')}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.vehicleStatusHeader}>
           <FilterBadge
-            checkBoxesConfig={bestandVehicleStatus}
-            checkBoxesDefault={bestandVehicleStatusDefault}
-            handleOnChangeCheckboxes={handleBestandVehicleStatus}
+            handleTableBestandState={handleTableBestandState}
+            checkboxesListName="bestandVehicleStatus"
+            tableBestandState={tableBestandState}
           />
           <TableSortLabel
-            active={orderBy === 'vehicleStatus'}
-            direction={orderBy === 'vehicleStatus' ? order : 'asc'}
-            onClick={createSortHandler('vehicleStatus')}
+            active={sortField === 'status'}
+            direction={sortField === 'status' ? order : 'asc'}
+            onClick={createSortHandler('status')}
           >
             {t('mainPage.vehicleStatus')}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.branchOfficeHeader}>
           <TableSortLabel
-            active={orderBy === 'branchOffice'}
-            direction={orderBy === 'branchOffice' ? order : 'asc'}
+            active={sortField === 'branchOffice'}
+            direction={sortField === 'branchOffice' ? order : 'asc'}
             onClick={createSortHandler('branchOffice')}
           >
             {t('mainPage.branchOffice')}
@@ -132,27 +141,27 @@ const TableBestandHeader = (props) => {
         </TableCell>
         <TableCell className={classes.artHeader}>
           <TableSortLabel
-            active={orderBy === 'vehicleBelonging'}
-            direction={orderBy === 'vehicleBelonging' ? order : 'asc'}
-            onClick={createSortHandler('vehicleBelonging')}
+            active={sortField === 'type'}
+            direction={sortField === 'type' ? order : 'asc'}
+            onClick={createSortHandler('type')}
           >
             {t('mainPage.art')}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.infoHeader}>
           <TableSortLabel
-            active={orderBy === 'infoLink'}
-            direction={orderBy === 'infoLink' ? order : 'asc'}
-            onClick={createSortHandler('infoLink')}
+            active={sortField === 'info'}
+            direction={sortField === 'info' ? order : 'asc'}
+            onClick={createSortHandler('info')}
           >
             {t('mainPage.info')}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.eventsHeader}>
           <TableSortLabel
-            active={orderBy === 'eventsStatus'}
-            direction={orderBy === 'eventsStatus' ? order : 'asc'}
-            onClick={createSortHandler('eventsStatus')}
+            active={sortField === 'appointment'}
+            direction={sortField === 'appointment' ? order : 'asc'}
+            onClick={createSortHandler('appointment')}
           >
             {t('mainPage.events')}
           </TableSortLabel>
@@ -165,19 +174,6 @@ const TableBestandHeader = (props) => {
   );
 };
 
-TableBestandHeader.propTypes = {
-  isSearchByLicenseNumber: PropTypes.bool.isRequired,
-  setSearchByLicenseNumber: PropTypes.func.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  onSearchByLicenseNumber: PropTypes.func.isRequired,
-  bestandVehicleClass: PropTypes.instanceOf(Object).isRequired,
-  bestandVehicleClassDefault: PropTypes.instanceOf(Object).isRequired,
-  handleBestandVehicleClass: PropTypes.func.isRequired,
-  bestandVehicleStatus: PropTypes.instanceOf(Object).isRequired,
-  bestandVehicleStatusDefault: PropTypes.instanceOf(Object).isRequired,
-  handleBestandVehicleStatus: PropTypes.func.isRequired,
-};
+TableBestandHeader.propTypes = {};
 
 export default TableBestandHeader;

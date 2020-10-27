@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, IconButton, Popover, Box } from '@material-ui/core';
@@ -20,6 +20,10 @@ const AdditionalMenuGroup = ({ menuListConfig }) => {
   };
 
   const isOpenAdditionalMenu = Boolean(anchorEl);
+
+  useEffect(() => {
+    console.log(1);
+  });
 
   return (
     <>
@@ -56,4 +60,6 @@ AdditionalMenuGroup.propTypes = {
   menuListConfig: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default AdditionalMenuGroup;
+export default memo(AdditionalMenuGroup, () => {
+  return true;
+});
