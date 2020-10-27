@@ -4,10 +4,14 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 
 import commonEn from './en';
+import commonDe from './de';
 
 const resources = {
   en: {
     translation: commonEn,
+  },
+  de: {
+    translation: commonDe,
   },
 };
 
@@ -17,9 +21,9 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'en',
+    fallbackLng: 'de',
     supportedLngs: ['en', 'de'],
-    preload: ['en'],
+    preload: ['de'],
     detection: {
       order: ['cookie'],
       cache: ['cookie'],

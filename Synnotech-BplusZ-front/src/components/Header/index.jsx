@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { AppBar, Toolbar, Button, Popover, Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -12,6 +14,8 @@ import partners from './config';
 
 const Header = () => {
   const classes = useStyles();
+  const { i18n } = useTranslation();
+
   const [anchorProfileEl, setAnchorProfileEl] = useState(null);
   const [anchorLanguageMenuEl, setAnchorLanguageMenuEl] = useState(null);
   const [currentLang, setCurrentLang] = useState('ENG');
@@ -28,6 +32,7 @@ const Header = () => {
   const handleLanguageMenuClose = (event) => {
     const currentLanguage = event.nativeEvent.target.textContent === 'English' ? 'ENG' : 'DEU';
     setCurrentLang(currentLanguage);
+    i18n.changeLanguage(currentLanguage === 'ENG' ? 'en' : 'de');
     setAnchorLanguageMenuEl(null);
   };
 
