@@ -1,6 +1,6 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import {
   IconButton,
@@ -18,55 +18,64 @@ import FilterBadge from '@/components/FilterBadge';
 import useStyle from './styles';
 
 const TableVorlaufHeader = (props) => {
-  const {
-    isSearchByLicenseNumber,
-    setSearchByLicenseNumber,
-    isSearchByInvestNumber,
-    setSearchByInvestNumber,
-    onRequestSort,
-    order,
-    orderBy,
-    onSearchByLicenseNumber,
-    onSearchByInvestNumber,
-    vorlaufVehicleClass,
-    vorlaufVehicleClassDefault,
-    handleVorlaufVehicleClass,
-    vorlaufStatus,
-    vorlaufDefaultStatus,
-    handleVorlaufStatus,
-  } = props;
+  const { tableVorlaufState, handleTableVorlaufState } = props;
+  const { sortField, order, searchValue, searchField } = tableVorlaufState;
 
   const classes = useStyle();
   const { t } = useTranslation();
+
+  const [isSearchByLicenseNumber, setSearchByLicenseNumber] = useState(false);
+  const [isSearchByInvestNumber, setSearchByInvestNumber] = useState(false);
 
   const handleOpenSearchByLicenseInput = (event) => {
     event.stopPropagation();
     setSearchByLicenseNumber(true);
   };
 
-  const handleOnClickSearchByLicenseInput = (event) => {
-    event.stopPropagation();
-  };
-
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  const handleOnChangeSearchByLicenseNumber = (event) => {
-    onSearchByLicenseNumber(event.target.value);
-  };
-
-  const handleOpenSearchByInvestNumber = (event) => {
+  const handleOpenSearchByInvestInput = (event) => {
     event.stopPropagation();
     setSearchByInvestNumber(true);
   };
 
-  const handleOnClickSearchByInvestInput = (event) => {
+  const handleCloseSearchInputs = () => {
+    setSearchByLicenseNumber(false);
+    setSearchByInvestNumber(false);
+  };
+
+  const handleOnClickSearchInput = (event) => {
     event.stopPropagation();
   };
 
-  const handleOnChangeSearchByInvestNumber = (event) => {
-    onSearchByInvestNumber(event.target.value);
+  window.addEventListener('click', handleCloseSearchInputs);
+
+  useEffect(() => {
+    return window.removeEventListener('click', handleCloseSearchInputs);
+  }, []);
+
+  const createSortHandler = (property) => () => {
+    const isAsc = sortField === property && order === 'asc';
+    handleTableVorlaufState({
+      ...tableVorlaufState,
+      sortField: property,
+      order: isAsc ? 'desc' : 'asc',
+    });
+  };
+
+  const handleOnChangeSearchInput = (event, searchFieldName) => {
+    const value = event.target.value.trim();
+    if (value.length > 3) {
+      handleTableVorlaufState({
+        ...tableVorlaufState,
+        searchField: searchFieldName,
+        searchValue: value,
+      });
+    } else {
+      handleTableVorlaufState({
+        ...tableVorlaufState,
+        searchField: '',
+        searchValue: '',
+      });
+    }
   };
 
   return (
@@ -76,7 +85,7 @@ const TableVorlaufHeader = (props) => {
           {!isSearchByInvestNumber && (
             <IconButton
               size="small"
-              onClick={handleOpenSearchByInvestNumber}
+              onClick={handleOpenSearchByInvestInput}
               style={{ marginRight: '5px' }}
             >
               <SearchIcon className={classes.searchIcon} />
@@ -84,9 +93,9 @@ const TableVorlaufHeader = (props) => {
           )}
           {!isSearchByInvestNumber && (
             <TableSortLabel
-              active={orderBy === 'investNumber'}
-              direction={orderBy === 'investNumber' ? order : 'asc'}
-              onClick={createSortHandler('investNumber')}
+              active={sortField === 'numberOfInvestment'}
+              direction={sortField === 'numberOfInvestment' ? order : 'asc'}
+              onClick={createSortHandler('numberOfInvestment')}
             >
               {t('mainPage.investNumber')}
             </TableSortLabel>
@@ -96,14 +105,15 @@ const TableVorlaufHeader = (props) => {
               className={classes.searchByLicenseInput}
               placeholder={t('mainPage.search')}
               variant="outlined"
-              onClick={handleOnClickSearchByInvestInput}
-              onChange={handleOnChangeSearchByInvestNumber}
+              onClick={handleOnClickSearchInput}
+              onChange={(event) => handleOnChangeSearchInput(event, 'numberOfInvestment')}
+              defaultValue={searchField === 'numberOfInvestment' ? searchValue : null}
             />
           )}
         </TableCell>
         <TableCell
           className={classes.licenseNumberHeader}
-          sortDirection={orderBy === 'licenseNumber' ? order : false}
+          sortDirection={sortField === 'licenseNumber' ? order : false}
         >
           {!isSearchByLicenseNumber && (
             <IconButton
@@ -116,9 +126,9 @@ const TableVorlaufHeader = (props) => {
           )}
           {!isSearchByLicenseNumber && (
             <TableSortLabel
-              active={orderBy === 'licenseNumber'}
-              direction={orderBy === 'licenseNumber' ? order : 'asc'}
-              onClick={createSortHandler('licenseNumber')}
+              active={sortField === 'licenceNumber'}
+              direction={sortField === 'licenceNumber' ? order : 'asc'}
+              onClick={createSortHandler('licenceNumber')}
             >
               {t('mainPage.licenseNumber')}
             </TableSortLabel>
@@ -128,20 +138,21 @@ const TableVorlaufHeader = (props) => {
               className={classes.searchByLicenseInput}
               placeholder={t('mainPage.search')}
               variant="outlined"
-              onClick={handleOnClickSearchByLicenseInput}
-              onChange={handleOnChangeSearchByLicenseNumber}
+              onClick={handleOnClickSearchInput}
+              onChange={(event) => handleOnChangeSearchInput(event, 'licenseNumber')}
+              defaultValue={searchField === 'licenseNumber' ? searchValue : null}
             />
           )}
         </TableCell>
         <TableCell className={classes.vehicleClassHeader}>
           <FilterBadge
-            checkBoxesConfig={vorlaufVehicleClass}
-            checkBoxesDefault={vorlaufVehicleClassDefault}
-            handleOnChangeCheckboxes={handleVorlaufVehicleClass}
+            handleTableBestandState={handleTableVorlaufState}
+            checkboxesListName="vorlaufVehicleClass"
+            tableBestandState={tableVorlaufState}
           />
           <TableSortLabel
-            active={orderBy === 'vehicleClass'}
-            direction={orderBy === 'vehicleClass' ? order : 'asc'}
+            active={sortField === 'vehicleClass'}
+            direction={sortField === 'vehicleClass' ? order : 'asc'}
             onClick={createSortHandler('vehicleClass')}
           >
             {t('mainPage.vehicleClass')}
@@ -149,17 +160,17 @@ const TableVorlaufHeader = (props) => {
         </TableCell>
         <TableCell className={classes.brandAndModelHeader}>
           <TableSortLabel
-            active={orderBy === 'brandAndModel'}
-            direction={orderBy === 'brandAndModel' ? order : 'asc'}
-            onClick={createSortHandler('brandAndModel')}
+            active={sortField === 'manufacturer'}
+            direction={sortField === 'manufacturer' ? order : 'asc'}
+            onClick={createSortHandler('manufacturer')}
           >
             {t('mainPage.brandAndModel')}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.constructionTypeHeader}>
           <TableSortLabel
-            active={orderBy === 'constructionType'}
-            direction={orderBy === 'constructionType' ? order : 'asc'}
+            active={sortField === 'constructionType'}
+            direction={sortField === 'constructionType' ? order : 'asc'}
             onClick={createSortHandler('constructionType')}
           >
             {t('mainPage.constructionType')}
@@ -167,22 +178,22 @@ const TableVorlaufHeader = (props) => {
         </TableCell>
         <TableCell className={classes.vorlaufStatusHeader}>
           <FilterBadge
-            checkBoxesConfig={vorlaufStatus}
-            checkBoxesDefault={vorlaufDefaultStatus}
-            handleOnChangeCheckboxes={handleVorlaufStatus}
+            handleTableBestandState={handleTableVorlaufState}
+            checkboxesListName="vorlaufVehicleStatus"
+            tableBestandState={tableVorlaufState}
           />
           <TableSortLabel
-            active={orderBy === 'vorlaufStatus'}
-            direction={orderBy === 'vorlaufStatus' ? order : 'asc'}
-            onClick={createSortHandler('vorlaufStatus')}
+            active={sortField === 'state'}
+            direction={sortField === 'state' ? order : 'asc'}
+            onClick={createSortHandler('state')}
           >
             {t('mainPage.vorlaufStatus')}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.branchOfficeHeader}>
           <TableSortLabel
-            active={orderBy === 'branchOffice'}
-            direction={orderBy === 'branchOffice' ? order : 'asc'}
+            active={sortField === 'branchOffice'}
+            direction={sortField === 'branchOffice' ? order : 'asc'}
             onClick={createSortHandler('branchOffice')}
           >
             {t('mainPage.branchOffice')}
@@ -197,21 +208,8 @@ const TableVorlaufHeader = (props) => {
 };
 
 TableVorlaufHeader.propTypes = {
-  isSearchByLicenseNumber: PropTypes.bool.isRequired,
-  isSearchByInvestNumber: PropTypes.bool.isRequired,
-  setSearchByLicenseNumber: PropTypes.func.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSearchByLicenseNumber: PropTypes.func.isRequired,
-  onSearchByInvestNumber: PropTypes.func.isRequired,
-  setSearchByInvestNumber: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  vorlaufVehicleClass: PropTypes.instanceOf(Object).isRequired,
-  vorlaufVehicleClassDefault: PropTypes.instanceOf(Object).isRequired,
-  handleVorlaufVehicleClass: PropTypes.func.isRequired,
-  vorlaufStatus: PropTypes.instanceOf(Object).isRequired,
-  vorlaufDefaultStatus: PropTypes.instanceOf(Object).isRequired,
-  handleVorlaufStatus: PropTypes.func.isRequired,
+  tableVorlaufState: PropTypes.instanceOf(Object).isRequired,
+  handleTableVorlaufState: PropTypes.func.isRequired,
 };
 
 export default TableVorlaufHeader;

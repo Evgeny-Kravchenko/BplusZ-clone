@@ -1,10 +1,11 @@
-import React  from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 
 import { AuthProvider } from '@/contexts/auth';
+import { LangProvider } from '@/contexts/language';
 
 import App from '@/App';
 import '@/translations';
@@ -16,9 +17,11 @@ const Root = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <LangProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </LangProvider>
       </Router>
     </ThemeProvider>
   );

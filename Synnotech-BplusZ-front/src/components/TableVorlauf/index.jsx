@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -12,109 +12,68 @@ import {
   TableRow,
   TableCell,
   Link,
+  CircularProgress,
+  Grid,
+  Typography,
 } from '@material-ui/core';
 
 import TablePaginationActions from '@/components/TablePaginationActions';
 import TableVorlaufHeader from '@/components/TableVorlaufHeader';
 import AdditionalMenuGroup from '@/components/AdditionalMenuGroup';
 
-import { getComparator, stableSort, searchByField } from '@/helpers';
+import useVorlaufVehicles from '@/queries/useVorlaufVehicles';
 
 import useStyle from './styles';
 
-import rows from './mock-data';
-
 import generateAdditionalMenuListConfig from './additionalMenuListConfig';
 
-const TableVorlauf = ({
-  vorlaufVehicleClass,
-  vorlaufVehicleClassDefault,
-  handleVorlaufVehicleClass,
-  vorlaufStatus,
-  vorlaufDefaultStatus,
-  handleVorlaufStatus,
-}) => {
+const TableVorlauf = (props) => {
   const classes = useStyle();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const [page, setPage] = useState(0);
-  const [isSearchByLicenseNumber, setSearchByLicenseNumber] = useState(false);
-  const [isSearchByInvestNumber, setSearchByInvestNumber] = useState(false);
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('');
-  const [valueForSearchByField, setValueForSearchByField] = useState('');
-  const [filedForSearching, setFieldForSearching] = useState('');
+  const { tableVorlaufState, handleTableVorlaufState } = props;
+  const { page } = tableVorlaufState;
 
   const rowsPerPage = 10;
 
-  const handleSearchByLicenseNumber = (value) => {
-    setValueForSearchByField(value);
-    setFieldForSearching('licenseNumber');
-  };
-
-  const handleSearchByInvestNumber = (value) => {
-    setValueForSearchByField(value);
-    setFieldForSearching('investNumber');
-  };
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    handleTableVorlaufState({
+      ...tableVorlaufState,
+      page: newPage,
+    });
   };
 
-  const handleCloseSearchInput = () => {
-    setSearchByLicenseNumber(false);
-    setSearchByInvestNumber(false);
-  };
+  const { isLoading, resolvedData, isError } = useVorlaufVehicles({ tableVorlaufState, t, i18n });
 
-  window.addEventListener('click', handleCloseSearchInput);
+  let count;
+  let result;
 
-  useEffect(() => {
-    return window.removeEventListener('click', handleCloseSearchInput);
-  }, []);
+  if (resolvedData) {
+    count = resolvedData.count;
+    result = resolvedData.result;
+  }
 
   return (
     <Box>
       <TableContainer component={Paper} className={classes.dataGridRoot}>
         <Table aria-label="simple table">
           <TableVorlaufHeader
-            isSearchByLicenseNumber={isSearchByLicenseNumber}
-            setSearchByLicenseNumber={setSearchByLicenseNumber}
-            isSearchByInvestNumber={isSearchByInvestNumber}
-            setSearchByInvestNumber={setSearchByInvestNumber}
-            onRequestSort={handleRequestSort}
-            order={order}
-            orderBy={orderBy}
-            onSearchByLicenseNumber={handleSearchByLicenseNumber}
-            onSearchByInvestNumber={handleSearchByInvestNumber}
-            vorlaufVehicleClass={vorlaufVehicleClass}
-            vorlaufVehicleClassDefault={vorlaufVehicleClassDefault}
-            handleVorlaufVehicleClass={handleVorlaufVehicleClass}
-            vorlaufStatus={vorlaufStatus}
-            vorlaufDefaultStatus={vorlaufDefaultStatus}
-            handleVorlaufStatus={handleVorlaufStatus}
+            tableVorlaufState={tableVorlaufState}
+            handleTableVorlaufState={handleTableVorlaufState}
           />
-          <TableBody className={classes.tableBody}>
-            {stableSort(
-              searchByField(valueForSearchByField, rows, filedForSearching),
-              getComparator(order, orderBy)
-            )
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => (
+          <TableBody>
+            {!isLoading &&
+              !isError &&
+              result.map((row, index) => (
                 <TableRow key={row.id} className={!(index % 2) ? classes.tableEvenRow : ''}>
                   <TableCell component="th" scope="row">
-                    {row.investNumber}
+                    {row.numberOfInvestment}
                   </TableCell>
-                  <TableCell>{row.licenseNumber}</TableCell>
+                  <TableCell>{row.licenceNumber}</TableCell>
                   <TableCell>{row.vehicleClass}</TableCell>
                   <TableCell>{row.brandAndModel}</TableCell>
                   <TableCell>{row.constructionType}</TableCell>
-                  <TableCell>{row.vorlaufStatus}</TableCell>
+                  <TableCell>{row.state}</TableCell>
                   <TableCell>
                     <Link href="#branch-office" className={classes.link} underline="always">
                       {row.branchOffice}
@@ -128,28 +87,36 @@ const TableVorlauf = ({
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        className={classes.pagination}
-        rowsPerPageOptions={[5, 10, 25]}
-        rowsPerPage={rowsPerPage}
-        count={rows.length}
-        page={page}
-        onChangePage={handleChangePage}
-        labelRowsPerPage="Rows per page: 10"
-        ActionsComponent={TablePaginationActions}
-        component="div"
-      />
+      {isLoading && (
+        <Grid container justify="center" className={classes.loadingContainer}>
+          <CircularProgress color="secondary" />
+        </Grid>
+      )}
+      {isError && !isLoading && (
+        <Typography variant="body1" align="center" className={classes.noDataMessage} color="error">
+          Something went wrong on the server. Try again later.
+        </Typography>
+      )}
+      {!isLoading && !isError && (
+        <TablePagination
+          className={classes.pagination}
+          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPage={rowsPerPage}
+          count={count}
+          page={page}
+          onChangePage={handleChangePage}
+          labelRowsPerPage="Rows per page: 10"
+          ActionsComponent={TablePaginationActions}
+          component="div"
+        />
+      )}
     </Box>
   );
 };
 
 TableVorlauf.propTypes = {
-  vorlaufVehicleClass: PropTypes.instanceOf(Object).isRequired,
-  vorlaufVehicleClassDefault: PropTypes.instanceOf(Object).isRequired,
-  handleVorlaufVehicleClass: PropTypes.func.isRequired,
-  vorlaufStatus: PropTypes.instanceOf(Object).isRequired,
-  vorlaufDefaultStatus: PropTypes.instanceOf(Object).isRequired,
-  handleVorlaufStatus: PropTypes.func.isRequired,
+  tableVorlaufState: PropTypes.instanceOf(Object).isRequired,
+  handleTableVorlaufState: PropTypes.func.isRequired,
 };
 
 export default TableVorlauf;

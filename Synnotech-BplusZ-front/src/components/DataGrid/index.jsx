@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Grid, Box } from '@material-ui/core';
@@ -8,40 +8,38 @@ import Switcher from '@/components/Switcher';
 import TableBestand from '@/components/TableBestand';
 import TableVorlauf from '@/components/TableVorlauf';
 
+import { useLang } from '@/contexts/language';
+
 import useStyle from './styles';
 
-import generateVehicleClassConfig from './vehicleClass.config';
-import generateVehicleStatusConfig from './vehicleStatus.config';
-import generateVorlaufStatusConfig from './vorlaufStatus.config';
+import generateDefaultBestandTableState from './defaultBestandTableState';
+import generateDefaultVorlaufState from './defaultVorlaufTableState';
 
 const DataGrid = () => {
   const classes = useStyle();
   const { t } = useTranslation();
 
-  const [isDestand, setCurrentTable] = useState(true);
-  const [bestandVehicleClass, setBestandVehicleClass] = useState(generateVehicleClassConfig(t));
-  const [bestandVehicleStatus, setBestandVehicleStatus] = useState(generateVehicleStatusConfig(t));
-  const [vorlaufVehicleClass, setVorlaufVehicleClass] = useState(generateVehicleClassConfig(t));
-  const [vorlaufStatus, setVorlaufStatus] = useState(generateVorlaufStatusConfig(t));
+  const [isBestand, setCurrentTable] = useState(true);
+  const [tableBestandState, setBestandTableState] = useState(generateDefaultBestandTableState(t));
+  const [tableVorlaufState, setVorlaufTableStatus] = useState(generateDefaultVorlaufState(t));
+
+  const { lang } = useLang();
+
+  useEffect(() => {
+    setBestandTableState(generateDefaultBestandTableState(t));
+    setVorlaufTableStatus(generateDefaultVorlaufState(t));
+  }, [lang, t]);
+
+  const handleTableBestandState = (state) => {
+    setBestandTableState(state);
+  };
+
+  const handleTableVorlaufState = (state) => {
+    setVorlaufTableStatus(state);
+  };
 
   const handleChangingTable = () => {
-    setCurrentTable(!isDestand);
-  };
-
-  const handleBestandVehicleClass = (newBestandVehicleClass) => {
-    setBestandVehicleClass(newBestandVehicleClass);
-  };
-
-  const handleBestandVehicleStatus = (newBestandVehicleStatus) => {
-    setBestandVehicleStatus(newBestandVehicleStatus);
-  };
-
-  const handleVorlaufVehicleClass = (newVorlaufVehicleClass) => {
-    setVorlaufVehicleClass(newVorlaufVehicleClass);
-  };
-
-  const handleVorlaufStatus = (newVorlaufStatus) => {
-    setVorlaufStatus(newVorlaufStatus);
+    setCurrentTable(!isBestand);
   };
 
   return (
@@ -51,23 +49,15 @@ const DataGrid = () => {
         <Box my={1.1}>
           <Switcher onChange={handleChangingTable} />
         </Box>
-        {isDestand ? (
+        {isBestand ? (
           <TableBestand
-            bestandVehicleClass={bestandVehicleClass}
-            bestandVehicleClassDefault={generateVehicleClassConfig(t)}
-            handleBestandVehicleClass={handleBestandVehicleClass}
-            bestandVehicleStatus={bestandVehicleStatus}
-            bestandVehicleStatusDefault={generateVehicleStatusConfig(t)}
-            handleBestandVehicleStatus={handleBestandVehicleStatus}
+            tableBestandState={tableBestandState}
+            handleTableBestandState={handleTableBestandState}
           />
         ) : (
           <TableVorlauf
-            vorlaufVehicleClass={vorlaufVehicleClass}
-            vorlaufVehicleClassDefault={generateVehicleClassConfig(t)}
-            handleVorlaufVehicleClass={handleVorlaufVehicleClass}
-            vorlaufStatus={vorlaufStatus}
-            vorlaufDefaultStatus={generateVorlaufStatusConfig(t)}
-            handleVorlaufStatus={handleVorlaufStatus}
+            tableVorlaufState={tableVorlaufState}
+            handleTableVorlaufState={handleTableVorlaufState}
           />
         )}
       </Grid>

@@ -15,15 +15,17 @@ const resources = {
   },
 };
 
+const language = localStorage.getItem('language');
+
 i18n
   .use(LanguageDetector)
   .use(Backend)
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'de',
+    fallbackLng: language || 'de',
     supportedLngs: ['en', 'de'],
-    preload: ['de'],
+    preload: [language || 'de'],
     detection: {
       order: ['cookie'],
       cache: ['cookie'],
