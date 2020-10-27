@@ -13,10 +13,10 @@ using Serilog;
 using Synnotech_BplusZ.WebApi.DatabaseAccess;
 using Synnotech_BplusZ.WebApi.Infrastucture;
 using Synnotech_BplusZ.WebApi.Tokens.CreateToken;
-using Synnotech_BplusZ.WebApi.Vehicles;
 using Synnotech_BplusZ.WebApi.Vehicles.AuthorizeUser;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock;
 using System;
@@ -135,7 +135,7 @@ namespace Synnotech_BplusZ.WebApi
             _container.RegisterScoped<IAuthorizeUserContext, AuthorizeUserContext>();
             _container.RegisterScoped<IGetVehicleDetailsContext, GetVehicleDetailsContext>();
             _container.RegisterScoped<IUpdateVehicleDetailsContext, UpdateVehicleDetailsContext>();
-            _container.RegisterScoped<IRolesBasedMapperService, RolesBasedMapperService>();
+            _container.RegisterVehicleMappers();
 
             _container.RegisterScoped<ICreateTokenService, CreateTokenService>();
         }

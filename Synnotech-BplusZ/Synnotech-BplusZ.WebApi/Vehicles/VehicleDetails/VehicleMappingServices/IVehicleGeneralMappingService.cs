@@ -1,9 +1,9 @@
+﻿using Synnotech_BplusZ.WebApi.Mapping;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 
 namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleGeneralDetails
 {
-    public class VehicleDetailsGeneralResultDto : GeneralData
+    public interface IVehicleGeneralMappingService : IRolesBasedMappingService<Vehicle>
     {
-        public string? VehicleId { get; set; }
     }
 }

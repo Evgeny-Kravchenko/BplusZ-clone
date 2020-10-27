@@ -1,9 +1,8 @@
-﻿using Synnotech_BplusZ.WebApi.Vehicles;
-using System;
+﻿using System;
 
 namespace Synnotech_BplusZ.WebApi.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public class RequiredPermissionsAttribute : Attribute
     {
         public string[]? Roles { get; set; }

@@ -4,6 +4,8 @@ using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleGeneralDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingModels;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -17,7 +19,8 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
         public GetVehicleGeneralDetailsControllerTests()
         {
             _getVehiclesContext = new Mock<IGetVehicleDetailsContext>();
-            _controller = new GetVehicleGeneralDetailsController(() => _getVehiclesContext.Object);
+            var mapper = new Mock<IVehicleGeneralMappingService>();
+            _controller = new GetVehicleGeneralDetailsController(() => _getVehiclesContext.Object, mapper.Object);
         }
 
         [Fact]
@@ -48,8 +51,8 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
                                .ReturnsAsync(vehicle);
 
             var result = (await _controller.GetVehicleDetailsGeneral(id)).Result as OkObjectResult;
-            Assert.IsType<VehicleDetailsGeneralResultDto>(result.Value);
-            Assert.Equal(id, (result.Value as VehicleDetailsGeneralResultDto).VehicleId);
+            Assert.IsType<VehicleGeneralDetailsDto>(result.Value);
+            Assert.Equal(id, (result.Value as VehicleGeneralDetailsDto).Id);
         }
 
         [Fact]

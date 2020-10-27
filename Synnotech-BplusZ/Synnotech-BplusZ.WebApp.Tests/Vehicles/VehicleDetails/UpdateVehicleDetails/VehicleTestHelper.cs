@@ -1,5 +1,6 @@
 ﻿using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails.Dtos;
 using System;
 
 namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.UpdateVehicleDetails
@@ -23,7 +24,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.UpdateVehicleDet
             return new UpdateVehicleDetailsDto
             {
                 Id = id,
-                GeneralData = new GeneralData
+                GeneralData = new GeneralDataDto
                 {
                     Manufacturer = "Test Manufacturer",
                     Model = "Test Model",
@@ -32,20 +33,20 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.UpdateVehicleDet
                     MileageDate = 49,
                     VehicleClass = "Test vehicle class"
                 },
-                TechnicalComponents = new TechnicalComponents
+                TechnicalComponents = new TechnicalComponentsDto
                 {
                     ManufacturerStructure = "Test Structure",
                     ConstructionType = "Test construction",
                     LoadingBoard = true,
                     StandClimate = true,
                 },
-                TechnicalContractData = new TechnicalContractData
+                TechnicalContractData = new TechnicalContractDataDto
                 {
                     MaintainanceAndRepair = "Test",
                     MileageInKmWPlusR = 124,
                     EndOfMaintainanceAndRepair = DateTime.Now
                 },
-                TransferData = new TransferData
+                TransferData = new TransferDataDto
                 {
                     BranchOffice = "Test branch office"
                 }
