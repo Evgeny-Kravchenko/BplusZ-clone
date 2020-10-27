@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Badge, IconButton, Popover } from '@material-ui/core';
@@ -76,6 +77,9 @@ const FilterBadge = (props) => {
   );
 };
 
-FilterBadge.propTypes = {};
+FilterBadge.propTypes = {
+  tableBestandState: PropTypes.instanceOf(Object).isRequired,
+  checkboxesListName: PropTypes.string.isRequired,
+};
 
 export default FilterBadge;

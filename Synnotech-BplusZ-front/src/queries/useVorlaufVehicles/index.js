@@ -1,4 +1,4 @@
-import { ALL_VEHICLES_STOCK } from '@/constants';
+import { ALL_VEHICLES_ADVANCE } from '@/constants';
 import axios from 'axios';
 import qs from 'querystring';
 import { usePaginatedQuery } from 'react-query';
@@ -7,29 +7,29 @@ import { getAllowedCheckboxes, translateCheckboxesToDutch } from '@/helpers';
 
 import formatter from './formatter';
 
-const useBestandVehicles = (params) => {
-  return usePaginatedQuery([ALL_VEHICLES_STOCK, params], async (key, options) => {
+const useVorlaufVehicles = (params) => {
+  return usePaginatedQuery([ALL_VEHICLES_ADVANCE, params], async (key, options) => {
     const {
       page,
       searchValue,
       searchField,
-      bestandVehicleClass,
-      bestandVehicleStatus,
+      vorlaufVehicleClass,
+      vorlaufVehicleStatus,
       sortField,
       order,
     } = options;
     const skip = (page + 1) * 10 - 10;
     const take = 10;
     const allowedVehicleClasses = translateCheckboxesToDutch(
-      getAllowedCheckboxes(bestandVehicleClass)
+      getAllowedCheckboxes(vorlaufVehicleClass)
     );
-    const allowedStatuses = translateCheckboxesToDutch(getAllowedCheckboxes(bestandVehicleStatus));
+    const allowedStates = translateCheckboxesToDutch(getAllowedCheckboxes(vorlaufVehicleStatus));
     const isAscendingSortOrder = order === 'asc';
     const queryParams = {
-      allowedStatuses,
-      allowedVehicleClasses,
-      skip,
-      take,
+      AllowedStates: allowedStates,
+      AllowedVehicleClasses: allowedVehicleClasses,
+      Skip: skip,
+      Take: take,
     };
     if (searchValue) {
       queryParams.searchTerm = searchValue;
@@ -43,10 +43,10 @@ const useBestandVehicles = (params) => {
     if (order) {
       queryParams.isAscendingSortOrder = isAscendingSortOrder;
     }
-    const { data } = await axios.get(`${ALL_VEHICLES_STOCK}?${qs.stringify(queryParams)}`);
+    const { data } = await axios.get(`${ALL_VEHICLES_ADVANCE}?${qs.stringify(queryParams)}`);
     const { result, count } = data;
     return { count, result: result.map(formatter) };
   });
 };
 
-export default useBestandVehicles;
+export default useVorlaufVehicles;

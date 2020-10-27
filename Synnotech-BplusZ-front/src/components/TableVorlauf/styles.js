@@ -86,6 +86,9 @@ const useStyle = makeStyles((theme) => ({
       marginRight: theme.spacing(2),
     },
   },
+  loadingContainer: {
+    padding: theme.spacing(3),
+  },
 }));
 
 export default useStyle;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -12,6 +13,9 @@ import {
   Avatar,
   TablePagination,
   Box,
+  Grid,
+  CircularProgress,
+  Typography,
 } from '@material-ui/core';
 
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -27,8 +31,6 @@ import { defineColor } from '@/helpers';
 import { OWN_VEHICLE_COLOR, RENT_VEHICLE_COLOR } from '@/constants';
 
 import useStyle from './styles';
-
-import rows from './mock-data';
 
 import generateAdditionalMenuListConfig from './additionalMenuListConfig';
 
@@ -48,9 +50,14 @@ const TableBestand = (props) => {
     });
   };
 
-  const { isLoading, resolvedData } = useBestandVehicles(
-    tableBestandState
-  );
+  const { isLoading, resolvedData, isError } = useBestandVehicles(tableBestandState);
+  let count;
+  let result;
+
+  if (resolvedData) {
+    count = resolvedData.count;
+    result = resolvedData.result;
+  }
 
   return (
     <Box>
@@ -62,7 +69,8 @@ const TableBestand = (props) => {
           />
           <TableBody>
             {!isLoading &&
-              resolvedData.map((row, index) => (
+              !isError &&
+              result.map((row, index) => (
                 <TableRow key={row.id} className={!(index % 2) ? classes.tableEvenRow : ''}>
                   <TableCell component="th" scope="row">
                     {row.licenceNumber}
@@ -107,21 +115,41 @@ const TableBestand = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        className={classes.pagination}
-        rowsPerPageOptions={[5, 10, 25]}
-        rowsPerPage={rowsPerPage}
-        count={rows.length}
-        page={page}
-        onChangePage={handleChangePage}
-        labelRowsPerPage={`${t('mainPage.pagination', { page: 10 })}`}
-        ActionsComponent={TablePaginationActions}
-        component="div"
-      />
+      {isLoading && (
+        <Grid container justify="center" className={classes.loadingContainer}>
+          <CircularProgress color="secondary" />
+        </Grid>
+      )}
+      {result?.length === 0 && !isError && (
+        <Typography variant="body1" align="center" className={classes.noDataMessage}>
+          No data with such parameters
+        </Typography>
+      )}
+      {isError && !isLoading && (
+        <Typography variant="body1" align="center" className={classes.noDataMessage} color="error">
+          Something went wrong on the server. Try again later.
+        </Typography>
+      )}
+      {!isLoading && !isError && (
+        <TablePagination
+          className={classes.pagination}
+          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPage={rowsPerPage}
+          count={count}
+          page={page}
+          onChangePage={handleChangePage}
+          labelRowsPerPage={`${t('mainPage.pagination', { page: 10 })}`}
+          ActionsComponent={TablePaginationActions}
+          component="div"
+        />
+      )}
     </Box>
   );
 };
 
-TableBestand.propTypes = {};
+TableBestand.propTypes = {
+  tableBestandState: PropTypes.instanceOf(Object).isRequired,
+  handleTableBestandState: PropTypes.func.isRequired,
+};
 
 export default TableBestand;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -54,11 +55,20 @@ const TableBestandHeader = (props) => {
   };
 
   const handleOnChangeSearchByLicenseNumber = (event) => {
-    handleTableBestandState({
-      ...tableBestandState,
-      searchField: 'licenceNumber',
-      searchValue: event.target.value.trim(),
-    });
+    const value = event.target.value.trim();
+    if (value.length > 3) {
+      handleTableBestandState({
+        ...tableBestandState,
+        searchField: 'licenceNumber',
+        searchValue: value,
+      });
+    } else {
+      handleTableBestandState({
+        ...tableBestandState,
+        searchField: '',
+        searchValue: '',
+      });
+    }
   };
 
   return (
@@ -174,6 +184,9 @@ const TableBestandHeader = (props) => {
   );
 };
 
-TableBestandHeader.propTypes = {};
+TableBestandHeader.propTypes = {
+  tableBestandState: PropTypes.instanceOf(Object).isRequired,
+  handleTableBestandState: PropTypes.func.isRequired,
+};
 
 export default TableBestandHeader;

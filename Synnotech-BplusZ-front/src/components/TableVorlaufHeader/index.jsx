@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -19,8 +20,6 @@ import useStyle from './styles';
 const TableVorlaufHeader = (props) => {
   const { tableVorlaufState, handleTableVorlaufState } = props;
   const { sortField, order, searchValue, searchField } = tableVorlaufState;
-
-  console.log(searchField);
 
   const classes = useStyle();
   const { t } = useTranslation();
@@ -63,11 +62,20 @@ const TableVorlaufHeader = (props) => {
   };
 
   const handleOnChangeSearchInput = (event, searchFieldName) => {
-    handleTableVorlaufState({
-      ...tableVorlaufState,
-      searchField: searchFieldName,
-      searchValue: event.target.value,
-    });
+    const value = event.target.value.trim();
+    if (value.length > 3) {
+      handleTableVorlaufState({
+        ...tableVorlaufState,
+        searchField: searchFieldName,
+        searchValue: value,
+      });
+    } else {
+      handleTableVorlaufState({
+        ...tableVorlaufState,
+        searchField: '',
+        searchValue: '',
+      });
+    }
   };
 
   return (
@@ -199,6 +207,9 @@ const TableVorlaufHeader = (props) => {
   );
 };
 
-TableVorlaufHeader.propTypes = {};
+TableVorlaufHeader.propTypes = {
+  tableVorlaufState: PropTypes.instanceOf(Object).isRequired,
+  handleTableVorlaufState: PropTypes.func.isRequired,
+};
 
 export default TableVorlaufHeader;
