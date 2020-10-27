@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, IconButton, Popover, Box } from '@material-ui/core';
@@ -56,6 +56,4 @@ AdditionalMenuGroup.propTypes = {
   menuListConfig: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default memo(AdditionalMenuGroup, () => {
-  return true;
-});
+export default AdditionalMenuGroup;

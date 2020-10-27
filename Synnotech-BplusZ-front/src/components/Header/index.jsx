@@ -6,6 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 import { useAuth } from '@/contexts/auth';
+import { useLang } from '@/contexts/language';
 
 import LogOutIcon from '@/components/LogOutIcon';
 
@@ -14,11 +15,12 @@ import partners from './config';
 
 const Header = () => {
   const classes = useStyles();
+
   const [anchorProfileEl, setAnchorProfileEl] = useState(null);
   const [anchorLanguageMenuEl, setAnchorLanguageMenuEl] = useState(null);
-  const [currentLang, setCurrentLang] = useState('ENG');
 
   const { handleRemoveToken } = useAuth();
+  const { lang, handleChangeLanguage } = useLang();
 
   const isProfileMenuOpen = Boolean(anchorProfileEl);
   const isLanguageMenuOpen = Boolean(anchorLanguageMenuEl);
@@ -28,8 +30,8 @@ const Header = () => {
   };
 
   const handleLanguageMenuClose = (event) => {
-    const currentLanguage = event.nativeEvent.target.textContent === 'English' ? 'ENG' : 'DEU';
-    setCurrentLang(currentLanguage);
+    const language = event.nativeEvent.target.textContent === 'English' ? 'ENG' : 'DEU';
+    handleChangeLanguage(language);
     setAnchorLanguageMenuEl(null);
   };
 
@@ -109,7 +111,7 @@ const Header = () => {
                   )
                 }
               >
-                {currentLang}
+                {lang === 'en' ? 'ENG' : "DEU"}
               </Button>
             </Grid>
             <Grid item>

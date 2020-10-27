@@ -17,6 +17,7 @@ const useStyle = makeStyles((theme) => ({
       fontWeight: FONT_WEIGHT_MEDIUM,
       letterSpacing: '1.25px',
       boxShadow: 'none',
+      marginRight: theme.spacing(1),
     },
   },
   searchContainer: {

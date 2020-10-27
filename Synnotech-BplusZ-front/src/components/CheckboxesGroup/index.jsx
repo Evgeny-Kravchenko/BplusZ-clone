@@ -15,7 +15,7 @@ const CheckboxesGroup = ({ tableBestandState, handleTableBestandState, checkboxe
   const checkBoxesLabels = Object.keys(checkboxesList);
 
   const handleChange = (event) => {
-    if (event.target.name === 'all' && event.target.checked) {
+    if (event.target.name === t('mainPage.checkboxes.all') && event.target.checked) {
       const newChekboxesList = {};
       Object.keys(checkboxesList).forEach((key) => {
         newChekboxesList[key] = false;

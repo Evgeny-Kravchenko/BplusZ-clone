@@ -35,9 +35,9 @@ const generatorId = () => {
 
 const generatorIdInstance = generatorId();
 
-const getAllowedCheckboxes = (checkboxesList) => {
+const getAllowedCheckboxes = (checkboxesList, t) => {
   let allowedCheckboxes;
-  const isAll = checkboxesList.all;
+  const isAll = checkboxesList[t('mainPage.checkboxes.all')];
   const isNothing = Object.values(checkboxesList).every((item) => !item);
   if (isAll) {
     allowedCheckboxes = [];
@@ -59,7 +59,7 @@ const translatedCheckboxes = {
   'change van body': 'Wechselkoffer',
   'truck trailer': 'Anhänger',
   'on the road': 'Auf Achse',
-  'exploitation': 'In Verwertung',
+  exploitation: 'In Verwertung',
   'no use': 'Ohne Einsatz',
   garage: 'Werkstatt',
   'needs review': 'Bedarfsanalyse',

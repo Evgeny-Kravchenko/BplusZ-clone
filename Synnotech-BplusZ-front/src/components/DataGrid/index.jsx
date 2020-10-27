@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Grid, Box } from '@material-ui/core';
@@ -7,6 +7,8 @@ import DataToolBar from '@/components/DataToolBar';
 import Switcher from '@/components/Switcher';
 import TableBestand from '@/components/TableBestand';
 import TableVorlauf from '@/components/TableVorlauf';
+
+import { useLang } from '@/contexts/language';
 
 import useStyle from './styles';
 
@@ -20,6 +22,13 @@ const DataGrid = () => {
   const [isBestand, setCurrentTable] = useState(true);
   const [tableBestandState, setBestandTableState] = useState(generateDefaultBestandTableState(t));
   const [tableVorlaufState, setVorlaufTableStatus] = useState(generateDefaultVorlaufState(t));
+
+  const { lang } = useLang();
+
+  useEffect(() => {
+    setBestandTableState(generateDefaultBestandTableState(t));
+    setVorlaufTableStatus(generateDefaultVorlaufState(t));
+  }, [lang, t]);
 
   const handleTableBestandState = (state) => {
     setBestandTableState(state);

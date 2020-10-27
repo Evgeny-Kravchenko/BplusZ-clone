@@ -7,8 +7,8 @@ import { getAllowedCheckboxes, translateCheckboxesToDutch } from '@/helpers';
 
 import formatter from './formatter';
 
-const useVorlaufVehicles = (params) => {
-  return usePaginatedQuery([ALL_VEHICLES_ADVANCE, params], async (key, options) => {
+const useVorlaufVehicles = ({ tableVorlaufState, t, i18n }) => {
+  return usePaginatedQuery([ALL_VEHICLES_ADVANCE, tableVorlaufState], async (key, options) => {
     const {
       page,
       searchValue,
@@ -20,10 +20,14 @@ const useVorlaufVehicles = (params) => {
     } = options;
     const skip = (page + 1) * 10 - 10;
     const take = 10;
-    const allowedVehicleClasses = translateCheckboxesToDutch(
-      getAllowedCheckboxes(vorlaufVehicleClass)
-    );
-    const allowedStates = translateCheckboxesToDutch(getAllowedCheckboxes(vorlaufVehicleStatus));
+    const allowedVehicleClasses =
+      i18n.language === 'de'
+        ? getAllowedCheckboxes(vorlaufVehicleClass, t)
+        : translateCheckboxesToDutch(getAllowedCheckboxes(vorlaufVehicleClass, t));
+    const allowedStates =
+      i18n.language === 'de'
+        ? getAllowedCheckboxes(vorlaufVehicleStatus, t)
+        : translateCheckboxesToDutch(getAllowedCheckboxes(vorlaufVehicleStatus, t));
     const isAscendingSortOrder = order === 'asc';
     const queryParams = {
       AllowedStates: allowedStates,
