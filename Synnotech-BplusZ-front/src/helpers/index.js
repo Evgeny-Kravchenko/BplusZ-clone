@@ -25,45 +25,6 @@ const defineColor = (a) => {
   }
 };
 
-const descendingComparator = (a, b, orderBy) => {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-};
-
-const getComparator = (order, orderBy) => {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-};
-
-const stableSort = (array, comparator) => {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-};
-
-const searchByField = (value, arr, field) => {
-  if (value) {
-    return arr.filter((item) => item[field].includes(value));
-  }
-  return [...arr];
-};
-
-const getFilterFields = (arr) => {
-  return Object.entries(arr)
-    .filter((item) => item[1])
-    .map((item) => item[0]);
-};
-
 const generatorId = () => {
   let id = 0;
   return () => {
@@ -74,11 +35,44 @@ const generatorId = () => {
 
 const generatorIdInstance = generatorId();
 
-export {
-  defineColor,
-  getComparator,
-  stableSort,
-  searchByField,
-  generatorIdInstance,
-  getFilterFields,
+const getAllowedCheckboxes = (checkboxesList) => {
+  let allowedCheckboxes;
+  const isAll = checkboxesList.all;
+  const isNothing = Object.values(checkboxesList).every((item) => !item);
+  if (isAll) {
+    allowedCheckboxes = [];
+  } else if (isNothing) {
+    allowedCheckboxes = ['unknown'];
+  } else {
+    allowedCheckboxes = Object.entries(checkboxesList)
+      .filter((vehicleClass) => vehicleClass[1])
+      .map((vehicleClass) => vehicleClass[0]);
+  }
+  return [...allowedCheckboxes];
 };
+
+const translatedCheckboxes = {
+  truck: 'LKW',
+  car: 'PKW',
+  semitrailer: 'Auflieger',
+  van: 'Transporter',
+  ['change van body']: 'Wechselkoffer',
+  ['truck trailer']: 'Anhänger',
+  ['on the road']: 'Auf Achse',
+  ['exploitation']: 'In Verwertung',
+  ['no use']: 'Ohne Einsatz',
+  garage: 'Werkstatt',
+  ['needs review']: 'Bedarfsanalyse',
+  ['in verification by GF']: 'Prüfung GF',
+  ['In propasal stage']: 'Angebotsphase',
+  ordered: 'Bestellung',
+  activating: 'Aktivierung',
+  'process canceled': 'Storniert',
+  ['to be replaced']: 'Wird ersetzt',
+};
+
+const translateCheckboxesToDutch = (checkboxLabels) => {
+  return checkboxLabels.map((label) => translatedCheckboxes[label]);
+};
+
+export { defineColor, generatorIdInstance, getAllowedCheckboxes, translateCheckboxesToDutch };

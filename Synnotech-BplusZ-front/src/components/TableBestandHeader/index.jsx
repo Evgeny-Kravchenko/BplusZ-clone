@@ -57,7 +57,7 @@ const TableBestandHeader = (props) => {
     handleTableBestandState({
       ...tableBestandState,
       searchField: 'licenceNumber',
-      searchValue: event.target.value,
+      searchValue: event.target.value.trim(),
     });
   };
 

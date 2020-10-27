@@ -20,6 +20,8 @@ import TablePaginationActions from '@/components/TablePaginationActions';
 import TableBestandHeader from '@/components/TableBestandHeader';
 import AdditionalMenuGroup from '@/components/AdditionalMenuGroup';
 
+import useBestandVehicles from '@/queries/useBestandVehicles';
+
 import { defineColor } from '@/helpers';
 
 import { OWN_VEHICLE_COLOR, RENT_VEHICLE_COLOR } from '@/constants';
@@ -46,6 +48,10 @@ const TableBestand = (props) => {
     });
   };
 
+  const { isLoading, resolvedData } = useBestandVehicles(
+    tableBestandState
+  );
+
   return (
     <Box>
       <TableContainer component={Paper} className={classes.dataGridRoot}>
@@ -55,51 +61,49 @@ const TableBestand = (props) => {
             handleTableBestandState={handleTableBestandState}
           />
           <TableBody>
-            {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rows
-            ).map((row, index) => (
-              <TableRow key={row.id} className={!(index % 2) ? classes.tableEvenRow : ''}>
-                <TableCell component="th" scope="row">
-                  {row.licenseNumber}
-                </TableCell>
-                <TableCell>{row.constrType}</TableCell>
-                <TableCell>{row.brandAndModel}</TableCell>
-                <TableCell>{row.vehicleStatus}</TableCell>
-                <TableCell>
-                  <Link href="#branch-office" className={classes.link} underline="always">
-                    {row.branchOffice}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Avatar
-                    className={classes.avatar}
-                    style={{
-                      backgroundColor:
-                        row.vehicleBelonging === 'M' ? RENT_VEHICLE_COLOR : OWN_VEHICLE_COLOR,
-                    }}
-                  >
-                    {row.vehicleBelonging}
-                  </Avatar>
-                </TableCell>
-                <TableCell>
-                  {row.infoLink && (
-                    <Link href="#info-link" className={classes.link} underline="always">
-                      {row.infoLink}
+            {!isLoading &&
+              resolvedData.map((row, index) => (
+                <TableRow key={row.id} className={!(index % 2) ? classes.tableEvenRow : ''}>
+                  <TableCell component="th" scope="row">
+                    {row.licenceNumber}
+                  </TableCell>
+                  <TableCell>{row.vehicleClass}</TableCell>
+                  <TableCell>{row.brandAndModel}</TableCell>
+                  <TableCell>{row.status}</TableCell>
+                  <TableCell>
+                    <Link href="#branch-office" className={classes.link} underline="always">
+                      {row.branchOffice}
                     </Link>
-                  )}
-                </TableCell>
-                <TableCell className={classes.eventsStatusCell} align="center">
-                  <FiberManualRecordIcon
-                    className={classes.statusEvents}
-                    style={{ color: defineColor(row.eventsStatus) }}
-                  />
-                </TableCell>
-                <TableCell className={classes.actionsCell} align="right">
-                  <AdditionalMenuGroup menuListConfig={generateAdditionalMenuListConfig(t)} />
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                  <TableCell>
+                    <Avatar
+                      className={classes.avatar}
+                      style={{
+                        backgroundColor:
+                          row.type[0] === 'M' ? RENT_VEHICLE_COLOR : OWN_VEHICLE_COLOR,
+                      }}
+                    >
+                      {row.type[0]}
+                    </Avatar>
+                  </TableCell>
+                  <TableCell>
+                    {row.infoLink && (
+                      <Link href="#info-link" className={classes.link} underline="always">
+                        {row.info}
+                      </Link>
+                    )}
+                  </TableCell>
+                  <TableCell className={classes.eventsStatusCell} align="center">
+                    <FiberManualRecordIcon
+                      className={classes.statusEvents}
+                      style={{ color: defineColor(row.appointment) }}
+                    />
+                  </TableCell>
+                  <TableCell className={classes.actionsCell} align="right">
+                    <AdditionalMenuGroup menuListConfig={generateAdditionalMenuListConfig(t)} />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
