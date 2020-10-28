@@ -7,9 +7,10 @@ import Search from '@/fields/Search';
 
 import useStyle from './styles';
 
-const DataToolBar = () => {
+const DataToolBar = ({ handleGlobalSearchOnChange }) => {
   const classes = useStyle();
   const { t } = useTranslation();
+
   return (
     <Grid item container className={classes.toolBar}>
       <Grid item className={classes.buttonsContainer}>
@@ -24,7 +25,7 @@ const DataToolBar = () => {
         </Button>
       </Grid>
       <Grid item className={classes.searchContainer}>
-        <Search />
+        <Search handleGlobalSearchOnChange={handleGlobalSearchOnChange} />
       </Grid>
     </Grid>
   );

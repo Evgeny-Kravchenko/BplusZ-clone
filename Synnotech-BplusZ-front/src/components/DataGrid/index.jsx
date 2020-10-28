@@ -42,9 +42,17 @@ const DataGrid = () => {
     setCurrentTable(!isBestand);
   };
 
+  const handleGlobalSearchOnChange = (value) => {
+    if (isBestand) {
+      handleTableBestandState({ ...tableBestandState, searchValue: value });
+    } else {
+      handleTableVorlaufState({ ...tableVorlaufState, searchValue: value });
+    }
+  };
+
   return (
     <Grid container item className={classes.dataContainer}>
-      <DataToolBar />
+      <DataToolBar handleGlobalSearchOnChange={handleGlobalSearchOnChange} />
       <Grid item className={classes.dataGridContainer}>
         <Box my={1.1}>
           <Switcher onChange={handleChangingTable} />
