@@ -1,24 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
-const useStyle = makeStyles((theme) => {
-  return {
-    container: {
-      flexDirection: 'column',
-      flexWrap: 'nowrap',
-      borderRadius: '4px',
-      overflow: 'hidden',
-    },
-    header: {
-      height: '81px',
-      backgroundColor: theme.palette.primary.main,
-    },
-    body: {
-      backgroundColor: theme.palette.info.main,
-    },
-  };
-});
+import useStyle from './styles';
 
 const ContainerView = ({ header, body }) => {
   const classes = useStyle();
@@ -32,6 +17,11 @@ const ContainerView = ({ header, body }) => {
       </Grid>
     </Grid>
   );
+};
+
+ContainerView.propTypes = {
+  header: PropTypes.node.isRequired,
+  body: PropTypes.node.isRequired,
 };
 
 export default ContainerView;

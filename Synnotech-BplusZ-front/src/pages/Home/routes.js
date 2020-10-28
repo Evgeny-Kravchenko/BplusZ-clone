@@ -12,7 +12,6 @@ export default [
     path: HOME_PAGE_ROUTE,
   },
   {
-    private: true,
     component: DetailsVehicleMain,
     exact: true,
     path: VEHICLE_DETAILS_MAIN_ROUTE,

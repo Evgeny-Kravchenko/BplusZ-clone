@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => {
       height: '100%',
       flexDirection: 'column',
       justifyContent: 'flex-start',
+      flexWrap: 'nowrap',
       backgroundColor: theme.palette.primary.dark,
     },
     headerContainer: {

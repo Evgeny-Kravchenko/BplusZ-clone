@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
   },
   logoBlock: {
     position: 'relative',
-    height: '142px',
+    minHeight: '142px',
     backgroundImage: `url(${logoBlockBgSrc})`,
 
     '&>.disguiseStyles': {

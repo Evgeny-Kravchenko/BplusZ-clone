@@ -1,0 +1,10 @@
+{
+  "tabs": {
+    "mainData": "stammdaten",
+    "business": "betrieb",
+    "finance": "Finanzdaten ",
+    "exploitation": "Verwertung",
+    "reports": "reports",
+    "advanceProcess": "vorlaufakte"
+  }
+}

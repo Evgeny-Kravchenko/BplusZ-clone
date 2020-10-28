@@ -11,6 +11,7 @@ const useStyle = makeStyles((theme) => {
       )}`,
     },
     goBackAndTitleContainer: {
+      alignItems: 'center',
       paddingBottom: theme.spacing(3),
     },
     vehicleTitle: {
