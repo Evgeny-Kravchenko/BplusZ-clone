@@ -44,9 +44,9 @@ const DataGrid = () => {
 
   const handleGlobalSearchOnChange = (value) => {
     if (isBestand) {
-      handleTableBestandState({ ...tableBestandState, searchValue: value });
+      handleTableBestandState({ ...tableBestandState, searchValue: value, searchField: '' });
     } else {
-      handleTableVorlaufState({ ...tableVorlaufState, searchValue: value });
+      handleTableVorlaufState({ ...tableVorlaufState, searchValue: value, searchFiled: '' });
     }
   };
 

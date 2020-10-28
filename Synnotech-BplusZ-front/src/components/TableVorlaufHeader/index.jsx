@@ -29,11 +29,17 @@ const TableVorlaufHeader = (props) => {
 
   const handleOpenSearchByLicenseInput = (event) => {
     event.stopPropagation();
+    if (isSearchByInvestNumber) {
+      setSearchByInvestNumber(false);
+    }
     setSearchByLicenseNumber(true);
   };
 
   const handleOpenSearchByInvestInput = (event) => {
     event.stopPropagation();
+    if (isSearchByLicenseNumber) {
+      setSearchByLicenseNumber(false);
+    }
     setSearchByInvestNumber(true);
   };
 
