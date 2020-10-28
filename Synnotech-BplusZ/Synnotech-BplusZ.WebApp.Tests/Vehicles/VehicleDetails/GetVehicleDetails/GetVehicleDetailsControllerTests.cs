@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingModels;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -12,11 +14,14 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
     {
         private readonly GetVehicleDetailsController _controller;
         private readonly Mock<IGetVehicleDetailsContext> _getVehiclesContext;
+        private readonly Mock<IVehicleMappingService> _vehicleMappingService;
         private readonly string id = "existingId";
         public GetVehicleDetailsControllerTests()
         {
             _getVehiclesContext = new Mock<IGetVehicleDetailsContext>();
-            _controller = new GetVehicleDetailsController(() => _getVehiclesContext.Object);
+            _vehicleMappingService = new Mock<IVehicleMappingService>();
+            _controller = new GetVehicleDetailsController(() => _getVehiclesContext.Object,
+                _vehicleMappingService.Object);
         }
 
         [Fact]
@@ -47,8 +52,8 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
                                .ReturnsAsync(vehicle);
 
             var result = (await _controller.GetVehicleDetails(id)).Result as OkObjectResult;
-            Assert.IsType<VehicleDetailsResultDto>(result.Value);
-            Assert.Equal(id, (result.Value as VehicleDetailsResultDto).Id);
+            Assert.IsType<VehicleDetailsDto>(result.Value);
+            Assert.Equal(id, (result.Value as VehicleDetailsDto).Id);
         }
 
         [Fact]

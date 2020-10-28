@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -12,12 +13,18 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.UpdateVehicleDet
     {
         private readonly UpdateVehicleDetailsController _controller;
         private readonly Mock<IUpdateVehicleDetailsContext> _getVehiclesContext;
+        private readonly Mock<IUpdateVehicleMappingService> _updateVehicleMappingService;
+        private readonly Mock<IVehicleMappingService> _vehicleMappingService;
         private readonly string id = "existingId";
         private readonly string notexistingId = "notexistingId";
         public UpdateVehicleDetailsControllerTests()
         {
             _getVehiclesContext = new Mock<IUpdateVehicleDetailsContext>();
-            _controller = new UpdateVehicleDetailsController(() => _getVehiclesContext.Object);
+            _updateVehicleMappingService = new Mock<IUpdateVehicleMappingService>();
+            _vehicleMappingService = new Mock<IVehicleMappingService>();
+            _controller = new UpdateVehicleDetailsController(() => _getVehiclesContext.Object,
+            _updateVehicleMappingService.Object,
+            _vehicleMappingService.Object);
         }
 
         [Fact]
