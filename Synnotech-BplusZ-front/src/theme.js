@@ -47,6 +47,9 @@ const theme = createMuiTheme({
     h1: {
       fontWeight: FONT_WEIGHT_BOLD,
     },
+    h4: {
+      fontWeight: FONT_WEIGHT_MEDIUM,
+    },
     body1: {
       fontSize: '1.4rem',
       lineHeight: '2.4',

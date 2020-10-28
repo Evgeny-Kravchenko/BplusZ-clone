@@ -9,9 +9,6 @@ const useStyle = makeStyles((theme) => ({
       padding: `${theme.spacing(3)} ${theme.spacing(6.4)} 0 ${theme.spacing(7.9)}`,
     },
   },
-  dataGridContainer: {
-    padding: `0 ${theme.spacing(2.9)} 0 ${theme.spacing(2.5)}`,
-  },
   logoBlock: {
     position: 'relative',
     minHeight: '142px',

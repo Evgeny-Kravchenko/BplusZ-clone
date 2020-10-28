@@ -19,6 +19,9 @@ const useStyle = makeStyles((theme) => {
       fontSize: '2rem',
       fontWeight: FONT_WEIGHT_MEDIUM,
     },
+    bodyContainer: {
+      padding: `${theme.spacing(3)} 0 ${theme.spacing(3)}`,
+    }
   };
 });
 

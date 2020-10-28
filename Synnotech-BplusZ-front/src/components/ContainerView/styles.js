@@ -14,6 +14,7 @@ const useStyle = makeStyles((theme) => {
       backgroundColor: theme.palette.primary.main,
     },
     body: {
+      padding: `0 ${theme.spacing(2.9)} 0 ${theme.spacing(2.5)}`,
       backgroundColor: theme.palette.info.main,
     },
   };
