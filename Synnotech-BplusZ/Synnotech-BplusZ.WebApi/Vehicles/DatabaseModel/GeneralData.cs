@@ -7,7 +7,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel
     public class GeneralData
     {
         [RequiredPermissions(ActionType.All, UserRoles.FP, UserRoles.GF, UserRoles.NLL)]
-        public string? LicenceNumber { get; set; }
+        public string? LicenseNumber { get; set; }
 
         [RequiredPermissions(ActionType.All, UserRoles.FP, UserRoles.GF, UserRoles.NLL)]
         public string? Manufacturer { get; set; }
