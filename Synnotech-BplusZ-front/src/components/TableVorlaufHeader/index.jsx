@@ -26,6 +26,12 @@ const TableVorlaufHeader = (props) => {
 
   const [isSearchByLicenseNumber, setSearchByLicenseNumber] = useState(false);
   const [isSearchByInvestNumber, setSearchByInvestNumber] = useState(false);
+  const [isValueInSearchByLicenseNumber, setValueInSearchByLicenseNumber] = useState(
+    searchField === 'licenseNumber' && searchValue.length > 0
+  );
+  const [isValueInSearchByInvestNumber, setValueInSearchByInvestNumber] = useState(
+    searchField === 'numberOfInvestment' && searchValue.length > 0
+  );
 
   const handleOpenSearchByLicenseInput = (event) => {
     event.stopPropagation();
@@ -48,14 +54,14 @@ const TableVorlaufHeader = (props) => {
     setSearchByInvestNumber(false);
   };
 
-  const handleOnClickSearchInput = (event) => {
+  const handleOnMouseDownSearchInput = (event) => {
     event.stopPropagation();
   };
 
-  window.addEventListener('click', handleCloseSearchInputs);
+  window.addEventListener('mousedown', handleCloseSearchInputs);
 
   useEffect(() => {
-    return window.removeEventListener('click', handleCloseSearchInputs);
+    return window.removeEventListener('mousedown', handleCloseSearchInputs);
   }, []);
 
   const createSortHandler = (property) => () => {
@@ -69,6 +75,28 @@ const TableVorlaufHeader = (props) => {
 
   const handleOnChangeSearchInput = (event, searchFieldName) => {
     const value = event.target.value.trim();
+
+    if (searchFieldName === 'numberOfInvestment') {
+      if (isValueInSearchByLicenseNumber) {
+        setValueInSearchByLicenseNumber(false);
+      }
+      if (value.length === 0) {
+        setValueInSearchByInvestNumber(false);
+      } else {
+        setValueInSearchByInvestNumber(true);
+      }
+    }
+
+    if (searchFieldName === 'licenseNumber') {
+      if (isValueInSearchByInvestNumber) {
+        setValueInSearchByInvestNumber(false);
+      }
+      if (value.length === 0) {
+        setValueInSearchByLicenseNumber(false);
+      } else {
+        setValueInSearchByLicenseNumber(true);
+      }
+    }
 
     handleTableVorlaufState({
       ...tableVorlaufState,
@@ -87,7 +115,10 @@ const TableVorlaufHeader = (props) => {
               onClick={handleOpenSearchByInvestInput}
               style={{ marginRight: '5px' }}
             >
-              <SearchIcon className={classes.searchIcon} />
+              <SearchIcon
+                className={classes.searchIcon}
+                color={isValueInSearchByInvestNumber ? 'secondary' : 'inherit'}
+              />
             </IconButton>
           )}
           {!isSearchByInvestNumber && (
@@ -104,7 +135,7 @@ const TableVorlaufHeader = (props) => {
               className={classes.searchByLicenseInput}
               placeholder={t('mainPage.search')}
               variant="outlined"
-              onClick={handleOnClickSearchInput}
+              onMouseDown={handleOnMouseDownSearchInput}
               onChange={(event) => handleOnChangeSearchInput(event, 'numberOfInvestment')}
               defaultValue={searchField === 'numberOfInvestment' ? searchValue : null}
             />
@@ -120,7 +151,10 @@ const TableVorlaufHeader = (props) => {
               onClick={handleOpenSearchByLicenseInput}
               style={{ marginRight: '5px' }}
             >
-              <SearchIcon className={classes.searchIcon} />
+              <SearchIcon
+                className={classes.searchIcon}
+                color={isValueInSearchByLicenseNumber ? 'secondary' : 'inherit'}
+              />
             </IconButton>
           )}
           {!isSearchByLicenseNumber && (
@@ -137,7 +171,7 @@ const TableVorlaufHeader = (props) => {
               className={classes.searchByLicenseInput}
               placeholder={t('mainPage.search')}
               variant="outlined"
-              onClick={handleOnClickSearchInput}
+              onMouseDown={handleOnMouseDownSearchInput}
               onChange={(event) => handleOnChangeSearchInput(event, 'licenseNumber')}
               defaultValue={searchField === 'licenseNumber' ? searchValue : null}
             />

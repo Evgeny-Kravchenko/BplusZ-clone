@@ -5,6 +5,7 @@ const useStyle = makeStyles((theme) => ({
     width: '230px',
     height: '36px',
     paddingLeft: '1.3rem',
+    paddingRight: '1.3rem',
     borderRadius: '2px',
     backgroundColor: theme.palette.primary.light,
     opacity: '0.5',

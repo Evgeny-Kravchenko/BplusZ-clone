@@ -25,6 +25,9 @@ const TableBestandHeader = (props) => {
   const { t } = useTranslation();
 
   const [isSearchByLicenseNumber, setSearchByLicenseNumber] = useState(false);
+  const [isValueInSearchByLicenseNumber, setValueInSearchByLicenseNumber] = useState(
+    searchValue.length > 0
+  );
 
   const handleOpenSearchInput = (event) => {
     event.stopPropagation();
@@ -35,13 +38,13 @@ const TableBestandHeader = (props) => {
     setSearchByLicenseNumber(false);
   };
 
-  window.addEventListener('click', handleCloseSearchInput);
+  window.addEventListener('mousedown', handleCloseSearchInput);
 
   useEffect(() => {
-    return window.removeEventListener('click', handleCloseSearchInput);
+    return window.removeEventListener('mousedown', handleCloseSearchInput);
   }, []);
 
-  const handleOnClickSearchInput = (event) => {
+  const handleOnMouseDownSearchInput = (event) => {
     event.stopPropagation();
   };
 
@@ -56,6 +59,11 @@ const TableBestandHeader = (props) => {
 
   const handleOnChangeSearchByLicenseNumber = (event) => {
     const value = event.target.value.trim();
+    if (value.length === 0) {
+      setValueInSearchByLicenseNumber(false);
+    } else {
+      setValueInSearchByLicenseNumber(true);
+    }
 
     handleTableBestandState({
       ...tableBestandState,
@@ -73,7 +81,10 @@ const TableBestandHeader = (props) => {
         >
           {!isSearchByLicenseNumber && (
             <IconButton size="small" onClick={handleOpenSearchInput} style={{ marginRight: '5px' }}>
-              <SearchIcon className={classes.searchIcon} />
+              <SearchIcon
+                className={classes.searchIcon}
+                color={isValueInSearchByLicenseNumber ? 'secondary' : 'inherit'}
+              />
             </IconButton>
           )}
           {!isSearchByLicenseNumber && (
@@ -90,7 +101,7 @@ const TableBestandHeader = (props) => {
               className={classes.searchByLicenseInput}
               placeholder={t('mainPage.search')}
               variant="outlined"
-              onClick={handleOnClickSearchInput}
+              onMouseDown={handleOnMouseDownSearchInput}
               onChange={handleOnChangeSearchByLicenseNumber}
               defaultValue={searchValue}
             />
