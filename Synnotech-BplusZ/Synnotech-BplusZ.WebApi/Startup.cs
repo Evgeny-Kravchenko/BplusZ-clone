@@ -1,3 +1,4 @@
+using AutoMapper;
 using Light.GuardClauses;
 using LightInject;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,10 +15,11 @@ using Synnotech_BplusZ.WebApi.Infrastucture;
 using Synnotech_BplusZ.WebApi.Tokens.CreateToken;
 using Synnotech_BplusZ.WebApi.Vehicles.AuthorizeUser;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
-using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleGeneralDetails;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock;
+using System;
 using System.Text;
 
 namespace Synnotech_BplusZ.WebApi
@@ -71,6 +73,7 @@ namespace Synnotech_BplusZ.WebApi
 
             ConfigureSwagger(services);
             ConfigureDIContainer();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -132,6 +135,7 @@ namespace Synnotech_BplusZ.WebApi
             _container.RegisterScoped<IAuthorizeUserContext, AuthorizeUserContext>();
             _container.RegisterScoped<IGetVehicleDetailsContext, GetVehicleDetailsContext>();
             _container.RegisterScoped<IUpdateVehicleDetailsContext, UpdateVehicleDetailsContext>();
+            _container.RegisterVehicleMappers();
 
             _container.RegisterScoped<ICreateTokenService, CreateTokenService>();
         }

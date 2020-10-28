@@ -4,6 +4,8 @@ using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleTechnicalContractDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingModels;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -13,12 +15,15 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
     {
         private readonly GetVehicleTechnicalContractDetailsController _controller;
         private readonly Mock<IGetVehicleDetailsContext> _getVehiclesContext;
+        private readonly Mock<IVehicleTechnicalContractMappingService> _vehicleTechnicalContractMappingService;
         private readonly string id = "existingId";
 
         public GetVehicleTechnicalContractDetailsControllerTests()
         {
             _getVehiclesContext = new Mock<IGetVehicleDetailsContext>();
-            _controller = new GetVehicleTechnicalContractDetailsController(() => _getVehiclesContext.Object);
+            _vehicleTechnicalContractMappingService = new Mock<IVehicleTechnicalContractMappingService>();
+            _controller = new GetVehicleTechnicalContractDetailsController(() => _getVehiclesContext.Object,
+                _vehicleTechnicalContractMappingService.Object);
         }
 
         [Fact]
@@ -47,7 +52,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleTechni
                                .ReturnsAsync(vehicle);
 
             var result = (await _controller.GetVehicleTechnicalContractDetails(id)).Result as OkObjectResult;
-            Assert.IsType<VehicleTechnicalContractDetailsResultDto>(result.Value);
+            Assert.IsType<VehicleTechnicalContractDetailsDto>(result.Value);
         }
 
         [Fact]

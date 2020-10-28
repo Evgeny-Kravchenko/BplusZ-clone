@@ -56,19 +56,12 @@ const TableBestandHeader = (props) => {
 
   const handleOnChangeSearchByLicenseNumber = (event) => {
     const value = event.target.value.trim();
-    if (value.length > 3) {
-      handleTableBestandState({
-        ...tableBestandState,
-        searchField: 'licenceNumber',
-        searchValue: value,
-      });
-    } else {
-      handleTableBestandState({
-        ...tableBestandState,
-        searchField: '',
-        searchValue: '',
-      });
-    }
+
+    handleTableBestandState({
+      ...tableBestandState,
+      searchField: 'licenceNumber',
+      searchValue: value,
+    });
   };
 
   return (

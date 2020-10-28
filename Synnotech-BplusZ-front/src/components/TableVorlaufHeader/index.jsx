@@ -63,19 +63,12 @@ const TableVorlaufHeader = (props) => {
 
   const handleOnChangeSearchInput = (event, searchFieldName) => {
     const value = event.target.value.trim();
-    if (value.length > 3) {
-      handleTableVorlaufState({
-        ...tableVorlaufState,
-        searchField: searchFieldName,
-        searchValue: value,
-      });
-    } else {
-      handleTableVorlaufState({
-        ...tableVorlaufState,
-        searchField: '',
-        searchValue: '',
-      });
-    }
+
+    handleTableVorlaufState({
+      ...tableVorlaufState,
+      searchField: searchFieldName,
+      searchValue: value,
+    });
   };
 
   return (
