@@ -7,6 +7,7 @@ import DataToolBar from '@/components/DataToolBar';
 import Switcher from '@/components/Switcher';
 import TableBestand from '@/components/TableBestand';
 import TableVorlauf from '@/components/TableVorlauf';
+import ContainerView from '@/components/ContainerView/ContainerView';
 
 import { useLang } from '@/contexts/language';
 
@@ -42,6 +43,27 @@ const DataGrid = () => {
     setCurrentTable(!isBestand);
   };
 
+  const header = <DataToolBar/>;
+
+  const body = (
+    <Grid item className={classes.dataGridContainer}>
+      <Box my={1.1}>
+        <Switcher onChange={handleChangingTable} />
+      </Box>
+      {isBestand ? (
+        <TableBestand
+          tableBestandState={tableBestandState}
+          handleTableBestandState={handleTableBestandState}
+        />
+      ) : (
+        <TableVorlauf
+          tableVorlaufState={tableVorlaufState}
+          handleTableVorlaufState={handleTableVorlaufState}
+        />
+      )}
+    </Grid>
+  );
+
   return (
     <>
       <Grid container item className={classes.logoBlock}>
@@ -49,23 +71,7 @@ const DataGrid = () => {
         <Typography variant="h1">{t('mainPage.title')}</Typography>
       </Grid>
       <Grid container item className={classes.dataContainer}>
-        <DataToolBar />
-        <Grid item className={classes.dataGridContainer}>
-          <Box my={1.1}>
-            <Switcher onChange={handleChangingTable} />
-          </Box>
-          {isBestand ? (
-            <TableBestand
-              tableBestandState={tableBestandState}
-              handleTableBestandState={handleTableBestandState}
-            />
-          ) : (
-            <TableVorlauf
-              tableVorlaufState={tableVorlaufState}
-              handleTableVorlaufState={handleTableVorlaufState}
-            />
-          )}
-        </Grid>
+        <ContainerView header={header} body={body} />
       </Grid>
     </>
   );

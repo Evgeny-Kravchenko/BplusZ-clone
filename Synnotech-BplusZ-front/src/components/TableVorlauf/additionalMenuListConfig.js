@@ -1,5 +1,8 @@
 const generateAdditionalMenuListConfig = (t) => [
-  t('mainPage.additionalMenu.acts'),
+  {
+    label: t('mainPage.additionalMenu.acts'),
+    path: '',
+  },
 ];
 
 export default generateAdditionalMenuListConfig;

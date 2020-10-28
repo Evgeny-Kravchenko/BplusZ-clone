@@ -1,0 +1,24 @@
+import { makeStyles } from '@material-ui/core';
+
+import { FONT_WEIGHT_MEDIUM } from '@/constants';
+
+const useStyle = makeStyles((theme) => {
+  return {
+    containerPage: {
+      flexDirection: 'column',
+      padding: `${theme.spacing(3)} ${theme.spacing(6.4)} ${theme.spacing(3)} ${theme.spacing(
+        7.9
+      )}`,
+    },
+    goBackAndTitleContainer: {
+      paddingBottom: theme.spacing(3),
+    },
+    vehicleTitle: {
+      paddingLeft: theme.spacing(1.5),
+      fontSize: '2rem',
+      fontWeight: FONT_WEIGHT_MEDIUM,
+    },
+  };
+});
+
+export default useStyle;
