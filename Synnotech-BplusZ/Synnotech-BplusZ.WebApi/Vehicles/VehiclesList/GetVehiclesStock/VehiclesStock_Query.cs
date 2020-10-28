@@ -11,7 +11,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
         {
             Map = vehicles => vehicles.Select(vehicle => new VehicleStockSearchIndexResult
             {
-                LicenceNumber = vehicle.GeneralData!.LicenceNumber,
+                LicenseNumber = vehicle.GeneralData!.LicenseNumber,
                 BranchOffice = vehicle.TransferData!.BranchOffice,
                 Manufacturer = vehicle.GeneralData!.Manufacturer,
                 Model = vehicle.GeneralData!.Model,

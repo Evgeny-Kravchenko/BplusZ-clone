@@ -1,7 +1,9 @@
+using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
+using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock;
 using System.Collections.Generic;
@@ -18,8 +20,13 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehiclesList.GetVehiclesStock
 
         public GetVehiclesStockControllerTests()
         {
+            var mockMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new VehicleStockProfile());
+            });
+            var mapper = mockMapper.CreateMapper();
             _getVehiclesContext = new Mock<IGetVehiclesStockContext>();
-            _controller = new GetVehiclesStockController(() => _getVehiclesContext.Object);
+            _controller = new GetVehiclesStockController(() => _getVehiclesContext.Object, mapper);
         }
 
         [Fact]
@@ -31,9 +38,9 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehiclesList.GetVehiclesStock
         [Fact]
         public async Task GetVehicles_WithDto_ReturnsOkResult()
         {
-            var vehicles = new List<Vehicle>().AsEnumerable();
+            var vehiclesPaged = GetPagedResult();
             _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesStockDto>()))
-                               .ReturnsAsync(vehicles);
+                               .ReturnsAsync(vehiclesPaged);
 
             var response = await _controller.GetVehiclesStock(new GetVehiclesStockDto());
             Assert.IsType<OkObjectResult>(response.Result);
@@ -42,23 +49,32 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehiclesList.GetVehiclesStock
         [Fact]
         public async Task GetVehicles_WithDto_ReturnsRightItem()
         {
-            var vehicles = new List<Vehicle>().AsEnumerable();
+            var vehiclesPaged = GetPagedResult();
             _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesStockDto>()))
-                               .ReturnsAsync(vehicles);
+                               .ReturnsAsync(vehiclesPaged);
 
             var response = (await _controller.GetVehiclesStock(new GetVehiclesStockDto())).Result as OkObjectResult;
-            Assert.IsAssignableFrom<IEnumerable<VehicleStockResultDto>>(response.Value);
+            Assert.IsType<VehicleStockPagedResultDto>(response.Value);
         }
 
         [Fact]
         public async Task GetVehicles_WithoutDto_ReturnsBadRequestResult()
         {
-            var vehicles = new List<Vehicle>().AsEnumerable();
+            var vehiclesPaged = GetPagedResult();
             _getVehiclesContext.Setup(context => context.GetStockVehicles(It.IsAny<GetVehiclesStockDto>()))
-                               .ReturnsAsync(vehicles);
+                               .ReturnsAsync(vehiclesPaged);
 
             var response = await _controller.GetVehiclesStock(null);
             Assert.IsType<BadRequestResult>(response.Result);
+        }
+
+        private VehiclePagedResult GetPagedResult()
+        {
+            return new VehiclePagedResult
+            {
+                Result = new List<Vehicle>().AsEnumerable(),
+                Count = 0
+            };
         }
     }
 }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Light.GuardClauses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,16 +16,19 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
     public class GetVehiclesAdvanceController : ControllerBase
     {
         private readonly Func<IGetVehiclesAdvanceContext> _createContext;
+        private readonly IMapper _mapper;
 
-        public GetVehiclesAdvanceController(Func<IGetVehiclesAdvanceContext> createContext)
+        public GetVehiclesAdvanceController(Func<IGetVehiclesAdvanceContext> createContext,
+            IMapper mapper)
         {
             _createContext = createContext.MustNotBeNull(nameof(createContext));
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetVehiclesAdvance([FromQuery] GetVehiclesAdvancedDto dto)
+        public async Task<ActionResult<VehicleAdvancePagedResultDto>> GetVehiclesAdvance([FromQuery] GetVehiclesAdvancedDto dto)
         {
             if (dto == null)
             {
@@ -32,10 +36,10 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
             }
 
             using var context = _createContext();
-            var vehicles = await context.GetVehiclesAdvance(dto);
-            var vehiclesDto = VehiclesAdvanceMapper.MapVehicles(vehicles.Item1);
+            var pagedResult = await context.GetVehiclesAdvance(dto);
+            var vehiclesDto = _mapper.Map<VehicleAdvancePagedResultDto>(pagedResult);
 
-            return Ok(new { Result = vehiclesDto, Count = vehicles.Item2});
+            return Ok(vehiclesDto);
         }
     }
 }

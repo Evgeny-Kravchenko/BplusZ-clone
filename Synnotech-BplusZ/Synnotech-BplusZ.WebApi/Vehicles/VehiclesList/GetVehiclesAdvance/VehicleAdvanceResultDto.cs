@@ -4,7 +4,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
     {
         public string? Id { get; set; }
         public string? NumberOfInvestment { get; set; }
-        public string? LicenceNumber { get; set; }
+        public string? LicenseNumber { get; set; }
         public string? VehicleClass { get; set; }
         public string? Manufacturer { get; set; }
         public string? Model { get; set; }
