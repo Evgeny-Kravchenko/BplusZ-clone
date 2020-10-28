@@ -34,9 +34,9 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
 
             using var context = _createContext();
             var vehicles = await context.GetStockVehicles(dto);
-            var vehiclesDto = VehiclesStockMapper.MapVehicles(vehicles);
+            var vehiclesDto = VehiclesStockMapper.MapVehicles(vehicles.Item1);
 
-            return Ok(vehiclesDto);
+            return Ok(new { Result = vehiclesDto, Count = vehicles.Item2 });
         }
     }
 }
