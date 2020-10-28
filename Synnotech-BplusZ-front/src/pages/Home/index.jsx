@@ -1,26 +1,35 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { Suspense } from 'react';
+import { Switch } from 'react-router-dom';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, LinearProgress } from '@material-ui/core';
 
 import Header from '@/components/Header';
-import DataGrid from '@/components/DataGrid';
+import Routes from '@/components/Routes';
+
+import { useAuth } from '@/contexts/auth';
 
 import useStyles from './styles';
 
+import routes from './routes';
+
 const HomePage = () => {
   const classes = useStyles();
-  const { t } = useTranslation();
+  const { authorized } = useAuth();
+
   return (
     <Grid container className={classes.pageContainer}>
       <Grid item className={classes.headerContainer}>
         <Header />
       </Grid>
-      <Grid container item className={classes.logoBlock}>
-        <div className="disguiseStyles" />
-        <Typography variant="h1">{t('mainPage.title')}</Typography>
-      </Grid>
-      <DataGrid />
+      <Suspense fallback={<LinearProgress />}>
+        <Switch>
+          {routes.map((route) => {
+            const routeType = route.private ? 'Private' : 'Public';
+            const Route = Routes[routeType];
+            return <Route key={route.path} {...route} authorized={authorized} />;
+          })}
+        </Switch>
+      </Suspense>
     </Grid>
   );
 };

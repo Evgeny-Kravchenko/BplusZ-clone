@@ -14,7 +14,6 @@ export default [
   {
     private: true,
     component: Home,
-    exact: true,
     path: HOME_PAGE_ROUTE,
   },
   {

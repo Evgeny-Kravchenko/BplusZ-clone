@@ -1,10 +1,28 @@
 const generateAdditionalMenuListConfig = (t) => [
-  t('mainPage.additionalMenu.showDetails'),
-  t('mainPage.additionalMenu.createReplacementOrder'),
-  t('mainPage.additionalMenu.reportDamage'),
-  t('mainPage.additionalMenu.showDamage'),
-  t('mainPage.additionalMenu.explotation'),
-  t('mainPage.additionalMenu.book'),
+  {
+    label: t('mainPage.additionalMenu.showDetails'),
+    path: 'vehicle-details',
+  },
+  {
+    label: t('mainPage.additionalMenu.createReplacementOrder'),
+    path: '',
+  },
+  {
+    label: t('mainPage.additionalMenu.reportDamage'),
+    path: '',
+  },
+  {
+    label: t('mainPage.additionalMenu.showDamage'),
+    path: '',
+  },
+  {
+    label: t('mainPage.additionalMenu.explotation'),
+    path: '',
+  },
+  {
+    label: t('mainPage.additionalMenu.book'),
+    path: '',
+  },
 ];
 
 export default generateAdditionalMenuListConfig;

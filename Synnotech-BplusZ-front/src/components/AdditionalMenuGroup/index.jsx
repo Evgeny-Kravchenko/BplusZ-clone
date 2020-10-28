@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button, IconButton, Popover, Box } from '@material-ui/core';
@@ -6,8 +7,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import useStyle from './styles';
 
-const AdditionalMenuGroup = ({ menuListConfig }) => {
+const AdditionalMenuGroup = ({ menuListConfig, id }) => {
   const classes = useStyle();
+  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -20,6 +22,12 @@ const AdditionalMenuGroup = ({ menuListConfig }) => {
   };
 
   const isOpenAdditionalMenu = Boolean(anchorEl);
+
+  const handleButtonClick = (path) => {
+    if (path) {
+      history.push(`${path}/${id}`);
+    }
+  };
 
   return (
     <>
@@ -41,9 +49,14 @@ const AdditionalMenuGroup = ({ menuListConfig }) => {
         elevation={2}
       >
         <Box className={classes.buttonsWrapper}>
-          {menuListConfig.map((buttonName) => (
-            <Button key={buttonName} className={classes.button}>
-              {buttonName}
+          {menuListConfig.map((button) => (
+            <Button
+              key={button.label}
+              className={classes.button}
+              id={id}
+              onClick={() => handleButtonClick(button.path)}
+            >
+              {button.label}
             </Button>
           ))}
         </Box>
@@ -53,7 +66,8 @@ const AdditionalMenuGroup = ({ menuListConfig }) => {
 };
 
 AdditionalMenuGroup.propTypes = {
-  menuListConfig: PropTypes.arrayOf(PropTypes.string).isRequired,
+  menuListConfig: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default AdditionalMenuGroup;

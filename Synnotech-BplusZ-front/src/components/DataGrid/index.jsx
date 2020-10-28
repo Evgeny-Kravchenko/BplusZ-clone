@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Grid, Box } from '@material-ui/core';
+import { Grid, Box, Typography } from '@material-ui/core';
 
 import DataToolBar from '@/components/DataToolBar';
 import Switcher from '@/components/Switcher';
@@ -43,25 +43,31 @@ const DataGrid = () => {
   };
 
   return (
-    <Grid container item className={classes.dataContainer}>
-      <DataToolBar />
-      <Grid item className={classes.dataGridContainer}>
-        <Box my={1.1}>
-          <Switcher onChange={handleChangingTable} />
-        </Box>
-        {isBestand ? (
-          <TableBestand
-            tableBestandState={tableBestandState}
-            handleTableBestandState={handleTableBestandState}
-          />
-        ) : (
-          <TableVorlauf
-            tableVorlaufState={tableVorlaufState}
-            handleTableVorlaufState={handleTableVorlaufState}
-          />
-        )}
+    <>
+      <Grid container item className={classes.logoBlock}>
+        <div className="disguiseStyles" />
+        <Typography variant="h1">{t('mainPage.title')}</Typography>
       </Grid>
-    </Grid>
+      <Grid container item className={classes.dataContainer}>
+        <DataToolBar />
+        <Grid item className={classes.dataGridContainer}>
+          <Box my={1.1}>
+            <Switcher onChange={handleChangingTable} />
+          </Box>
+          {isBestand ? (
+            <TableBestand
+              tableBestandState={tableBestandState}
+              handleTableBestandState={handleTableBestandState}
+            />
+          ) : (
+            <TableVorlauf
+              tableVorlaufState={tableVorlaufState}
+              handleTableVorlaufState={handleTableVorlaufState}
+            />
+          )}
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
