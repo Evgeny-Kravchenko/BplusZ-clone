@@ -1,4 +1,5 @@
 using Raven.Client.Documents;
+using Raven.Client.Documents.Linq;
 using System.Linq;
 
 namespace Synnotech_BplusZ.WebApi.Extensions
@@ -9,14 +10,12 @@ namespace Synnotech_BplusZ.WebApi.Extensions
         {
             if (isAscendingSortOrder)
             {
-                query = query.OrderBy(sortField);
+                return query.OrderBy(sortField);
             }
             else
             {
-                query = query.OrderByDescending(sortField);
+                return query.OrderByDescending(sortField);
             }
-
-            return query;
         }
     }
 }

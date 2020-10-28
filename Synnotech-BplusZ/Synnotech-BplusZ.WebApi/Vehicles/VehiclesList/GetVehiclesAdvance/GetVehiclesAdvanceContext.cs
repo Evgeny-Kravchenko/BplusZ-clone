@@ -1,5 +1,6 @@
 using Light.GuardClauses;
 using Raven.Client.Documents;
+using Raven.Client.Documents.Linq;
 using Raven.Client.Documents.Session;
 using SynDatabaseMigration.RavenDb;
 using Synnotech_BplusZ.WebApi.Extensions;
@@ -18,38 +19,37 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
         {
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesAdvance(GetVehiclesAdvancedDto dto)
+        public async Task<(IEnumerable<Vehicle>, int)> GetVehiclesAdvance(GetVehiclesAdvancedDto dto)
         {
-            IQueryable<Vehicle> sessionQuery;
+            IQueryable<VehicleAdvanceSearchIndexResult> sessionQuery = Session.Query<VehicleAdvanceSearchIndexResult, VehiclesAdvance_Query>();
 
             if (!dto.SearchTerm.IsNullOrEmpty())
             {
                 var searchFieldSelector = GetFieldSelector(dto.SearchField);
-                sessionQuery = Session.Query<VehicleAdvanceSearchIndexResult, VehiclesAdvance_Query>()
-                                        .Search(searchFieldSelector, $"*{dto.SearchTerm}*")
-                                        .OfType<Vehicle>();
-            }
-            else
-            {
-                sessionQuery = Session.Query<Vehicle>();
-            }
+                sessionQuery = sessionQuery.Search(searchFieldSelector, $"*{dto.SearchTerm}*");
+            } 
 
             if (!dto.AllowedStates.IsNullOrEmpty())
             {
-                sessionQuery = sessionQuery.Where(v => dto.AllowedStates.Contains(v.GeneralData!.State ?? string.Empty));
+                sessionQuery = sessionQuery.Where(v => v.State.In(dto.AllowedStates));
             }
             if (!dto.AllowedVehicleClasses.IsNullOrEmpty())
             {
-                sessionQuery = sessionQuery.Where(v => dto.AllowedVehicleClasses.Contains(v.GeneralData!.VehicleClass ?? string.Empty));
+                sessionQuery = sessionQuery.Where(v => v.VehicleClass.In(dto.AllowedVehicleClasses));
             }
 
-            var sortField = dto.SortField ?? nameof(Vehicle.GeneralData.LicenceNumber);
+            var sortField = dto.SortField?.FirstCharToUpper() ?? nameof(VehicleAdvanceSearchIndexResult.LicenceNumber);
+            sessionQuery = sessionQuery.Where(v => v.DeleteDate == null)
+                                             .OrderBy(sortField, dto.IsAscendingSortOrder);
+
+            var count = await sessionQuery.CountAsync();
             var vehicles = await sessionQuery.Where(v => v.DeleteDate == null)
                                              .OrderBy(sortField, dto.IsAscendingSortOrder)
                                              .GetPage(dto.Skip, dto.Take)
+                                             .OfType<Vehicle>()
                                              .ToListAsync();
 
-            return vehicles;
+            return (vehicles, count);
         }
 
         private Expression<Func<VehicleAdvanceSearchIndexResult, object?>> GetFieldSelector(string? field)
