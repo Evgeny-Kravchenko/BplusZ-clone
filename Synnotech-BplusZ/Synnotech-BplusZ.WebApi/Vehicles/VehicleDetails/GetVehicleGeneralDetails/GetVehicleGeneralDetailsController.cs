@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Synnotech_BplusZ.WebApi.Extensions;
 using Synnotech_BplusZ.WebApi.Users;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingModels;
 using System;
 using System.Threading.Tasks;
 
@@ -30,7 +31,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleGeneralDetai
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<VehicleDetailsGeneralDto>> GetVehicleDetailsGeneral(string id)
+        public async Task<ActionResult<VehicleGeneralDetailsDto>> GetVehicleDetailsGeneral(string id)
         {
             if (id.IsNullOrWhiteSpace())
             {
@@ -50,7 +51,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleGeneralDetai
                 return NotFound();
             }
 
-            var vehicleDto =_vehicleMappingService.Map<VehicleDetailsGeneralDto>(vehicle, userRole, Attributes.ActionType.Get);
+            var vehicleDto =_vehicleMappingService.Map<VehicleGeneralDetailsDto>(vehicle, userRole, Attributes.ActionType.Get);
 
             return Ok(vehicleDto);
         }

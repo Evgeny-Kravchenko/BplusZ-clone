@@ -4,9 +4,9 @@ using System.IO;
 
 namespace Synnotech_BplusZ.WebApi.Infrastucture
 {
-    public static class Logger
+    public static class Logging
     {
-        public static readonly string LoggingDirectory = Path.Combine(Path.GetDirectoryName(typeof(Logger).Assembly.Location)!, "Logs");
+        public static readonly string LoggingDirectory = Path.Combine(Path.GetDirectoryName(typeof(Logging).Assembly.Location)!, "Logs");
 
         public static readonly ILogger BaseLogger = new LoggerConfiguration()
             .Enrich.FromLogContext()
