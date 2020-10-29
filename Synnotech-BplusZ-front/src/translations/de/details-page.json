@@ -10,7 +10,7 @@
   "generalVehicleData": {
     "title": "Allgemeine Fahrzeugdaten",
     "status": "Status",
-    "vinNumber": "Fahrgestellnr",
+    "vinNumber": "Fahrgestellnummer",
     "classOfVehicle": "Fahrzeugklasse",
     "manufacturer": "Hersteller",
     "model": "Modell",
@@ -29,13 +29,13 @@
     "title": "Technische Vertragsdaten",
     "maintenance": "W + R Vertragsart",
     "mileage": "Laufleistung W+R",
-    "endOfMaintenance": "Ende W+R "
+    "endOfMaintenance": "Ende W&R Vertrag "
   },
   "transferData": {
     "title": "Überlassungsdaten",
     "branchOffice": "Niederlassung",
-    "transferRate": "Ü-Rate",
-    "startOfContract": "Vertragsbeginn",
-    "endOfContract": "Vertragsende"
+    "transferRate": "Überlassungsrate",
+    "startOfContract": "Überlassungszeitraum von",
+    "endOfContract": "Überlassungszeitraum bis"
   }
 }

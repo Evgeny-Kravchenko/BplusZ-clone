@@ -100,6 +100,11 @@ const TableVorlauf = (props) => {
           Something went wrong on the server. Try again later.
         </Typography>
       )}
+      {result?.length === 0 && !isError && (
+        <Typography variant="body1" align="center" className={classes.noDataMessage}>
+          No data with such parameters
+        </Typography>
+      )}
       {!isLoading && !isError && (
         <TablePagination
           className={classes.pagination}

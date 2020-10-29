@@ -15,7 +15,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import MainDetailsCardContainer from '@/components/MainDetailsCardContainer';
 
-import transferDataSrc from '@/assets/images/main-details-icons/transfer-data.png';
+import transferDataSrc from '@/assets/images/main-details-icons/transfer-data.svg';
 
 import { convertDate } from '@/helpers';
 

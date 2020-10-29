@@ -15,7 +15,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import MainDetailsCardContainer from '@/components/MainDetailsCardContainer';
 
-import generalVehicleDataSrc from '@/assets/images/main-details-icons/general-vehicle-data.png';
+import generalVehicleDataSrc from '@/assets/images/main-details-icons/general-vehicle-data.svg';
 
 import useStyle from './styles';
 

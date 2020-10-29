@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
-import { IconButton, Grid, Typography } from '@material-ui/core';
+import { IconButton, Grid, Typography, CircularProgress } from '@material-ui/core';
 
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
@@ -23,7 +23,7 @@ const DetailsVehicleMain = ({ match }) => {
 
   const { id } = match.params;
 
-  const { data } = useVehicleDetails(id);
+  const { data, isLoading, isError } = useVehicleDetails(id);
 
   const header = <CustomizedTabs />;
 
@@ -54,8 +54,24 @@ const DetailsVehicleMain = ({ match }) => {
           {data?.licenseNumber}
         </Typography>
       </Grid>
-      <Grid item className={classes.bodyContainer}>
-        <ContainerView header={header} body={body} />
+      <Grid item container className={classes.bodyContainer}>
+        {isLoading && (
+          <Grid item container className={classes.centeredContainer}>
+            <CircularProgress color="secondary" />
+          </Grid>
+        )}
+        {isError && !isLoading && (
+          <Grid container>
+            <Typography
+              variant="body1"
+              className={classes.noDataMessage}
+              color="error"
+            >
+              Something went wrong on the server. Try again later.
+            </Typography>
+          </Grid>
+        )}
+        {!isLoading && !isError && <ContainerView header={header} body={body} />}
       </Grid>
     </Grid>
   );
