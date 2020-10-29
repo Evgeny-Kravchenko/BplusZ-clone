@@ -7,7 +7,10 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 import ContainerView from '@/components/ContainerView/ContainerView';
 import CustomizedTabs from '@/components/Tabs';
-import MainDetailsCard from '@/components/MainDetailsCard';
+import GeneralVehicleDataCard from '@/components/GeneralVehicleDataCard';
+import TechicalComponentsVehicleDataCard from '@/components/TechicalComponentsVehicleDataCard';
+import TechnicalContractDataVehicleDataCard from '@/components/TechnicalContractDataVehicleDataCard';
+import TransferDataCard from '@/components/TransferDataCard/TransferDataCard';
 
 import useStyle from './styles';
 
@@ -18,18 +21,18 @@ const DetailsVehicleMain = () => {
   const header = <CustomizedTabs />;
 
   const body = (
-    <Grid container spacing={3} className={classes.bodyContainer}>
+    <Grid container spacing={2} className={classes.bodyContainer}>
       <Grid item md={6}>
-        <MainDetailsCard />
+        <GeneralVehicleDataCard />
       </Grid>
       <Grid item md={6}>
-        <MainDetailsCard />
+        <TechicalComponentsVehicleDataCard />
       </Grid>
       <Grid item md={6}>
-        <MainDetailsCard />
+        <TechnicalContractDataVehicleDataCard />
       </Grid>
       <Grid item md={6}>
-        <MainDetailsCard />
+        <TransferDataCard />
       </Grid>
     </Grid>
   );
@@ -44,7 +47,7 @@ const DetailsVehicleMain = () => {
           Fahrzeug BZ-LL 906
         </Typography>
       </Grid>
-      <Grid item>
+      <Grid item className={classes.bodyContainer}>
         <ContainerView header={header} body={body} />
       </Grid>
     </Grid>
