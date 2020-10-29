@@ -15,7 +15,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import MainDetailsCardContainer from '@/components/MainDetailsCardContainer';
 
-import technicalContractDataSrc from '@/assets/images/main-details-icons/technical-contract-data.png';
+import technicalContractDataSrc from '@/assets/images/main-details-icons/technical-contract-data.svg';
 
 import { convertDate } from '@/helpers';
 

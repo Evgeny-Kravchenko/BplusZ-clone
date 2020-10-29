@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { InputAdornment, TextField } from '@material-ui/core';
@@ -31,6 +32,10 @@ const Search = ({ handleGlobalSearchOnChange }) => {
       }}
     />
   );
+};
+
+Search.propTypes = {
+  handleGlobalSearchOnChange: PropTypes.func.isRequired,
 };
 
 export default Search;

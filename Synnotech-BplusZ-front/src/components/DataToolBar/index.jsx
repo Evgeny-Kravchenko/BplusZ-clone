@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Grid } from '@material-ui/core';
@@ -29,6 +30,10 @@ const DataToolBar = ({ handleGlobalSearchOnChange }) => {
       </Grid>
     </Grid>
   );
+};
+
+DataToolBar.propTypes = {
+  handleGlobalSearchOnChange: PropTypes.func.isRequired,
 };
 
 export default DataToolBar;

@@ -35,7 +35,7 @@
     "title": "Überlassungsdaten",
     "branchOffice": "Niederlassung",
     "transferRate": "Überlassungsrate",
-    "startOfContract": "Mietbeginn",
-    "endOfContract": "Mietende"
+    "startOfContract": "Überlassungszeitraum von",
+    "endOfContract": "Überlassungszeitraum bis"
   }
 }

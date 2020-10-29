@@ -19,7 +19,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import MainDetailsCardContainer from '@/components/MainDetailsCardContainer';
 
-import techicalComponentsVehicleDataSrc from '@/assets/images/main-details-icons/technical-components.png';
+import techicalComponentsVehicleDataSrc from '@/assets/images/main-details-icons/technical-components.svg';
 
 import useStyle from './styles';
 
@@ -77,6 +77,12 @@ const TechicalComponentsVehicleDataCard = ({ data }) => {
               checked={data?.loadingPlatform || false}
               disabled
             />
+            <FormControlLabel
+              control={<Radio />}
+              label={t('detailsPage.technicalComponents.isNotChecked')}
+              checked={!(data?.loadingPlatform) || false}
+              disabled
+            />
           </RadioGroup>
         </FormControl>
       </Grid>
@@ -89,8 +95,15 @@ const TechicalComponentsVehicleDataCard = ({ data }) => {
             <FormControlLabel
               value="female"
               control={<Radio />}
-              label={t('detailsPage.technicalComponents.isNotChecked')}
+              label={t('detailsPage.technicalComponents.isChecked')}
               checked={data?.parkingOfConditioner || false}
+              disabled
+            />
+            <FormControlLabel
+              value="female"
+              control={<Radio />}
+              label={t('detailsPage.technicalComponents.isNotChecked')}
+              checked={!(data?.parkingOfConditioner) || false}
               disabled
             />
           </RadioGroup>
