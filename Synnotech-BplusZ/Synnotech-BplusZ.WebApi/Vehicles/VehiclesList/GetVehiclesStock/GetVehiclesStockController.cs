@@ -12,7 +12,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
 {
     [Route("api/vehicles/get-vehicles-stock")]
     [ApiController]
-    [Authorize(Roles = UserRoles.NLL)]
+    [Authorize(Roles = UserRoles.FpOrGfOrNll)]
     public class GetVehiclesStockController : ControllerBase
     {
         private readonly Func<IGetVehiclesStockContext> _createContext;

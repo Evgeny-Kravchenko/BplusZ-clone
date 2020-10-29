@@ -10,13 +10,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Synnotech_BplusZ.WebApi.CronJobScheduler;
 using Synnotech_BplusZ.WebApi.DatabaseAccess;
 using Synnotech_BplusZ.WebApi.Infrastucture;
+using Synnotech_BplusZ.WebApi.Mail;
 using Synnotech_BplusZ.WebApi.Tokens.CreateToken;
 using Synnotech_BplusZ.WebApi.Vehicles.AuthorizeUser;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleJobs;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
 using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock;
 using System;
@@ -37,7 +40,7 @@ namespace Synnotech_BplusZ.WebApi
             _configuration = configuration;
             _environment = environment;
             _container = DependencyInjectionContainer.Instance;
-            _logger = Logger.BaseLogger;
+            _logger = Logging.BaseLogger;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -70,6 +73,7 @@ namespace Synnotech_BplusZ.WebApi
             });
 
             services.AddAuthentication();
+            services.RegisterCronJobs();
 
             ConfigureSwagger(services);
             ConfigureDIContainer();
@@ -135,9 +139,13 @@ namespace Synnotech_BplusZ.WebApi
             _container.RegisterScoped<IAuthorizeUserContext, AuthorizeUserContext>();
             _container.RegisterScoped<IGetVehicleDetailsContext, GetVehicleDetailsContext>();
             _container.RegisterScoped<IUpdateVehicleDetailsContext, UpdateVehicleDetailsContext>();
-            _container.RegisterVehicleMappers();
+            _container.RegisterTransient<IVehicleContext, VehicleContext>();
 
+            _container.RegisterVehicleMappers();
             _container.RegisterScoped<ICreateTokenService, CreateTokenService>();
+            _container.RegisterScoped<IMailGenerator, MailGenerator>();
+            _container.RegisterScoped<IMailService, MailService>();
+            _container.RegisterScoped<IVehicleService, VehicleService>();
         }
 
         private void ConfigureSwagger(IServiceCollection services)
