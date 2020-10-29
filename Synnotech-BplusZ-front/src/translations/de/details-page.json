@@ -6,5 +6,36 @@
     "exploitation": "Verwertung",
     "reports": "reports",
     "advanceProcess": "vorlaufakte"
+  },
+  "generalVehicleData": {
+    "title": "Allgemeine Fahrzeugdaten",
+    "status": "Status",
+    "vinNumber": "Fahrgestellnr",
+    "classOfVehicle": "Fahrzeugklasse",
+    "manufacturer": "Hersteller",
+    "model": "Modell",
+    "currentMileage": "Aktueller Kilometerstand"
+  },
+  "technicalComponents": {
+    "title": "Technische Bestandteile",
+    "manufacturerConstruction": "Hersteller Aufbau",
+    "typeOfConstruction": "Aufbauart",
+    "loadingPlatform": "Ladeboardwand",
+    "parkingOfConditioner": "Standklima",
+    "isChecked": "ja",
+    "isNotChecked": "nein"
+  },
+  "technicalContractData": {
+    "title": "Technische Vertragsdaten",
+    "maintenance": "W + R Vertragsart",
+    "mileage": "Laufleistung W+R",
+    "endOfMaintenance": "Ende W+R "
+  },
+  "transferData": {
+    "title": "Überlassungsdaten",
+    "branchOffice": "Niederlassung",
+    "transferRate": "Ü-Rate",
+    "startOfContract": "Vertragsbeginn",
+    "endOfContract": "Vertragsende"
   }
 }

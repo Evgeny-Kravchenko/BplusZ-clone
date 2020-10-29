@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   IconButton,
@@ -23,11 +24,12 @@ import useStyle from './styles';
 
 const TechicalComponentsVehicleDataCard = () => {
   const classes = useStyle();
+  const { t } = useTranslation();
   const header = (
     <>
       <img src={techicalComponentsVehicleDataSrc} alt="general vehicle data" />
       <Typography variant="h4" className={classes.title}>
-        Tecnical components
+        {t('detailsPage.technicalComponents.title')}
       </Typography>
       <div style={{ flexGrow: 1 }} />
       <IconButton size="small">
@@ -39,23 +41,40 @@ const TechicalComponentsVehicleDataCard = () => {
     <>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel htmlFor="status">Manufacturer Construction</InputLabel>
-          <OutlinedInput value="LKW" label="Manufacturer Construction" disabled />
+          <InputLabel htmlFor="status">
+            {t('detailsPage.technicalComponents.manufacturerConstruction')}
+          </InputLabel>
+          <OutlinedInput
+            value="LKW"
+            label={t('detailsPage.technicalComponents.manufacturerConstruction')}
+            disabled
+          />
         </FormControl>
       </Grid>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel htmlFor="typeOfConstruction">Type of construction</InputLabel>
-          <OutlinedInput value="BDF" label="Type of construction" disabled />
+          <InputLabel htmlFor="typeOfConstruction">
+            {t('detailsPage.technicalComponents.typeOfConstruction')}
+          </InputLabel>
+          <OutlinedInput
+            value="BDF"
+            label={t('detailsPage.technicalComponents.typeOfConstruction')}
+            disabled
+          />
         </FormControl>
       </Grid>
       <Grid item md={6} className={classes.checkBoxContainer}>
         <FormControl component="fieldset">
           <FormLabel component="legend" className={classes.checkboxTitle}>
-            Loading platform
+            {t('detailsPage.technicalComponents.loadingPlatform')}
           </FormLabel>
           <RadioGroup className={classes.checkboxLabel}>
-            <FormControlLabel value="female" control={<Radio />} label="yes" checked disabled />
+            <FormControlLabel
+              control={<Radio />}
+              label={t('detailsPage.technicalComponents.isChecked')}
+              checked
+              disabled
+            />
           </RadioGroup>
         </FormControl>
       </Grid>
@@ -65,7 +84,12 @@ const TechicalComponentsVehicleDataCard = () => {
             Parking air conditioner
           </FormLabel>
           <RadioGroup className={classes.checkboxLabel}>
-            <FormControlLabel value="female" control={<Radio />} label="no" disabled />
+            <FormControlLabel
+              value="female"
+              control={<Radio />}
+              label={t('detailsPage.technicalComponents.isNotChecked')}
+              disabled
+            />
           </RadioGroup>
         </FormControl>
       </Grid>

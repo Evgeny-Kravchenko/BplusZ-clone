@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   IconButton,
@@ -19,11 +20,12 @@ import useStyle from './styles';
 
 const GeneralVehicleData = () => {
   const classes = useStyle();
+  const { t } = useTranslation();
   const header = (
     <>
       <img src={generalVehicleDataSrc} alt="general vehicle data" />
       <Typography variant="h4" className={classes.title}>
-        General vehicle data
+        {t('detailsPage.generalVehicleData.title')}
       </Typography>
       <div style={{ flexGrow: 1 }} />
       <IconButton size="small">
@@ -35,51 +37,64 @@ const GeneralVehicleData = () => {
     <>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel htmlFor="status">Status</InputLabel>
+          <InputLabel htmlFor="status">{t('detailsPage.generalVehicleData.status')}</InputLabel>
           <OutlinedInput
-            name="status"
-            id="status"
-            value="Auf Achse
-"
-            label="Status"
+            value="Auf Achse"
+            label={t('detailsPage.generalVehicleData.status')}
             disabled
           />
         </FormControl>
       </Grid>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel htmlFor="vinNumber">VIN Number</InputLabel>
+          <InputLabel htmlFor="vinNumber">
+            {t('detailsPage.generalVehicleData.vinNumber')}
+          </InputLabel>
           <OutlinedInput
-            name="vinNumber"
-            id="vinNumber"
             value="LGHJ6787687866786"
-            label="VIN Number"
+            label={t('detailsPage.generalVehicleData.vinNumber')}
             disabled
           />
         </FormControl>
       </Grid>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel>Class of vehicle</InputLabel>
-          <OutlinedInput value="LKW" label="Class of vehicle" disabled />
+          <InputLabel>{t('detailsPage.generalVehicleData.classOfVehicle')}</InputLabel>
+          <OutlinedInput
+            value="LKW"
+            label={t('detailsPage.generalVehicleData.classOfVehicle')}
+            disabled
+          />
         </FormControl>
       </Grid>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel>Manufacturer</InputLabel>
-          <OutlinedInput value="Mercedes-Benz" label="Manufacturer" disabled />
+          <InputLabel>{t('detailsPage.generalVehicleData.manufacturer')}</InputLabel>
+          <OutlinedInput
+            value="Mercedes-Benz"
+            label={t('detailsPage.generalVehicleData.manufacturer')}
+            disabled
+          />
         </FormControl>
       </Grid>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel>Model</InputLabel>
-          <OutlinedInput value="10 000 km" label="Model" disabled />
+          <InputLabel>{t('detailsPage.generalVehicleData.model')}</InputLabel>
+          <OutlinedInput
+            value="10 000 km"
+            label={t('detailsPage.generalVehicleData.model')}
+            disabled
+          />
         </FormControl>
       </Grid>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel>Current mileage</InputLabel>
-          <OutlinedInput value="Atego" label="Current mileage" disabled />
+          <InputLabel>{t('detailsPage.generalVehicleData.currentMileage')}</InputLabel>
+          <OutlinedInput
+            value="Atego"
+            label={t('detailsPage.generalVehicleData.currentMileage')}
+            disabled
+          />
         </FormControl>
       </Grid>
     </>

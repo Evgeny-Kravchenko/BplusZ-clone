@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   IconButton,
@@ -19,11 +20,12 @@ import useStyle from './styles';
 
 const TechnicalContractDataVehicleDataCard = () => {
   const classes = useStyle();
+  const { t } = useTranslation();
   const header = (
     <>
       <img src={technicalContractDataSrc} alt="general vehicle data" />
       <Typography variant="h4" className={classes.title}>
-        Technical contract data
+        {t('detailsPage.technicalContractData.title')}
       </Typography>
       <div style={{ flexGrow: 1 }} />
       <IconButton size="small">
@@ -35,20 +37,32 @@ const TechnicalContractDataVehicleDataCard = () => {
     <>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel>Maintenance & Repair type of contract</InputLabel>
-          <OutlinedInput value="Befristet" label="Maintenance & Repair type of contract" disabled />
+          <InputLabel>{t('detailsPage.technicalContractData.maintenance')}</InputLabel>
+          <OutlinedInput
+            value="Befristet"
+            label={t('detailsPage.technicalContractData.maintenance')}
+            disabled
+          />
         </FormControl>
       </Grid>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel>Mileage Maintenance & Repair</InputLabel>
-          <OutlinedInput value="5000 km" label="Mileage Maintenance & Repair" disabled />
+          <InputLabel>{t('detailsPage.technicalContractData.mileage')}</InputLabel>
+          <OutlinedInput
+            value="5000 km"
+            label={t('detailsPage.technicalContractData.mileage')}
+            disabled
+          />
         </FormControl>
       </Grid>
       <Grid item md={6}>
         <FormControl variant="outlined">
-          <InputLabel>End of Maintenance & Repair</InputLabel>
-          <OutlinedInput value="12.03.2021" label="End of Maintenance & Repair " disabled />
+          <InputLabel>{t('detailsPage.technicalContractData.endOfMaintenance')}</InputLabel>
+          <OutlinedInput
+            value="12.03.2021"
+            label={t('detailsPage.technicalContractData.endOfMaintenance')}
+            disabled
+          />
         </FormControl>
       </Grid>
     </>
