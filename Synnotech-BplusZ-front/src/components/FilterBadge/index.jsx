@@ -30,9 +30,7 @@ const FilterBadge = (props) => {
   const classes = useButtonIconStyle();
   const [anchorEl, setAnchorEl] = useState(null);
   const { tableBestandState, checkboxesListName } = props;
-  const isInvisible = !Object.values(tableBestandState[checkboxesListName]).some(
-    (checkbox) => checkbox
-  );
+  const isInvisible = !tableBestandState[checkboxesListName].filter(({ value }) => value).length;
 
   const handleOnClickOpen = (event) => {
     setAnchorEl(event.currentTarget);

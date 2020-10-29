@@ -28,13 +28,13 @@
   "technicalContractData": {
     "title": "Technical contract data",
     "maintenance": "Maintenance & Repair type of contract",
-    "mileage": "Mileage maintenance & Repair",
+    "mileage": "Mileage maintenance & Repair, km",
     "endOfMaintenance": "End of maintenance & Repair"
   },
   "transferData": {
     "title": "Transfer data",
     "branchOffice": "Branch office",
-    "transferRate": "Transfer rate",
+    "transferRate": "Transfer rate, €",
     "startOfContract": "Start of contract",
     "endOfContract": "End of contract"
   }

@@ -3,11 +3,11 @@ import axios from 'axios';
 import qs from 'querystring';
 import { usePaginatedQuery } from 'react-query';
 
-import { getAllowedCheckboxes, translateCheckboxesToDutch } from '@/helpers';
+import { getAllowedCheckboxes } from '@/helpers';
 
 import formatter from './formatter';
 
-const useVorlaufVehicles = ({ tableVorlaufState, t, i18n }) => {
+const useVorlaufVehicles = ({ tableVorlaufState }) => {
   return usePaginatedQuery(
     [ALL_VEHICLES_ADVANCE, tableVorlaufState],
     async (key, options) => {
@@ -22,14 +22,8 @@ const useVorlaufVehicles = ({ tableVorlaufState, t, i18n }) => {
       } = options;
       const skip = (page + 1) * 10 - 10;
       const take = 10;
-      const allowedVehicleClasses =
-        i18n.language === 'de'
-          ? getAllowedCheckboxes(vorlaufVehicleClass, t)
-          : translateCheckboxesToDutch(getAllowedCheckboxes(vorlaufVehicleClass, t));
-      const allowedStates =
-        i18n.language === 'de'
-          ? getAllowedCheckboxes(vorlaufVehicleStatus, t)
-          : translateCheckboxesToDutch(getAllowedCheckboxes(vorlaufVehicleStatus, t));
+      const allowedVehicleClasses = getAllowedCheckboxes(vorlaufVehicleClass);
+      const allowedStates = getAllowedCheckboxes(vorlaufVehicleStatus);
       const isAscendingSortOrder = order === 'asc';
       const queryParams = {
         AllowedStates: allowedStates,

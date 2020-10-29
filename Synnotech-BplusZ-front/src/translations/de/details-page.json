@@ -28,13 +28,13 @@
   "technicalContractData": {
     "title": "Technische Vertragsdaten",
     "maintenance": "W + R Vertragsart",
-    "mileage": "Laufleistung W+R",
+    "mileage": "Laufleistung W+R, km",
     "endOfMaintenance": "Ende W&R Vertrag "
   },
   "transferData": {
     "title": "Überlassungsdaten",
     "branchOffice": "Niederlassung",
-    "transferRate": "Überlassungsrate",
+    "transferRate": "Überlassungsrate, €",
     "startOfContract": "Überlassungszeitraum von",
     "endOfContract": "Überlassungszeitraum bis"
   }

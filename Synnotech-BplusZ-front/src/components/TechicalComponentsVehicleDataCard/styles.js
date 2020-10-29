@@ -20,7 +20,6 @@ const useStyle = makeStyles((theme) => {
     },
     checkboxTitle: {
       fontSize: theme.spacing(1.4),
-      paddingTop: theme.spacing(2),
       color: theme.palette.primary.contrastText,
     },
     checkboxLabel: {

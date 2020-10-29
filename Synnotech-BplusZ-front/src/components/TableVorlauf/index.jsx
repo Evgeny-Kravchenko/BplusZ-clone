@@ -29,7 +29,7 @@ import generateAdditionalMenuListConfig from './additionalMenuListConfig';
 
 const TableVorlauf = (props) => {
   const classes = useStyle();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { tableVorlaufState, handleTableVorlaufState } = props;
   const { page } = tableVorlaufState;
@@ -43,7 +43,7 @@ const TableVorlauf = (props) => {
     });
   };
 
-  const { isLoading, resolvedData, isError } = useVorlaufVehicles({ tableVorlaufState, t, i18n });
+  const { isLoading, resolvedData, isError } = useVorlaufVehicles({ tableVorlaufState });
 
   let count;
   let result;

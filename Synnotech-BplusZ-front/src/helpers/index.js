@@ -35,44 +35,15 @@ const generatorId = () => {
 
 const generatorIdInstance = generatorId();
 
-const getAllowedCheckboxes = (checkboxesList, t) => {
-  let allowedCheckboxes;
-  const isAll = checkboxesList[t('mainPage.checkboxes.all')];
-  const isNothing = Object.values(checkboxesList).every((item) => !item);
-  if (isAll) {
-    allowedCheckboxes = [];
-  } else if (isNothing) {
-    allowedCheckboxes = ['unknown'];
-  } else {
-    allowedCheckboxes = Object.entries(checkboxesList)
-      .filter((vehicleClass) => vehicleClass[1])
-      .map((vehicleClass) => vehicleClass[0]);
+const getAllowedCheckboxes = (checkboxesList) => {
+  const allowed = checkboxesList.filter(({ value }) => value).map(({ key }) => key);
+  if (allowed.length === 1 && allowed[0] === 'alle') {
+    return checkboxesList.filter(({ key }) => key !== 'alle').map(({ key }) => key);
   }
-  return [...allowedCheckboxes];
-};
-
-const translatedCheckboxes = {
-  truck: 'LKW',
-  car: 'PKW',
-  semitrailer: 'Auflieger',
-  van: 'Transporter',
-  'change van body': 'Wechselkoffer',
-  'truck trailer': 'Anhänger',
-  'on the road': 'Auf Achse',
-  exploitation: 'In Verwertung',
-  'no use': 'Ohne Einsatz',
-  garage: 'Werkstatt',
-  'needs review': 'Bedarfsanalyse',
-  'in verification by GF': 'Prüfung GF',
-  'In propasal stage': 'Angebotsphase',
-  ordered: 'Bestellung',
-  activating: 'Aktivierung',
-  'process canceled': 'Storniert',
-  'to be replaced': 'Wird ersetzt',
-};
-
-const translateCheckboxesToDutch = (checkboxLabels) => {
-  return checkboxLabels.map((label) => translatedCheckboxes[label]);
+  if (allowed.length === 0) {
+    return ['unknown'];
+  }
+  return allowed;
 };
 
 const convertDate = (stringDate) => {
@@ -90,6 +61,5 @@ export {
   defineColor,
   generatorIdInstance,
   getAllowedCheckboxes,
-  translateCheckboxesToDutch,
   convertDate,
 };

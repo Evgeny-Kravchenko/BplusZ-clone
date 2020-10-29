@@ -36,7 +36,7 @@ import generateAdditionalMenuListConfig from './additionalMenuListConfig';
 
 const TableBestand = (props) => {
   const classes = useStyle();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { tableBestandState, handleTableBestandState } = props;
   const { page } = tableBestandState;
@@ -50,7 +50,7 @@ const TableBestand = (props) => {
     });
   };
 
-  const { isLoading, resolvedData, isError } = useBestandVehicles({ tableBestandState, t, i18n });
+  const { isLoading, resolvedData, isError } = useBestandVehicles({ tableBestandState });
   let count;
   let result;
 
