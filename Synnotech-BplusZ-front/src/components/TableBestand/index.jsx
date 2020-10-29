@@ -73,7 +73,7 @@ const TableBestand = (props) => {
               result.map((row, index) => (
                 <TableRow key={row.id} className={!(index % 2) ? classes.tableEvenRow : ''}>
                   <TableCell component="th" scope="row">
-                    {row.licenceNumber}
+                    {row.licenseNumber}
                   </TableCell>
                   <TableCell>{row.vehicleClass}</TableCell>
                   <TableCell>{row.brandAndModel}</TableCell>

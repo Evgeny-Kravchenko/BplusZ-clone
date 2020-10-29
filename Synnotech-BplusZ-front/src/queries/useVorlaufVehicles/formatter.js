@@ -1,7 +1,7 @@
 const formatter = ({
   id,
   numberOfInvestment,
-  licenceNumber,
+  licenseNumber,
   vehicleClass,
   manufacturer,
   model,
@@ -11,7 +11,7 @@ const formatter = ({
 }) => ({
   id,
   numberOfInvestment,
-  licenceNumber,
+  licenseNumber,
   vehicleClass,
   brandAndModel: `${manufacturer} ${model}`,
   constructionType,

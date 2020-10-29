@@ -69,7 +69,7 @@ const TableVorlauf = (props) => {
                   <TableCell component="th" scope="row">
                     {row.numberOfInvestment}
                   </TableCell>
-                  <TableCell>{row.licenceNumber}</TableCell>
+                  <TableCell>{row.licenseNumber}</TableCell>
                   <TableCell>{row.vehicleClass}</TableCell>
                   <TableCell>{row.brandAndModel}</TableCell>
                   <TableCell>{row.constructionType}</TableCell>
