@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 import { IconButton, Grid, Typography } from '@material-ui/core';
@@ -12,27 +13,33 @@ import TechicalComponentsVehicleDataCard from '@/components/TechicalComponentsVe
 import TechnicalContractDataVehicleDataCard from '@/components/TechnicalContractDataVehicleDataCard';
 import TransferDataCard from '@/components/TransferDataCard/TransferDataCard';
 
+import useVehicleDetails from '@/queries/useVehicleDetails/useVehicleDetails';
+
 import useStyle from './styles';
 
-const DetailsVehicleMain = () => {
+const DetailsVehicleMain = ({ match }) => {
   const history = useHistory();
   const classes = useStyle();
+
+  const { id } = match.params;
+
+  const { data } = useVehicleDetails(id);
 
   const header = <CustomizedTabs />;
 
   const body = (
     <Grid container spacing={2} className={classes.bodyContainer}>
       <Grid item md={6}>
-        <GeneralVehicleDataCard />
+        <GeneralVehicleDataCard data={data?.generalData} />
       </Grid>
       <Grid item md={6}>
-        <TechicalComponentsVehicleDataCard />
+        <TechicalComponentsVehicleDataCard data={data?.technicalComponents} />
       </Grid>
       <Grid item md={6}>
-        <TechnicalContractDataVehicleDataCard />
+        <TechnicalContractDataVehicleDataCard data={data?.technicalContractData} />
       </Grid>
       <Grid item md={6}>
-        <TransferDataCard />
+        <TransferDataCard data={data?.transferData} />
       </Grid>
     </Grid>
   );
@@ -44,7 +51,7 @@ const DetailsVehicleMain = () => {
           <KeyboardBackspaceIcon />
         </IconButton>
         <Typography variant="h2" className={classes.vehicleTitle}>
-          Fahrzeug BZ-LL 906
+          {data?.licenseNumber}
         </Typography>
       </Grid>
       <Grid item className={classes.bodyContainer}>
@@ -52,6 +59,10 @@ const DetailsVehicleMain = () => {
       </Grid>
     </Grid>
   );
+};
+
+DetailsVehicleMain.propTypes = {
+  match: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default DetailsVehicleMain;

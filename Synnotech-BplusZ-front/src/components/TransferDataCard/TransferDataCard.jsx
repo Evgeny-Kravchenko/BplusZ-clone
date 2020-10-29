@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -16,9 +17,11 @@ import MainDetailsCardContainer from '@/components/MainDetailsCardContainer';
 
 import transferDataSrc from '@/assets/images/main-details-icons/transfer-data.png';
 
+import { convertDate } from '@/helpers';
+
 import useStyle from './styles';
 
-const TransferDataCard = () => {
+const TransferDataCard = ({ data }) => {
   const classes = useStyle();
   const { t } = useTranslation();
   const header = (
@@ -39,7 +42,7 @@ const TransferDataCard = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.transferData.branchOffice')}</InputLabel>
           <OutlinedInput
-            value="Berlin"
+            value={data?.branchOffice || ''}
             label={t('detailsPage.transferData.branchOffice')}
             disabled
           />
@@ -49,7 +52,7 @@ const TransferDataCard = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.transferData.transferRate')}</InputLabel>
           <OutlinedInput
-            value="390 €"
+            value={data?.transferRate || ''}
             label={t('detailsPage.transferData.transferRate')}
             disabled
           />
@@ -59,7 +62,7 @@ const TransferDataCard = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.transferData.startOfContract')}</InputLabel>
           <OutlinedInput
-            value="10.04.2020"
+            value={convertDate(data?.startOfContract) || ''}
             label={t('detailsPage.transferData.startOfContract')}
             disabled
           />
@@ -69,7 +72,7 @@ const TransferDataCard = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.transferData.endOfContract')}</InputLabel>
           <OutlinedInput
-            value="12.03.2021"
+            value={convertDate(data?.endOfContract) || ''}
             label={t('detailsPage.transferData.endOfContract')}
             disabled
           />
@@ -79,6 +82,14 @@ const TransferDataCard = () => {
   );
 
   return <MainDetailsCardContainer header={header} body={body} />;
+};
+
+TransferDataCard.propTypes = {
+  data: PropTypes.instanceOf(Object),
+};
+
+TransferDataCard.defaultProps = {
+  data: {},
 };
 
 export default TransferDataCard;

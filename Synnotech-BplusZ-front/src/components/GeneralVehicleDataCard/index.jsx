@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -18,7 +19,7 @@ import generalVehicleDataSrc from '@/assets/images/main-details-icons/general-ve
 
 import useStyle from './styles';
 
-const GeneralVehicleData = () => {
+const GeneralVehicleData = ({ data }) => {
   const classes = useStyle();
   const { t } = useTranslation();
   const header = (
@@ -39,7 +40,7 @@ const GeneralVehicleData = () => {
         <FormControl variant="outlined">
           <InputLabel htmlFor="status">{t('detailsPage.generalVehicleData.status')}</InputLabel>
           <OutlinedInput
-            value="Auf Achse"
+            value={data?.status || ''}
             label={t('detailsPage.generalVehicleData.status')}
             disabled
           />
@@ -51,7 +52,7 @@ const GeneralVehicleData = () => {
             {t('detailsPage.generalVehicleData.vinNumber')}
           </InputLabel>
           <OutlinedInput
-            value="LGHJ6787687866786"
+            value={data?.chassisNumber || ''}
             label={t('detailsPage.generalVehicleData.vinNumber')}
             disabled
           />
@@ -61,7 +62,7 @@ const GeneralVehicleData = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.generalVehicleData.classOfVehicle')}</InputLabel>
           <OutlinedInput
-            value="LKW"
+            value={data?.vehicleClass || ''}
             label={t('detailsPage.generalVehicleData.classOfVehicle')}
             disabled
           />
@@ -71,7 +72,7 @@ const GeneralVehicleData = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.generalVehicleData.manufacturer')}</InputLabel>
           <OutlinedInput
-            value="Mercedes-Benz"
+            value={data?.manufacturer || ''}
             label={t('detailsPage.generalVehicleData.manufacturer')}
             disabled
           />
@@ -81,7 +82,7 @@ const GeneralVehicleData = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.generalVehicleData.model')}</InputLabel>
           <OutlinedInput
-            value="10 000 km"
+            value={data?.model || ''}
             label={t('detailsPage.generalVehicleData.model')}
             disabled
           />
@@ -91,7 +92,7 @@ const GeneralVehicleData = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.generalVehicleData.currentMileage')}</InputLabel>
           <OutlinedInput
-            value="Atego"
+            value={data?.currentMileage || ''}
             label={t('detailsPage.generalVehicleData.currentMileage')}
             disabled
           />
@@ -101,6 +102,14 @@ const GeneralVehicleData = () => {
   );
 
   return <MainDetailsCardContainer header={header} body={body} />;
+};
+
+GeneralVehicleData.propTypes = {
+  data: PropTypes.instanceOf(Object),
+};
+
+GeneralVehicleData.defaultProps = {
+  data: {},
 };
 
 export default GeneralVehicleData;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -16,9 +17,11 @@ import MainDetailsCardContainer from '@/components/MainDetailsCardContainer';
 
 import technicalContractDataSrc from '@/assets/images/main-details-icons/technical-contract-data.png';
 
+import { convertDate } from '@/helpers';
+
 import useStyle from './styles';
 
-const TechnicalContractDataVehicleDataCard = () => {
+const TechnicalContractDataVehicleDataCard = ({ data }) => {
   const classes = useStyle();
   const { t } = useTranslation();
   const header = (
@@ -39,7 +42,7 @@ const TechnicalContractDataVehicleDataCard = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.technicalContractData.maintenance')}</InputLabel>
           <OutlinedInput
-            value="Befristet"
+            value={data?.maintainanceAndRepair || ''}
             label={t('detailsPage.technicalContractData.maintenance')}
             disabled
           />
@@ -49,7 +52,7 @@ const TechnicalContractDataVehicleDataCard = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.technicalContractData.mileage')}</InputLabel>
           <OutlinedInput
-            value="5000 km"
+            value={convertDate(data?.startMaintainanceAndRepair) || ''}
             label={t('detailsPage.technicalContractData.mileage')}
             disabled
           />
@@ -59,7 +62,7 @@ const TechnicalContractDataVehicleDataCard = () => {
         <FormControl variant="outlined">
           <InputLabel>{t('detailsPage.technicalContractData.endOfMaintenance')}</InputLabel>
           <OutlinedInput
-            value="12.03.2021"
+            value={convertDate(data?.endOfMaintainanceAndRepair) || ''}
             label={t('detailsPage.technicalContractData.endOfMaintenance')}
             disabled
           />
@@ -69,6 +72,14 @@ const TechnicalContractDataVehicleDataCard = () => {
   );
 
   return <MainDetailsCardContainer header={header} body={body} />;
+};
+
+TechnicalContractDataVehicleDataCard.propTypes = {
+  data: PropTypes.instanceOf(Object),
+};
+
+TechnicalContractDataVehicleDataCard.defaultProps = {
+  data: {},
 };
 
 export default TechnicalContractDataVehicleDataCard;

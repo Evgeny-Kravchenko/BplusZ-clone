@@ -89,6 +89,9 @@ const useStyle = makeStyles((theme) => ({
   loadingContainer: {
     padding: theme.spacing(3),
   },
+  noDataMessage: {
+    padding: theme.spacing(3),
+  },
 }));
 
 export default useStyle;

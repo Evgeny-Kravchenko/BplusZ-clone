@@ -34,8 +34,10 @@ const useStyle = makeStyles((theme) => {
         color: theme.palette.primary.contrastText,
         paddingLeft: theme.spacing(1),
       },
-      '& legend': {
-        padding: `0 ${theme.spacing(1.5)}`,
+      '& label': {
+        display: 'block',
+        padding: '0 0.5rem',
+        background: '#ffffff',
       },
     },
   };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -22,7 +23,7 @@ import techicalComponentsVehicleDataSrc from '@/assets/images/main-details-icons
 
 import useStyle from './styles';
 
-const TechicalComponentsVehicleDataCard = () => {
+const TechicalComponentsVehicleDataCard = ({ data }) => {
   const classes = useStyle();
   const { t } = useTranslation();
   const header = (
@@ -37,6 +38,7 @@ const TechicalComponentsVehicleDataCard = () => {
       </IconButton>
     </>
   );
+
   const body = (
     <>
       <Grid item md={6}>
@@ -45,7 +47,7 @@ const TechicalComponentsVehicleDataCard = () => {
             {t('detailsPage.technicalComponents.manufacturerConstruction')}
           </InputLabel>
           <OutlinedInput
-            value="LKW"
+            value={data?.manufacturerStructure || ''}
             label={t('detailsPage.technicalComponents.manufacturerConstruction')}
             disabled
           />
@@ -57,7 +59,7 @@ const TechicalComponentsVehicleDataCard = () => {
             {t('detailsPage.technicalComponents.typeOfConstruction')}
           </InputLabel>
           <OutlinedInput
-            value="BDF"
+            value={data?.typeOfConstruction || ''}
             label={t('detailsPage.technicalComponents.typeOfConstruction')}
             disabled
           />
@@ -72,7 +74,7 @@ const TechicalComponentsVehicleDataCard = () => {
             <FormControlLabel
               control={<Radio />}
               label={t('detailsPage.technicalComponents.isChecked')}
-              checked
+              checked={data?.loadingPlatform || false}
               disabled
             />
           </RadioGroup>
@@ -81,13 +83,14 @@ const TechicalComponentsVehicleDataCard = () => {
       <Grid item md={6} className={classes.checkBoxContainer}>
         <FormControl component="fieldset">
           <FormLabel component="legend" className={classes.checkboxTitle}>
-            Parking air conditioner
+            {t('detailsPage.technicalComponents.parkingOfConditioner')}
           </FormLabel>
           <RadioGroup className={classes.checkboxLabel}>
             <FormControlLabel
               value="female"
               control={<Radio />}
               label={t('detailsPage.technicalComponents.isNotChecked')}
+              checked={data?.parkingOfConditioner || false}
               disabled
             />
           </RadioGroup>
@@ -97,6 +100,14 @@ const TechicalComponentsVehicleDataCard = () => {
   );
 
   return <MainDetailsCardContainer header={header} body={body} />;
+};
+
+TechicalComponentsVehicleDataCard.propTypes = {
+  data: PropTypes.instanceOf(Object),
+};
+
+TechicalComponentsVehicleDataCard.defaultProps = {
+  data: {},
 };
 
 export default TechicalComponentsVehicleDataCard;
