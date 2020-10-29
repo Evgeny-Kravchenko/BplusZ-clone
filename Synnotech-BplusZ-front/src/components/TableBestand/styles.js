@@ -75,7 +75,7 @@ const useStyle = makeStyles((theme) => ({
   },
   noDataMessage: {
     padding: theme.spacing(3),
-  }
+  },
 }));
 
 export default useStyle;

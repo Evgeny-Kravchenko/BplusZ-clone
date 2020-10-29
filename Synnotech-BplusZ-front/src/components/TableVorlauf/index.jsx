@@ -80,7 +80,10 @@ const TableVorlauf = (props) => {
                     </Link>
                   </TableCell>
                   <TableCell className={classes.actionsCell} align="right">
-                    <AdditionalMenuGroup menuListConfig={generateAdditionalMenuListConfig(t)} />
+                    <AdditionalMenuGroup
+                      menuListConfig={generateAdditionalMenuListConfig(t)}
+                      id={row.id}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

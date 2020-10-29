@@ -12,7 +12,7 @@ const DataToolBar = ({ handleGlobalSearchOnChange }) => {
   const { t } = useTranslation();
 
   return (
-    <Grid item container className={classes.toolBar}>
+    <Grid item container>
       <Grid item className={classes.buttonsContainer}>
         <Button variant="contained" color="secondary">
           {t('mainPage.newInvestmentBtn')}

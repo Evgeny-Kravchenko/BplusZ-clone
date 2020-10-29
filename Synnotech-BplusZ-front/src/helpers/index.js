@@ -75,4 +75,21 @@ const translateCheckboxesToDutch = (checkboxLabels) => {
   return checkboxLabels.map((label) => translatedCheckboxes[label]);
 };
 
-export { defineColor, generatorIdInstance, getAllowedCheckboxes, translateCheckboxesToDutch };
+const convertDate = (stringDate) => {
+  return (
+    stringDate &&
+    new Date('2020-01-24T00:00:00').toLocaleString('de-DE', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+  );
+};
+
+export {
+  defineColor,
+  generatorIdInstance,
+  getAllowedCheckboxes,
+  translateCheckboxesToDutch,
+  convertDate,
+};

@@ -1,0 +1,41 @@
+{
+  "tabs": {
+    "mainData": "main data",
+    "business": "business",
+    "finance": "finance ",
+    "exploitation": "exploitation",
+    "reports": "reports",
+    "advanceProcess": "advance process"
+  },
+  "generalVehicleData": {
+    "title": "General vehicle data",
+    "status": "Status",
+    "vinNumber": "VIN Number",
+    "classOfVehicle": "Class of vehicle",
+    "manufacturer": "Manufacturer",
+    "model": "Model",
+    "currentMileage": "Current mileage"
+  },
+  "technicalComponents": {
+    "title": "Technical components",
+    "manufacturerConstruction": "Manufacturer construction",
+    "typeOfConstruction": "Type of construction",
+    "loadingPlatform": "Loading platform",
+    "parkingOfConditioner": "Parking of conditioner",
+    "isChecked": "yes",
+    "isNotChecked": "no"
+  },
+  "technicalContractData": {
+    "title": "Technical contract data",
+    "maintenance": "Maintenance & Repair type of contract",
+    "mileage": "Mileage maintenance & Repair",
+    "endOfMaintenance": "End of maintenance & Repair"
+  },
+  "transferData": {
+    "title": "Transfer data",
+    "branchOffice": "Branch office",
+    "transferRate": "Transfer rate",
+    "startOfContract": "Start of contract",
+    "endOfContract": "End of contract"
+  }
+}

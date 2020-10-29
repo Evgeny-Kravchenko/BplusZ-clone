@@ -2,10 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FONT_WEIGHT_MEDIUM } from '@/constants';
 
 const useStyle = makeStyles((theme) => ({
-  toolBar: {
-    backgroundColor: theme.palette.primary.main,
-    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(2)} ${theme.spacing(2)}`,
-  },
   buttonsContainer: {
     display: 'flex',
     justifyContent: 'space-between',
