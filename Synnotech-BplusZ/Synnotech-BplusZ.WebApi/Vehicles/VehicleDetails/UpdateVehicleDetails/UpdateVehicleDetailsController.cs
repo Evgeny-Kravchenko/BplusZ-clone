@@ -2,8 +2,11 @@ using Light.GuardClauses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Synnotech_BplusZ.WebApi.Attributes;
+using Synnotech_BplusZ.WebApi.Extensions;
 using Synnotech_BplusZ.WebApi.Users;
-using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingModels;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
 using System;
 using System.Threading.Tasks;
 
@@ -15,15 +18,22 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails
     public class UpdateVehicleDetailsController : ControllerBase
     {
         private readonly Func<IUpdateVehicleDetailsContext> _createContext;
+        private readonly IUpdateVehicleMappingService _updateVehicleMappingService;
+        private readonly IVehicleMappingService _vehicleMappingService;
 
-        public UpdateVehicleDetailsController(Func<IUpdateVehicleDetailsContext> createContext)
+        public UpdateVehicleDetailsController(Func<IUpdateVehicleDetailsContext> createContext,
+            IUpdateVehicleMappingService updateVehicleMappingService,
+            IVehicleMappingService vehicleMappingService)
         {
             _createContext = createContext.MustNotBeNull(nameof(createContext));
+            _updateVehicleMappingService = updateVehicleMappingService;
+            _vehicleMappingService = vehicleMappingService;
         }
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UpdateVehicleDetailsDto>> UpdateVehicleDetails(string id,
             [FromBody] UpdateVehicleDetailsDto dto)
@@ -35,6 +45,12 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails
                 return BadRequest();
             }
 
+            var userRole = User.GetRole();
+            if (userRole.IsNullOrWhiteSpace())
+            {
+                return Forbid();
+            }
+
             using var context = _createContext();
             var existingVehicle = await context.GetVehicleDetails(id);
             if(existingVehicle == null)
@@ -42,32 +58,12 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.UpdateVehicleDetails
                 return NotFound();
             }
 
-            var vehicle = VehicleDetailsMapper.MapVehicleDetailsDto(dto);
+            var vehicle = _updateVehicleMappingService.Map(dto, existingVehicle, userRole, ActionType.Update);
+            var result = await context.UpdateVehicleDetails(vehicle!);
 
-            UpdateModel(existingVehicle, vehicle);
-            var result = await context.UpdateVehicleDetails(existingVehicle);
-
-            var vehicleResultDto = VehicleDetailsMapper.MapVehicleDetails(result);
+            var vehicleResultDto = _vehicleMappingService.Map<VehicleDetailsDto>(result, userRole, ActionType.Update);
 
             return Ok(vehicleResultDto);
-        }
-
-        private void UpdateModel(Vehicle dbVehicle, Vehicle newVehicle)
-        {
-            dbVehicle.GeneralData!.Manufacturer = newVehicle.GeneralData?.Manufacturer;
-            dbVehicle.GeneralData!.Model = newVehicle.GeneralData?.Model;
-            dbVehicle.GeneralData!.Status = newVehicle.GeneralData?.Status;
-            dbVehicle.GeneralData!.ChassisNumber = newVehicle.GeneralData?.ChassisNumber;
-            dbVehicle.GeneralData!.MileageDate = newVehicle.GeneralData?.MileageDate;
-            dbVehicle.GeneralData!.VehicleClass = newVehicle.GeneralData?.VehicleClass;
-            dbVehicle.TechnicalComponents!.ManufacturerStructure = newVehicle.TechnicalComponents?.ManufacturerStructure;
-            dbVehicle.TechnicalComponents!.ConstructionType = newVehicle.TechnicalComponents?.ConstructionType;
-            dbVehicle.TechnicalComponents!.LoadingBoard = newVehicle.TechnicalComponents?.LoadingBoard;
-            dbVehicle.TechnicalComponents!.StandClimate = newVehicle.TechnicalComponents?.StandClimate;
-            dbVehicle.TechnicalContractData!.MaintainanceAndRepair = newVehicle.TechnicalContractData?.MaintainanceAndRepair;
-            dbVehicle.TechnicalContractData!.MileageInKmWPlusR = newVehicle.TechnicalContractData?.MileageInKmWPlusR;
-            dbVehicle.TechnicalContractData!.EndOfMaintainanceAndRepair = newVehicle.TechnicalContractData?.EndOfMaintainanceAndRepair;
-            dbVehicle.TransferData!.BranchOffice = newVehicle.TransferData?.BranchOffice;
         }
     }
 }

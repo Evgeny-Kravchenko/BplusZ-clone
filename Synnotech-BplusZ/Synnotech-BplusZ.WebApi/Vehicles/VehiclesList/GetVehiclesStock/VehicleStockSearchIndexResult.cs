@@ -5,7 +5,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
 {
     public class VehicleStockSearchIndexResult
     {
-        public string? LicenceNumber { get; set; }
+        public string? LicenseNumber { get; set; }
         public string? VehicleClass { get; set; }
         public string? Manufacturer { get; set; }
         public string? Model { get; set; }

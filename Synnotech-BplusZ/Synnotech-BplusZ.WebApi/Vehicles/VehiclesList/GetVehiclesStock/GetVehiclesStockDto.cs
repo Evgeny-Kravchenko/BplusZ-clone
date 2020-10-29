@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
 
 {
-    public class GetVehiclesStockDto
+    public class GetVehiclesStockDto : IGetVehicleDto
     {
         public string? SearchTerm { get; set; }
         public string? SortField { get; set; }

@@ -1,62 +1,53 @@
 using Light.GuardClauses;
 using Raven.Client.Documents;
+using Raven.Client.Documents.Linq;
 using Raven.Client.Documents.Session;
-using SynDatabaseMigration.RavenDb;
 using Synnotech_BplusZ.WebApi.Extensions;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
 {
-    public class GetVehiclesStockContext : AsyncRavenSession, IGetVehiclesStockContext
+    public class GetVehiclesStockContext : GetVehiclesBaseContext<Vehicle, VehicleStockSearchIndexResult>, IGetVehiclesStockContext
     {
         public GetVehiclesStockContext(IAsyncDocumentSession session) : base(session)
         {
+
         }
 
-        public async Task<IEnumerable<Vehicle>> GetStockVehicles(GetVehiclesStockDto dto)
+        public async Task<VehiclePagedResult> GetStockVehicles(GetVehiclesStockDto dto)
         {
-            IQueryable<Vehicle> sessionQuery;
-
-            if (!dto.SearchTerm.IsNullOrEmpty())
-            {
-                var searchFieldSelector = GetFieldSelector(dto.SearchField?.FirstCharToUpper());
-                sessionQuery = Session.Query<VehicleStockSearchIndexResult, VehiclesStock_Query>()
-                                        .Search(searchFieldSelector, $"*{dto.SearchTerm}*")
-                                        .OfType<Vehicle>();
-            }
-            else
-            {
-                sessionQuery = Session.Query<Vehicle>();
-            }
+            IQueryable<VehicleStockSearchIndexResult> sessionQuery 
+                = Session.Query<VehicleStockSearchIndexResult, VehiclesStock_Query>();
 
             if (!dto.AllowedStatuses.IsNullOrEmpty())
             {
-                sessionQuery = sessionQuery.Where(v => dto.AllowedStatuses.Contains(v.GeneralData!.Status ?? string.Empty));
+                sessionQuery = sessionQuery.Where(v => v.Status.In(dto.AllowedStatuses));
             }
             if (!dto.AllowedVehicleClasses.IsNullOrEmpty())
             {
-                sessionQuery = sessionQuery.Where(v => dto.AllowedVehicleClasses.Contains(v.GeneralData!.VehicleClass ?? string.Empty));
+                sessionQuery = sessionQuery.Where(v => v.VehicleClass.In(dto.AllowedVehicleClasses));
             }
 
-            var sortField = dto.SortField ?? nameof(Vehicle.GeneralData.LicenceNumber);
-            var vehicles = await sessionQuery.Where(v => v.DeleteDate == null)
-                                             .OrderBy(sortField, dto.IsAscendingSortOrder)
-                                             .GetPage(dto.Skip, dto.Take)
-                                             .ToListAsync();
+            var sortField = dto.SortField?.FirstCharToUpper() ?? nameof(VehicleStockSearchIndexResult.LicenseNumber);
 
-            return vehicles;
+            return await GetVehicles<VehiclePagedResult>(sessionQuery, dto, sortField);
         }
 
-        private Expression<Func<VehicleStockSearchIndexResult, object?>> GetFieldSelector(string? field)
+        protected override Expression<Func<VehicleStockSearchIndexResult, bool>> GetPredicate()
+        {
+            return v => v.DeleteDate == null
+                        && v.Status != VehicleStatuses.Advance;
+        }
+
+        protected override Expression<Func<VehicleStockSearchIndexResult, object?>> GetFieldSelector(string? field)
         {
             return field switch
             {
-                nameof(VehicleStockSearchIndexResult.LicenceNumber) => (VehicleStockSearchIndexResult v) => v.LicenceNumber,
+                nameof(VehicleStockSearchIndexResult.LicenseNumber) => (VehicleStockSearchIndexResult v) => v.LicenseNumber,
                 _ => (VehicleStockSearchIndexResult v) => v.Query,
             };
         }

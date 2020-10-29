@@ -1,9 +1,9 @@
+using AutoMapper;
 using Light.GuardClauses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Synnotech_BplusZ.WebApi.Users;
-using Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,10 +16,13 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
     public class GetVehiclesStockController : ControllerBase
     {
         private readonly Func<IGetVehiclesStockContext> _createContext;
+        private readonly IMapper _mapper;
 
-        public GetVehiclesStockController(Func<IGetVehiclesStockContext> createContext)
+        public GetVehiclesStockController(Func<IGetVehiclesStockContext> createContext,
+            IMapper mapper)
         {
             _createContext = createContext.MustNotBeNull(nameof(createContext));
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -33,8 +36,8 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesStock
             }
 
             using var context = _createContext();
-            var vehicles = await context.GetStockVehicles(dto);
-            var vehiclesDto = VehiclesStockMapper.MapVehicles(vehicles);
+            var pagedResult = await context.GetStockVehicles(dto);
+            var vehiclesDto = _mapper.Map<VehicleStockPagedResultDto>(pagedResult);
 
             return Ok(vehiclesDto);
         }

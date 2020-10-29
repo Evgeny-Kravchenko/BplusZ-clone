@@ -4,6 +4,8 @@ using Moq;
 using Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleDetails;
 using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.GetVehicleFinanceDetails;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingModels;
+using Synnotech_BplusZ.WebApi.Vehicles.VehicleDetails.VehicleMappingServices;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -13,11 +15,14 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
     {
         private readonly GetVehicleFinanceDetailsController _controller;
         private readonly Mock<IGetVehicleDetailsContext> _getVehiclesContext;
+        private readonly Mock<IVehicleFinanceMappingService> _vehicleFinanceMappingService;
         private readonly string id = "existingId";
         public GetVehicleFinanceDetailsControllerTests()
         {
             _getVehiclesContext = new Mock<IGetVehicleDetailsContext>();
-            _controller = new GetVehicleFinanceDetailsController(() => _getVehiclesContext.Object);
+            _vehicleFinanceMappingService = new Mock<IVehicleFinanceMappingService>();
+            _controller = new GetVehicleFinanceDetailsController(() => _getVehiclesContext.Object,
+                _vehicleFinanceMappingService.Object);
         }
 
         [Fact]
@@ -45,7 +50,7 @@ namespace Synnotech_BplusZ.WebApp.Tests.Vehicles.VehicleDetails.GetVehicleDetail
                                .ReturnsAsync(vehicle);
 
             var result = (await _controller.GetVehicleDetailsFinance(id)).Result as OkObjectResult;
-            Assert.IsType<VehicleFinanceDetailsResultDto>(result.Value);
+            Assert.IsType<VehicleFinanceDetailsDto>(result.Value);
         }
 
         [Fact]
