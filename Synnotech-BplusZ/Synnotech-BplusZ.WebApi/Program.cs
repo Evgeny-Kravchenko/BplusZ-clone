@@ -16,7 +16,7 @@ namespace Synnotech_BplusZ.WebApi
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new LightInjectServiceProviderFactory(DependencyInjectionContainer.Instance))
-                .UseSerilog(Logger.BaseLogger)
+                .UseSerilog(Logging.BaseLogger)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

@@ -12,7 +12,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.VehiclesList.GetVehiclesAdvance
 {
     [Route("api/vehicles/get-vehicles-advance")]
     [ApiController]
-    [Authorize(Roles = UserRoles.NLL)]
+    [Authorize(Roles = UserRoles.FpOrGfOrNll)]
     public class GetVehiclesAdvanceController : ControllerBase
     {
         private readonly Func<IGetVehiclesAdvanceContext> _createContext;

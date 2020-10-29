@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Synnotech_BplusZ.WebApi.Extensions
 {
-    public static class QuerableOrderByExtension
+    public static class QueryableOrderByExtension
     {
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> query, string sortField, bool isAscendingSortOrder)
         {

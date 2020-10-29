@@ -15,7 +15,7 @@ namespace Synnotech_BplusZ.WebApi.Middlewares
         public ErrorHandlingMiddleware(RequestDelegate next)
         {
             this.next = next;
-            _logger = Logger.BaseLogger.ForContext<ErrorHandlingMiddleware>();
+            _logger = Logging.BaseLogger.ForContext<ErrorHandlingMiddleware>();
         }
 
         public async Task Invoke(HttpContext context)

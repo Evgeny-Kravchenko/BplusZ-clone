@@ -70,7 +70,7 @@ namespace Synnotech_BplusZ.WebApi.Vehicles.DatabaseModel
         public string? MileageYear { get; set; }
 
         [RequiredPermissions(ActionType.All, UserRoles.FP, UserRoles.GF)]
-        public decimal? TransferCots { get; set; }
+        public decimal? TransferCost { get; set; }
 
         [RequiredPermissions(ActionType.All, UserRoles.FP, UserRoles.GF)]
         public decimal? RentalRate { get; set; }
